@@ -4,6 +4,6 @@ import TextEditorButton from "./TextEditorButton";
 
 export default function addTextEditorButton() {
   extend(TextEditor.prototype, "toolbarItems", function (items) {
-      items.add('imeepo-more-bbcode', <TextEditorButton textEditor={this.attrs.composer.editor} />);
+      items.add('litalino-more-bbcode', <TextEditorButton textEditor={this.attrs.composer.editor} />);
   });
 }
