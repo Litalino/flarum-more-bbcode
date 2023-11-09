@@ -1,6 +1,6 @@
 <?php
 
-namespace Imeepo\MoreBBCode;
+namespace Litalino\MoreBBCode;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
