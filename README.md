@@ -58,6 +58,7 @@ php flarum cache:clear
 
 ## Update content
 ### 1.0.2
+* * Clone https://github.com/imeepo/flarum-more-bbcode
 * * Fixed the issue where the network disk download address cannot be clicked when the post author is editing ([zxy19 repair](https://github.com/imeepo/flarum-more-bbcode/commit/c1e4cfcde7c1de0314be5656306fe9c7c81b9e2b))
 * Added Quark network disk
 
