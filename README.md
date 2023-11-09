@@ -61,6 +61,10 @@ php flarum cache:clear
 ```
 
 ## Update content
+### 1.0.4
+### 1.0.3
+* 修复了en.yml（[Litalino修复](https://github.com/imeepo/flarum-more-bbcode/pull/2/commits/5ac34546d7a6c372af65471c22c2304943c3f0f0)）
+* 为other下载添加了语言
 ### 1.0.2
 * * Clone https://github.com/imeepo/flarum-more-bbcode
 * * Fixed the issue where the network disk download address cannot be clicked when the post author is editing ([zxy19 repair](https://github.com/imeepo/flarum-more-bbcode/commit/c1e4cfcde7c1de0314be5656306fe9c7c81b9e2b))
