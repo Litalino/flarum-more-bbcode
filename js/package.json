@@ -1,5 +1,5 @@
 {
-    "name": "@imeepo/flarum-more-bbcode",
+    "name": "@litalino/flarum-more-bbcode",
     "version": "1.0.0",
     "private": true,
     "dependencies": {
