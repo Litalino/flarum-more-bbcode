@@ -9,7 +9,7 @@ import app from 'flarum/common/app';
 import addTextEditorButton from './addTextEditorButton';
 
 app.initializers.add(
-  'imeepo-more-bbcode',
+  'litalino-more-bbcode',
   () => {
     // Add text editor buttons.
     addTextEditorButton();
