@@ -1,6 +1,6 @@
 <?php
 
-namespace Imeepo\MoreBBCode;
+namespace Litalino\MoreBBCode;
 
 use Flarum\Api\Serializer\PostSerializer;
 use Flarum\Database\AbstractModel;
