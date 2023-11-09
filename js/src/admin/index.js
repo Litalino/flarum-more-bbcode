@@ -1,6 +1,6 @@
 import app from 'flarum/admin/app';
 
-app.initializers.add('imeepo/flarum-more-bbcode', () => {
+app.initializers.add('litalino/flarum-more-bbcode', () => {
   app.extensionData
     .for('imeepo-more-bbcode')
     .registerPermission(
