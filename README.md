@@ -24,6 +24,10 @@ When creating/editing a post, you can simply use [reply]BBCode to make it hidden
 ### Network disk style
 Very elegant sharing network disk link, or Github/Gitee warehouse link
 ```bbcode
+[cloud type=google title=title url=link]password[/cloud]
+[cloud type=one title=title url=link]password[/cloud]
+[cloud type=f title=title url=link]password[/cloud]
+
 [cloud type=lz title=title url=link]password[/cloud]
 [cloud type=123 title=title url=link]password[/cloud]
 [cloud type=ali title=title url=link]password[/cloud]
