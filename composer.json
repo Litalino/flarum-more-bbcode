@@ -1,5 +1,5 @@
 {
-    "name": "imeepo/flarum-more-bbcode",
+    "name": "litalino/flarum-more-bbcode",
     "description": "Adds more BBCode",
     "keywords": [
         "flarum",
@@ -12,17 +12,21 @@
     },
     "authors": [
         {
+            "name": "litalino",
+            "email": "info@khatvongsong.vn",
+            "role": "Co-development"
+        }{
             "name": "imeepo",
             "email": "me@imeepo.com",
             "role": "Developer"
         }
     ],
     "support": {
-        "source": "https://github.com/imeepo/flarum-more-bbcode"
+        "source": "https://github.com/litalino/flarum-more-bbcode"
     },
     "autoload": {
         "psr-4": {
-            "Imeepo\\MoreBBCode\\": "src/"
+            "Litalino\\MoreBBCode\\": "src/"
         }
     },
     "extra": {
