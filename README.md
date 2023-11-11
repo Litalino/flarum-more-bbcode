@@ -83,4 +83,4 @@ php flarum cache:clear
 
 - [Packagist](https://packagist.org/packages/litalino/flarum-more-bbcode)
 - [GitHub](https://github.com/litalino/flarum-more-bbcode)
-- [Discuss](https://discuss.flarum.org/d/PUT_DISCUSS_SLUG_HERE)
+- [Discuss](https://discuss.flarum.org/d/33616-bbcode-more-bbcode)
