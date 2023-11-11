@@ -24,8 +24,14 @@ When creating/editing a post, you can simply use [reply]BBCode to make it hidden
 [login]The content here is visible after login[/login]
 [reply]The content of the reply here can be seen[/reply]
 ```
+
+![bbcodemore-l-r](https://github.com/Litalino/flarum-more-bbcode/assets/99712477/e1875798-23d3-46d3-ae3c-2e1cf5627f57)
+
+
 ### Network disk style
 Very elegant sharing network disk link, or Github/Gitee warehouse link
+![bbcodemore-cloud](https://github.com/Litalino/flarum-more-bbcode/assets/99712477/ccbbfbd0-3002-46c8-98e1-3933fd1f8db8)
+
 ```bbcode
 [cloud type=google title=title url=link]password[/cloud]
 [cloud type=one title=title url=link]password[/cloud]
