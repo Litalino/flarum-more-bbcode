@@ -17,6 +17,9 @@ composer require litalino/flarum-more-bbcode:"*"
 ### Login/reply visible
 When creating/editing a post, you can simply use [reply]BBCode to make it hidden from other users. Only the user who replied can see the hidden content.
 
+![bbcodemore](https://github.com/Litalino/flarum-more-bbcode/assets/99712477/00c5a59a-4f7b-4d45-9c56-ff03b2746df4)
+
+
 ```bbcode
 [login]The content here is visible after login[/login]
 [reply]The content of the reply here can be seen[/reply]
