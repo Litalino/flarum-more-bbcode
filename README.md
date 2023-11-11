@@ -50,6 +50,11 @@ Very elegant sharing network disk link, or Github/Gitee warehouse link
 [cloud type=github title=title url=link]v1.0.0[/cloud]
 [cloud type=gitee title=title url=link]v1.0.0[/cloud]
 ```
+
+## Admin
+![bbcodemore-admin](https://github.com/Litalino/flarum-more-bbcode/assets/99712477/07383669-fae7-41f5-b256-361c51bcf273)
+
+
 ## Known issues
 
 * After the user replies to a post with hidden content and clicks the reply button again, the hidden content style will be lost.
