@@ -50,6 +50,14 @@ Very elegant sharing network disk link, or Github/Gitee warehouse link
 [cloud type=github title=title url=link]v1.0.0[/cloud]
 [cloud type=gitee title=title url=link]v1.0.0[/cloud]
 ```
+### Table
+```
+|Column|Column|Column|Column|
+|---|---|---|---|
+| row  |  row | row | row  |
+```
+![bbcodemore-table](https://github.com/Litalino/flarum-more-bbcode/assets/99712477/606f4879-70f6-4d0b-978c-edfb27baf19c)
+
 
 ## Admin
 ![bbcodemore-admin](https://github.com/Litalino/flarum-more-bbcode/assets/99712477/07383669-fae7-41f5-b256-361c51bcf273)
