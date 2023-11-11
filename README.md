@@ -2,12 +2,11 @@
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg) [![Latest Stable Version](https://img.shields.io/packagist/v/litalino/flarum-more-bbcode.svg)](https://packagist.org/packages/litalino/flarum-more-bbcode) [![Total Downloads](https://img.shields.io/packagist/dt/litalino/flarum-more-bbcode.svg)](https://packagist.org/packages/litalino/flarum-more-bbcode)
 
-A [Flarum](http://flarum.org) extension. Adds more BBCode "PLugin Clone Co-development" 
-PLugin Developer :
-imeepo/flarum-more-bbcode
+A [Flarum](http://flarum.org) extension. Adds more BBCode "PLugin Clone Co-development"
 
-PLugin Clone Co-development :
-Litalino/flarum-more-bbcode
+PLugin Developer: imeepo/flarum-more-bbcode
+
+PLugin Clone Co-development: Litalino/flarum-more-bbcode
 
 ## Install
 
