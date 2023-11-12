@@ -62,6 +62,18 @@ Very elegant sharing network disk link, or Github/Gitee warehouse link
 ```
 ![bbcodemore-table](https://github.com/Litalino/flarum-more-bbcode/assets/99712477/606f4879-70f6-4d0b-978c-edfb27baf19c)
 
+### TAB
+```
+[tabs]
+    [tab="hi"]Hi[/tab]
+    [tab="hello"]Hello[/tab]
+[/tabs]
+```
+### DETAILS
+```
+[details title=BBCode Details]other stuff comes here: BBCode Details by FriendsOfFlarum. License Latest Stable Version Downloads. Extiverse. Details BBCode for Flarum. Original by @sijad[/details]
+
+```
 
 ## Admin
 ![bbcodemore-admin](https://github.com/Litalino/flarum-more-bbcode/assets/99712477/07383669-fae7-41f5-b256-361c51bcf273)
@@ -87,6 +99,9 @@ php flarum cache:clear
 ```
 
 ## Update content
+### 1.0.5
+* Add BBCODE TAB
+* Add BBCODE DETAIL
 ### 1.0.4
 * Clone https://github.com/imeepo/flarum-more-bbcode
 ### 1.0.3
