@@ -491,7 +491,7 @@ export default class TextEditorButton extends Component {
 
 }
 
-app.initializers.add("imeepo/more-bbcode", () => {
+app.initializers.add("litalino/more-bbcode", () => {
   extend(CommentPost.prototype, "content", function () {
     if (app.session.user && app.current.matches(DiscussionPage)) {
       $(".reply2see_reply")
