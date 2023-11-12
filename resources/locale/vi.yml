@@ -30,6 +30,7 @@ imeepo-more-bbcode:
     button_tooltip_word: "Chèn word"
     button_tooltip_size: "Cỡ chữ"
     button_tooltip_color: "Văn bản màu"
+    button_tooltip_video: "Chèn video"
     cloud_title: "Tiêu đề"
     cloud_url: "Đường dẫn"
     cloud_password: "Mật khẩu (Không có để trống)"
