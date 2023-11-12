@@ -73,6 +73,8 @@ Very elegant sharing network disk link, or Github/Gitee warehouse link
 ```
 [details=TITLE]CONTENT[/details]
 ```
+![tab-detail](https://github.com/Litalino/flarum-more-bbcode/assets/99712477/fe1b8188-8b49-4afe-8a05-6cbead52af94)
+
 
 ## Admin
 ![bbcodemore-admin](https://github.com/Litalino/flarum-more-bbcode/assets/99712477/07383669-fae7-41f5-b256-361c51bcf273)
