@@ -102,7 +102,7 @@ php flarum cache:clear
 ## Update content
 ### 1.0.5
 * Add BBCODE TAB
-* Add BBCODE DETAIL
+* Fix BBCODE DETAIL
 ### 1.0.4
 * Clone https://github.com/imeepo/flarum-more-bbcode
 ### 1.0.3
