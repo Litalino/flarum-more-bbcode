@@ -2,7 +2,7 @@ import app from 'flarum/admin/app';
 
 app.initializers.add('litalino/flarum-more-bbcode', () => {
   app.extensionData
-    .for('imeepo-more-bbcode')
+    .for('litalino-more-bbcode')
     .registerPermission(
       {
         icon: 'fas fa-eye-slash',
