@@ -71,7 +71,7 @@ Very elegant sharing network disk link, or Github/Gitee warehouse link
 ```
 ### DETAILS
 ```
-[details title=BBCode Details]other stuff comes here: BBCode Details by FriendsOfFlarum. License Latest Stable Version Downloads. Extiverse. Details BBCode for Flarum. Original by @sijad[/details]
+[details title=BBCode Details]other stuff comes here: BBCode Details by FriendsOfFlarum[/details]
 
 ```
 
