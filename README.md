@@ -71,8 +71,7 @@ Very elegant sharing network disk link, or Github/Gitee warehouse link
 ```
 ### DETAILS
 ```
-[details title=BBCode Details]other stuff comes here: BBCode Details by FriendsOfFlarum[/details]
-
+[details=TITLE]CONTENT[/details]
 ```
 
 ## Admin
