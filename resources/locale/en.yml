@@ -30,6 +30,7 @@ imeepo-more-bbcode:
     button_tooltip_word: "Insert word"
     button_tooltip_size: "Text Size"
     button_tooltip_color: "Text Color"
+    button_tooltip_video: "Insert video"
     cloud_title: "Title"
     cloud_url: "Url"
     cloud_password: "Password (No blank)"
