@@ -190,6 +190,33 @@ return [
                 '[SUP]{TEXT}[/SUP]',             
                 '<sup>{TEXT}</sup>'
             );
+
+            $config->BBCodes->addCustom(
+                '[DETAILS title={TEXT1;optional}]{TEXT2}[/DETAILS]',
+                '<details><summary>{TEXT1}</summary><div>{TEXT2}</div></details>'
+            );
+            
+            $config->BBCodes->addCustom(
+                '[tabs]{TEXT}[/tabs]',
+                '<div class="tabs"><xsl:apply-templates/></div>'
+            );
+            $config->BBCodes->addCustom(
+                '[tab name={ANYTHING} active={ANYTHING?}]{TEXT}[/tab]',
+                <<<'XML'
+<div class="tab">
+    <input type="radio">
+        <xsl:if test="@active">
+            <xsl:attribute name="checked">checked</xsl:attribute>
+        </xsl:if>
+    </input>
+    <label>{@name}</label>
+
+    <div class="content">
+        <xsl:apply-templates/>
+    </div>
+</div>
+XML
+            );
         }),
     new Extend\Locales(__DIR__ . '/resources/locale'),
     (new Extend\ApiSerializer(PostSerializer::class))
