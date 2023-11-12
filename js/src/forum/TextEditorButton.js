@@ -346,6 +346,21 @@ export default class TextEditorButton extends Component {
       0
     );
 
+    /**
+     * Make selected text Tab.
+     */
+    items.add(
+      "tab",
+      Button.component(
+        {
+          icon: "fas fa-tasks",
+          onclick: () => this.insertTab(),
+        },
+        app.translator.trans("imeepo-more-bbcode.forum.button_tooltip_tab")
+      ),
+      0
+    );
+
     const symbols = JSON.parse(app.forum.attribute("editorSymbols") || "[]");
 
     if (symbols.length > 0) {
@@ -422,7 +437,7 @@ export default class TextEditorButton extends Component {
   }
 
   details() {
-    this.attrs.textEditor.insertAtCursor("[details=?][/details]");
+    this.attrs.textEditor.insertAtCursor("[details=TITLE]CONTENT[/details]");
     const range = this.attrs.textEditor.getSelectionRange();
     this.attrs.textEditor.moveCursorTo(range[1] - 10);
   }
@@ -489,6 +504,17 @@ export default class TextEditorButton extends Component {
     this.attrs.textEditor.insertAtCursor("[COLOR=red][/COLOR]");
     const range = this.attrs.textEditor.getSelectionRange();
     this.attrs.textEditor.moveCursorTo(range[1] - 8);
+  }
+
+  insertTab(e) {
+    //console.log(e);
+    //console.log(this.attrs.textEditor);
+    this.attrs.textEditor.insertAtCursor(
+      `[tabs]
+    [tab="hi"]Hi[/tab]
+    [tab="hello"]Hello[/tab]
+[/tabs]` + "\n"
+    );
   }
 
 }
