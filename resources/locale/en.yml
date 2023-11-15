@@ -1,6 +1,7 @@
 imeepo-more-bbcode:
   admin:
     permissions:
+      bypass_like_label: Ignore the displayed likes
       bypass_reply_label: Ignore the displayed answers
   forum:
     hidden_content: HIDDEN CONTENT

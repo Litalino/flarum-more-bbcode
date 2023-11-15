@@ -1,6 +1,7 @@
 imeepo-more-bbcode:
   admin:
     permissions:
+      bypass_like_label: Bỏ qua các câu thích được hiển thị
       bypass_reply_label: Bỏ qua các câu trả lời được hiển thị
   forum:
     hidden_content: NỘI DUNG ẨN
