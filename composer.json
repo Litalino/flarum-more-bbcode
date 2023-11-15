@@ -30,6 +30,7 @@
             "Litalino\\MoreBBCode\\": "src/"
         }
     },
+    "homepage": "https://khatvongsong.vn",
     "extra": {
         "flarum-extension": {
             "title": "BBCode More New",

@@ -197,6 +197,21 @@ export default class TextEditorButton extends Component {
     );
 
     /**
+     * Make selected text Like.
+     */
+    items.add(
+      "like",
+      Button.component(
+        {
+          icon: "fas fa-thumbs-up",
+          onclick: () => this.like(),
+        },
+        app.translator.trans("imeepo-more-bbcode.forum.button_tooltip_like")
+      ),
+      0
+    );
+    
+    /**
      * Make selected text Raply.
      */
     items.add(
@@ -225,21 +240,6 @@ export default class TextEditorButton extends Component {
       ),
       0
     );
-
-    /**
-     * Make selected text Like.
-     */
-    /*items.add(
-      "like",
-      Button.component(
-        {
-          icon: "fas fa-thumbs-up",
-          onclick: () => this.like()
-        },
-        app.translator.trans("imeepo-more-bbcode.forum.button_tooltip_like")
-      ),
-      0
-    );*/
 
     /**
      * Make selected text cloud.

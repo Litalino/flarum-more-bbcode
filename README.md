@@ -100,6 +100,10 @@ php flarum cache:clear
 ```
 
 ## Update content
+### 1.0.6
+* Fix PHP V8.2
+* Fix BBCODE LOGIN REPLY
+* ADD BBCODE LIKE (There must be conditions: composer require flarum/likes)
 ### 1.0.5
 * Add BBCODE TAB
 * Fix BBCODE DETAIL

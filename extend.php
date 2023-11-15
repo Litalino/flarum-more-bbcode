@@ -29,12 +29,28 @@ return [
             // https://s9etextformatter.readthedocs.io/Plugins/BBCodes/Add_custom_BBCodes/
             $config->BBCodes->addCustom(
                 '[REPLY]{TEXT}[/REPLY]',
+                '<reply2see>{TEXT}</reply2see>'
+            );
+            $config->BBCodes->addCustom(
+                '[LOGIN]{TEXT}[/LOGIN]',
+                '<login2see>{TEXT}</login2see>'
+            );
+            $config->BBCodes->addCustom(
+                '[LIKE]{TEXT}[/LIKE]',
+                '<like2see>{TEXT}</like2see>'
+            );
+            /*$config->BBCodes->addCustom(
+                '[REPLY]{TEXT}[/REPLY]',
                 '<div><reply2see></reply2see>{TEXT}<reply2see></reply2see></div>'
             );
             $config->BBCodes->addCustom(
                 '[LOGIN]{TEXT}[/LOGIN]',
                 '<div><login2see></login2see>{TEXT}<login2see></login2see></div>'
             );
+            $config->BBCodes->addCustom(
+                '[LIKE]{TEXT}[/LIKE]',
+                '<div><like2see></like2see>{TEXT}<like2see></like2see></div>'
+            );*/
             $config->BBCodes->addCustom(
                 '[cloud type={TEXT1} title={TEXT2} url={URL}]{TEXT3}[/cloud]',
                 '<div class="imeepo_cloud cloud_{TEXT1}"><div class="cloud_logo"></div><div class="cloud_describe"><div class="cloud_title">{TEXT2}</div><div class="cloud_content"><span class="cloud_type"></span><span class="cloud_password cloud_hide{TEXT3}"> | <span class="cloud_text"></span>{TEXT3}</span></div></div><cloudbtn class="cloud_button" href="{URL}" target="_blank" rel="noopener noreferrer"><i class="fa fa-download"></i></cloudbtn></div>'
