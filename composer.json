@@ -48,7 +48,7 @@
     "flarum-likes": {
         "settingsInLikes": true,
         "showInInLikes": true
-    }
+    },
     "flarum-cli": {
       "modules": {
         "admin": true,
