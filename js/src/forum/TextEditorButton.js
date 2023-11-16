@@ -210,7 +210,7 @@ export default class TextEditorButton extends Component {
       ),
       0
     );
-    
+
     /**
      * Make selected text Raply.
      */
@@ -361,6 +361,21 @@ export default class TextEditorButton extends Component {
       0
     );
 
+    /**
+     * Make selected text Down.
+     */
+    items.add(
+      "down",
+      Button.component(
+        {
+          icon: "fas fa-download",
+          onclick: () => this.insertDown(),
+        },
+        app.translator.trans("imeepo-more-bbcode.forum.button_tooltip_down")
+      ),
+      0
+    );
+
     const symbols = JSON.parse(app.forum.attribute("editorSymbols") || "[]");
 
     if (symbols.length > 0) {
@@ -378,6 +393,229 @@ export default class TextEditorButton extends Component {
         );
       }
     }
+
+    /**
+     * Make selected text Notification .
+     */
+    items.add(
+      "warning",
+      Button.component(
+        {
+          //icon: "fas fa-tasks",
+          onclick: () => this.notification_warning(),
+        },
+        app.translator.trans("imeepo-more-bbcode.forum.button_tooltip_notification_warning")
+      ),
+      0
+    );
+    items.add(
+      "asuccess",
+      Button.component(
+        {
+          //icon: "fas fa-tasks",
+          onclick: () => this.notification_asuccess(),
+        },
+        app.translator.trans(
+          "imeepo-more-bbcode.forum.button_tooltip_notification_asuccess"
+        )
+      ),
+      0
+    );
+    items.add(
+      "ainfo",
+      Button.component(
+        {
+          //icon: "fas fa-tasks",
+          onclick: () => this.notification_ainfo(),
+        },
+        app.translator.trans(
+          "imeepo-more-bbcode.forum.button_tooltip_notification_ainfo"
+        )
+      ),
+      0
+    );
+    items.add(
+      "abasic",
+      Button.component(
+        {
+          //icon: "fas fa-tasks",
+          onclick: () => this.notification_abasic(),
+        },
+        app.translator.trans(
+          "imeepo-more-bbcode.forum.button_tooltip_notification_abasic"
+        )
+      ),
+      0
+    );
+    items.add(
+      "acustom",
+      Button.component(
+        {
+          //icon: "fas fa-tasks",
+          onclick: () => this.notification_acustom(),
+        },
+        app.translator.trans(
+          "imeepo-more-bbcode.forum.button_tooltip_notification_acustom"
+        )
+      ),
+      0
+    );
+    items.add(
+      "bwarning",
+      Button.component(
+        {
+          //icon: "fas fa-tasks",
+          onclick: () => this.notification_bwarning(),
+        },
+        app.translator.trans(
+          "imeepo-more-bbcode.forum.button_tooltip_notification_bwarning"
+        )
+      ),
+      0
+    );
+    items.add(
+      "bsuccess",
+      Button.component(
+        {
+          //icon: "fas fa-tasks",
+          onclick: () => this.notification_bsuccess(),
+        },
+        app.translator.trans(
+          "imeepo-more-bbcode.forum.button_tooltip_notification_bsuccess"
+        )
+      ),
+      0
+    );
+    items.add(
+      "berror",
+      Button.component(
+        {
+          //icon: "fas fa-tasks",
+          onclick: () => this.notification_berror(),
+        },
+        app.translator.trans(
+          "imeepo-more-bbcode.forum.button_tooltip_notification_berror"
+        )
+      ),
+      0
+    );
+    items.add(
+      "cwarning",
+      Button.component(
+        {
+          //icon: "fas fa-tasks",
+          onclick: () => this.notification_cwarning(),
+        },
+        app.translator.trans(
+          "imeepo-more-bbcode.forum.button_tooltip_notification_cwarning"
+        )
+      ),
+      0
+    );
+    items.add(
+      "cnotice",
+      Button.component(
+        {
+          //icon: "fas fa-tasks",
+          onclick: () => this.notification_cnotice(),
+        },
+        app.translator.trans(
+          "imeepo-more-bbcode.forum.button_tooltip_notification_cnotice"
+        )
+      ),
+      0
+    );
+    items.add(
+      "cerror",
+      Button.component(
+        {
+          //icon: "fas fa-tasks",
+          onclick: () => this.notification_cerror(),
+        },
+        app.translator.trans(
+          "imeepo-more-bbcode.forum.button_tooltip_notification_cerror"
+        )
+      ),
+      0
+    );
+    items.add(
+      "csuccess",
+      Button.component(
+        {
+          //icon: "fas fa-tasks",
+          onclick: () => this.notification_csuccess(),
+        },
+        app.translator.trans(
+          "imeepo-more-bbcode.forum.button_tooltip_notification_csuccess"
+        )
+      ),
+      0
+    );
+    items.add(
+      "bcustom",
+      Button.component(
+        {
+          //icon: "fas fa-tasks",
+          onclick: () => this.notification_bcustom(),
+        },
+        app.translator.trans(
+          "imeepo-more-bbcode.forum.button_tooltip_notification_bcustom"
+        )
+      ),
+      0
+    );
+    items.add(
+      "dnotice",
+      Button.component(
+        {
+          //icon: "fas fa-tasks",
+          onclick: () => this.notification_dnotice(),
+        },
+        app.translator.trans(
+          "imeepo-more-bbcode.forum.button_tooltip_notification_dnotice"
+        )
+      ),
+      0
+    );
+    items.add(
+      "derror",
+      Button.component(
+        {
+          //icon: "fas fa-tasks",
+          onclick: () => this.notification_derror(),
+        },
+        app.translator.trans(
+          "imeepo-more-bbcode.forum.button_tooltip_notification_derror"
+        )
+      ),
+      0
+    );
+    items.add(
+      "dwarning",
+      Button.component(
+        {
+          //icon: "fas fa-tasks",
+          onclick: () => this.notification_dwarning(),
+        },
+        app.translator.trans(
+          "imeepo-more-bbcode.forum.button_tooltip_notification_dwarning"
+        )
+      ),
+      0
+    );
+    items.add(
+      "dsuccess",
+      Button.component(
+        {
+          //icon: "fas fa-tasks",
+          onclick: () => this.notification_dsuccess(),
+        },
+        app.translator.trans(
+          "imeepo-more-bbcode.forum.button_tooltip_notification_dsuccess"
+        )
+      ),
+      0
+    );
 
     return items;
   }
@@ -517,6 +755,122 @@ export default class TextEditorButton extends Component {
     );
   }
 
+  insertDown() {
+    this.attrs.textEditor.insertAtCursor("[down link=\"https://khatvongsong.vn/\" size=2kB name=file.zip]");
+  }
+
+  notification_awarning() {
+    this.attrs.textEditor.insertAtCursor(
+      "[awarning]this is an awarning message.[/awarning]"
+    );
+    const range = this.attrs.textEditor.getSelectionRange();
+    this.attrs.textEditor.moveCursorTo(range[1] - 11);
+  }
+  notification_asuccess() {
+    this.attrs.textEditor.insertAtCursor(
+      "[asuccess]this is an asuccess message.[/asuccess]"
+    );
+    const range = this.attrs.textEditor.getSelectionRange();
+    this.attrs.textEditor.moveCursorTo(range[1] - 11);
+  }
+  notification_ainfo() {
+    this.attrs.textEditor.insertAtCursor(
+      "[ainfo]this is an ainfo message.[/ainfo]"
+    );
+    const range = this.attrs.textEditor.getSelectionRange();
+    this.attrs.textEditor.moveCursorTo(range[1] - 8);
+  }
+  notification_abasic() {
+    this.attrs.textEditor.insertAtCursor(
+      "[abasic]this is an abasic message.[/abasic]"
+    );
+    const range = this.attrs.textEditor.getSelectionRange();
+    this.attrs.textEditor.moveCursorTo(range[1] - 9);
+  }
+  notification_acustom() {
+    this.attrs.textEditor.insertAtCursor(
+      "[acustom]red,black,green,this is an acustom message.[/acustom]"
+    );
+    const range = this.attrs.textEditor.getSelectionRange();
+    this.attrs.textEditor.moveCursorTo(range[1] - 10);
+  }
+  notification_bwarning() {
+    this.attrs.textEditor.insertAtCursor(
+      "[bwarning]this is n bwarning message.[/bwarning]"
+    );
+    const range = this.attrs.textEditor.getSelectionRange();
+    this.attrs.textEditor.moveCursorTo(range[1] - 11);
+  }
+  notification_berror() {
+    this.attrs.textEditor.insertAtCursor(
+      "[berror]this is a berror message.[/berror]"
+    );
+    const range = this.attrs.textEditor.getSelectionRange();
+    this.attrs.textEditor.moveCursorTo(range[1] - 9);
+  }
+  notification_cwarning() {
+    this.attrs.textEditor.insertAtCursor(
+      "[cwarning]darkorange,white,darkorange,this is a cwarning title,this is a cwarning message.[/cwarning]"
+    );
+    const range = this.attrs.textEditor.getSelectionRange();
+    this.attrs.textEditor.moveCursorTo(range[1] - 11);
+  }
+  notification_cnotice() {
+    this.attrs.textEditor.insertAtCursor(
+      "[cnotice]teal,white,teal,this is a cnotice title,this is a cnotice message.[/cnotice]"
+    );
+    const range = this.attrs.textEditor.getSelectionRange();
+    this.attrs.textEditor.moveCursorTo(range[1] - 10);
+  }
+  notification_cerror() {
+    this.attrs.textEditor.insertAtCursor(
+      "[cerror]red,white,red,this is a cerror title,this is a cerror message.[/cerror]"
+    );
+    const range = this.attrs.textEditor.getSelectionRange();
+    this.attrs.textEditor.moveCursorTo(range[1] - 9);
+  }
+  notification_csuccess() {
+    this.attrs.textEditor.insertAtCursor(
+      "[csuccess]green,white,green,this is a cerror title,this is a csuccess message.[/csuccess]"
+    );
+    const range = this.attrs.textEditor.getSelectionRange();
+    this.attrs.textEditor.moveCursorTo(range[1] - 11);
+  }
+  notification_bcustom() {
+    this.attrs.textEditor.insertAtCursor(
+      "[bcustom]title=this is a bcustom title font=red bg=black border=green[/bcustom]"
+    );
+    const range = this.attrs.textEditor.getSelectionRange();
+    this.attrs.textEditor.moveCursorTo(range[1] - 10);
+  }
+  notification_dnotice() {
+    this.attrs.textEditor.insertAtCursor(
+      '[dnotice title="this is a dnotice title" font="teal" bg="white" border="teal"]this is a dnotice message.[/dnotice]'
+    );
+    const range = this.attrs.textEditor.getSelectionRange();
+    this.attrs.textEditor.moveCursorTo(range[1] - 10);
+  }
+  notification_derror() {
+    this.attrs.textEditor.insertAtCursor(
+      '[derror title="this is a derror title" font="red" bg="white" border="red"]this is a derror message.[/derror]'
+    );
+    const range = this.attrs.textEditor.getSelectionRange();
+    this.attrs.textEditor.moveCursorTo(range[1] - 9);
+  }
+  notification_dwarning() {
+    this.attrs.textEditor.insertAtCursor(
+      '[dwarning title="this is a dwarning title" font="darkorange" bg="white" border="darkorange"]this is a dwarning message.[/dwarning]'
+    );
+    const range = this.attrs.textEditor.getSelectionRange();
+    this.attrs.textEditor.moveCursorTo(range[1] - 11);
+  }
+  notification_dsuccess() {
+    this.attrs.textEditor.insertAtCursor(
+      '[dsuccess title="this is a dsuccess title" font="green" bg="white" border="green"]this is a dsuccess message.[/dsuccess]'
+    );
+    const range = this.attrs.textEditor.getSelectionRange();
+    this.attrs.textEditor.moveCursorTo(range[1] - 11);
+  }
 }
 
 app.initializers.add("litalino/more-bbcode", () => {

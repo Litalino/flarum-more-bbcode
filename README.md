@@ -100,6 +100,8 @@ php flarum cache:clear
 ```
 
 ## Update content
+### 1.0.7
+* Add BBCODE ALERT
 ### 1.0.6
 * Fix PHP V8.2
 * Fix BBCODE LOGIN REPLY
