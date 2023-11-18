@@ -23,10 +23,16 @@ class ReplaceCode extends FormatContent
             // }
 
             // 在新标签打开 Mở ra trong trang mới
-            if (str_contains($attributes["contentHtml"], '<cloudbtn')) {
+            if (str_contains($contentHtml, '<cloudbtn')) {
                 $attributes = $this->blank($serializer, $post, $attributes);
             }
 
+            $before_login2see = '<login2see>';
+            $before_like2see = '<like2see>';
+            $before_reply2see = '<reply2see>';
+            $after_login2see = '<\/login2see>';
+            $after_like2see = '<\/like2see>';
+            $after_reply2see = '<\/reply2see>';
 
             /*if (strpos($contentHtml, '<like2see>') === false) {
 
@@ -41,37 +47,37 @@ class ReplaceCode extends FormatContent
                 return $attributes;
             }*/
             
-            $like2see = '/<like2see>(.*?)<\/like2see>/is';
-            $reply2see = '/<reply2see>(.*?)<\/reply2see>/is';
-            $login2see = '/<login2see>(.*?)<\/login2see>/is';
+            $login2see = '/'. $before_login2see .'(.*?)'. $after_login2see .'/ismu'; //'/<login2see>(.*?)<\/login2see>/ismu';
+            $like2see = '/'. $before_like2see .'(.*?)'. $after_like2see .'/ismu'; //'/<like2see>(.*?)<\/like2see>/ismu';
+            $reply2see = '/'. $before_reply2see .'(.*?)'. $after_reply2see .'/ismu'; //'/<reply2see>(.*?)<\/reply2see>/ismu';
 
             if ($actor->isGuest()) {
                 //$contentHtml = preg_replace($like2see, $this->loginHtml(), $contentHtml);
                 //$contentHtml = preg_replace($reply2see, $this->loginHtml(), $contentHtml);
                 //$contentHtml = preg_replace($login2see, $this->loginHtml(), $contentHtml);
-                if (str_contains($attributes["contentHtml"], '<login2see>')) {
+                if (str_contains($contentHtml, $before_login2see)) {
                     $contentHtml = preg_replace($login2see, $this->loginHide(), $contentHtml);
                 }
-                if (str_contains($attributes["contentHtml"], '<like2see>')) {
+                if (str_contains($contentHtml, $before_login2see)) {
                     $contentHtml = preg_replace($like2see, $this->loginHide(), $contentHtml);
                 }
-                if (str_contains($attributes["contentHtml"], '<reply2see>')) {
+                if (str_contains($contentHtml, $before_login2see)) {
                     $contentHtml = preg_replace($reply2see, $this->loginHide(), $contentHtml);
                 }
             } elseif ($actor->id === $post->user_id) {
                 //$contentHtml = preg_replace($like2see, '$1', $contentHtml);
                 //$contentHtml = preg_replace($reply2see, '$1', $contentHtml);
                 
-                if (str_contains($attributes["contentHtml"], '<like2see>')) {
+                if (str_contains($contentHtml, $before_like2see)) {
                     $contentHtml = preg_replace($like2see, '$1', $contentHtml);
                 }
-                if (str_contains($attributes["contentHtml"], '<reply2see>')) {
+                if (str_contains($contentHtml, $before_reply2see)) {
                     $contentHtml = preg_replace($reply2see, '$1', $contentHtml);
                 }
             }
 
             //$contentHtml = preg_replace($login2see, '$1', $contentHtml);
-            if (str_contains($attributes["contentHtml"], '<login2see>')) {
+            if (str_contains($contentHtml, $before_login2see)) {
                 $contentHtml = preg_replace($login2see, '$1', $contentHtml);
             }
 
