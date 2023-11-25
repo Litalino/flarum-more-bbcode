@@ -24,6 +24,23 @@ import Separator from "flarum/components/Separator";
 
 import ComposerPostPreview from "flarum/forum/components/ComposerPostPreview";
 
+///////////////////
+import styleSelectedText from "flarum/common/utils/styleSelectedText";
+
+import MarkdownButton from "./MarkdownButton";
+
+///////////////////
+
+
+function makeShortcut(id, key, editorDriver) {
+  return function (e) {
+    if (e.key === key && ((e.metaKey && modifierKey === '⌘') || (e.ctrlKey && modifierKey === 'ctrl'))) {
+      e.preventDefault();
+      applyStyle(id, editorDriver);
+    }
+  };
+}
+
 export default class TextEditorButton extends Component {
   view() {
     return Dropdown.component(
@@ -32,844 +49,152 @@ export default class TextEditorButton extends Component {
         buttonClassName: "Button Button--flat",
         label: icon("fas fa-th-large"),
       },
-      this.items().toArray()
+      this.markdownToolbarItems().toArray()
     );
   }
 
   /**
    * Build an item list for the contents of the dropdown menu.
-   *
-   * @return {ItemList}
+   * 
    */
-  items() {
-    const items = new ItemList();
+  markdownToolbarItems(oldFunc) {
+    
+    const modifierKey = navigator.userAgent.match(/Macintosh/) ? '⌘' : 'ctrl';
 
-    /**
-     * Make selected text left.
-     */
-    items.add(
-      "left",
-      Button.component(
-        {
-          icon: "fas fa-align-center",
-          onclick: () => this.left(),
-        },
-        app.translator.trans("imeepo-more-bbcode.forum.button_tooltip_left")
-      ),
-      50
-    );
+    const styles = {
+      left: { prefix: '[left] ', suffix: ' [/left]', trimFirst: true },
+      center: { prefix: '[center] ', suffix: ' [/center]', trimFirst: true },
+      right: { prefix: '[right] ', suffix: ' [/right]', trimFirst: true },
+      justify: { prefix: '[justify] ', suffix: ' [/justify]', trimFirst: true },
+      dropcap: { prefix: '[dropcap] ', suffix: ' [/dropcap]', trimFirst: true },
+      ileft: { prefix: '[ileft] ', suffix: ' [/ileft]', trimFirst: true },
+      iright: { prefix: '[iright] ', suffix: ' [/iright]', trimFirst: true },
+      pleft: { prefix: '[pleft] ', suffix: ' [/pleft]', trimFirst: true },
+      pright: { prefix: '[pright] ', suffix: ' [/pright]', trimFirst: true },
+      details: { prefix: '[details=TITLE] CONTENT ', suffix: '[/details]', blockPrefix: '[/details]', trimFirst: true },
+      like: { prefix: '[like] ', suffix: ' [/like]', trimFirst: true },
+      reply: { prefix: '[reply] ', suffix: ' [/reply]', trimFirst: true },
+      login: { prefix: '[login] ', suffix: ' [/login]', trimFirst: true },
+      cloud: { prefix: '[cloud type=other title=title url=link] Password ', suffix: '[/cloud]', trimFirst: true },
+      down: { prefix: '[down link="URL" size=2kB name=file.zip]', trimFirst: true },
+      audio: { prefix: '[audio mp3="URL"]', trimFirst: true },
+      clip: { prefix: '[clip mp4="URL"]', trimFirst: true },
+      table: { prefix: '\n| Column | Column | Column | Column |\n\n|---|---|---|---|\n\n| row  |  row | row | row  |\n', trimFirst: true },
+      word: { prefix: '[gdoc] ', suffix: ' [/gdoc]', trimFirst: true },
+      size: { prefix: '[size=16] ', suffix: ' [/size]', trimFirst: true },
+      color: { prefix: '[color=red] ', suffix: ' [/color]', trimFirst: true },
+      tab: { prefix: '\n[tabs]\n\n[tab="hi"]Hi[/tab]\n\n[tab="hello"]Hello[/tab]\n\n[/tabs]\n', trimFirst: true },
 
-    /**
-     * Make selected text Center.
-     */
-    items.add(
-      "center",
-      Button.component(
-        {
-          icon: "fas fa-align-center",
-          onclick: () => this.center(),
-        },
-        app.translator.trans("imeepo-more-bbcode.forum.button_tooltip_center")
-      ),
-      0
-    );
+      warning: { prefix: '[awarning] ', suffix: ' [/awarning]', trimFirst: true },
+      asuccess: { prefix: '[asuccess] ', suffix: ' [/asuccess]', trimFirst: true },
+      ainfo: { prefix: '[ainfo] ', suffix: ' [/ainfo]', trimFirst: true },
+      abasic: { prefix: '[abasic] ', suffix: ' [/abasic]', trimFirst: true },
+	    acustom: { prefix: '[acustom] ', suffix: ' [/acustom]', trimFirst: true },
+      bwarning: { prefix: '[bwarning] ', suffix: ' [/bwarning]', trimFirst: true },
+      bsuccess: { prefix: '[bsuccess] ', suffix: ' [/bsuccess]', trimFirst: true },
+      berror: { prefix: '[berror] ', suffix: ' [/berror]', trimFirst: true },
+      cwarning: { prefix: '[cwarning] ', suffix: ' [/cwarning]', trimFirst: true },
+      cnotice: { prefix: '[cnotice] ', suffix: ' [/cnotice]', trimFirst: true },
+      cerror: { prefix: '[cerror] ', suffix: ' [/cerror]', trimFirst: true },
+      csuccess: { prefix: '[csuccess] ', suffix: ' [/csuccess]', trimFirst: true },
+      bcustom: { prefix: '[bcustom] ', suffix: ' [/bcustom]', trimFirst: true },
+      dnotice: { prefix: '[dnotice] ', suffix: ' [/dnotice]', trimFirst: true },
+      derror: { prefix: '[derror] ', suffix: ' [/derror]', trimFirst: true },
+      dwarning: { prefix: '[dwarning] ', suffix: ' [/dwarning]', trimFirst: true },
+      dsuccess: { prefix: '[dsuccess] ', suffix: ' [/dsuccess]', trimFirst: true },
+      
+      //bold: { prefix: '**', suffix: '**', trimFirst: true },
+      //italic: { prefix: '_', suffix: '_', trimFirst: true },
+      //strikethrough: { prefix: '~~', suffix: '~~', trimFirst: true },
+      //quote: { prefix: '> ', multiline: true, surroundWithNewlines: true },
+      //code: { prefix: '`', suffix: '`', blockPrefix: '```', blockSuffix: '```' },
+      //link: { prefix: '[', suffix: '](https://)', replaceNext: 'https://', scanFor: 'https?://' },
+      //image: { prefix: '![', suffix: '](https://)', replaceNext: 'https://', scanFor: 'https?://' },
+      //unordered_list: { prefix: '- ', multiline: true, surroundWithNewlines: true },
+      //ordered_list: { prefix: '1. ', multiline: true, orderedList: true },
+      //spoiler: { prefix: '>!', suffix: '!<', blockPrefix: '>! ', multiline: true, trimFirst: true },
+    };
 
-    /**
-     * Make selected text Right.
-     */
-    items.add(
-      "right",
-      Button.component(
-        {
-          icon: "fas fa-align-right",
-          onclick: () => this.right(),
-        },
-        app.translator.trans("imeepo-more-bbcode.forum.button_tooltip_right")
-      ),
-      0
-    );
+    const applyStyle = (id, editorDriver) => {
+      // This is a nasty hack that breaks encapsulation of the editor.
+      // In future releases, we'll need to tweak the editor driver interface
+      // to support triggering events like this.
+      styleSelectedText(editorDriver.el, styles[id]);
+    };
 
-    /**
-     * Make selected text Justify.
-     */
-    items.add(
-      "justify",
-      Button.component(
-        {
-          icon: "fas fa-align-justify",
-          onclick: () => this.justify(),
-        },
-        app.translator.trans("imeepo-more-bbcode.forum.button_tooltip_justify")
-      ),
-      0
-    );
+    const items = typeof oldFunc === 'function' ? oldFunc() : new ItemList();
+    
 
-    /**
-     * Make selected text Dropcap.
-     */
-    items.add(
-      "dropcap",
-      Button.component(
-        {
-          icon: "fas fa-list-alt",
-          onclick: () => this.dropcap(),
-        },
-        app.translator.trans("imeepo-more-bbcode.forum.button_tooltip_dropcap")
-      ),
-      0
-    );
-
-    /**
-     * Make selected text Img left.
-     */
-    items.add(
-      "ileft",
-      Button.component(
-        {
-          icon: "fas fa-fast-backward",
-          onclick: () => this.ileft(),
-        },
-        app.translator.trans("imeepo-more-bbcode.forum.button_tooltip_img_left")
-      ),
-      0
-    );
-
-    /**
-     * Make selected text Img Right.
-     */
-    items.add(
-      "iright",
-      Button.component(
-        {
-          icon: "fas fa-fast-forward",
-          onclick: () => this.iright(),
-        },
-        app.translator.trans(
-          "imeepo-more-bbcode.forum.button_tooltip_img_right"
-        )
-      ),
-      0
-    );
-
-    /**
-     * Make selected text Padding left.
-     */
-    items.add(
-      "pleft",
-      Button.component(
-        {
-          icon: "fas fa-outdent",
-          onclick: () => this.pleft(),
-        },
-        app.translator.trans("imeepo-more-bbcode.forum.button_tooltip_p_left")
-      ),
-      0
-    );
-
-    /**
-     * Make selected text Padding Right.
-     */
-    items.add(
-      "pright",
-      Button.component(
-        {
-          icon: "fas fa-indent",
-          onclick: () => this.pright(),
-        },
-        app.translator.trans("imeepo-more-bbcode.forum.button_tooltip_p_right")
-      ),
-      0
-    );
-
-    /**
-     * Make selected text Detail.
-     */
-    items.add(
-      "details",
-      Button.component(
-        {
-          icon: "fas fa-eye-slash",
-          onclick: () => this.details(),
-        },
-        app.translator.trans("imeepo-more-bbcode.forum.button_tooltip_details")
-      ),
-      0
-    );
-
-    /**
-     * Make selected text Like.
-     */
-    items.add(
-      "like",
-      Button.component(
-        {
-          icon: "fas fa-thumbs-up",
-          onclick: () => this.like(),
-        },
-        app.translator.trans("imeepo-more-bbcode.forum.button_tooltip_like")
-      ),
-      0
-    );
-
-    /**
-     * Make selected text Raply.
-     */
-    items.add(
-      "reply",
-      Button.component(
-        {
-          icon: "fas fa-reply-all",
-          onclick: () => this.reply(),
-        },
-        app.translator.trans("imeepo-more-bbcode.forum.button_tooltip_reply")
-      ),
-      0
-    );
-
-    /**
-     * Make selected text Login.
-     */
-    items.add(
-      "login",
-      Button.component(
-        {
-          icon: "fas fa-sign-in-alt",
-          onclick: () => this.login(),
-        },
-        app.translator.trans("imeepo-more-bbcode.forum.button_tooltip_login")
-      ),
-      0
-    );
-
-    /**
-     * Make selected text cloud.
-     */
-    items.add(
-      "imeepo-cloud",
-      Button.component(
-        {
-          icon: "fas fa-download",
-          onclick: () => this.cloud(),
-        },
-        app.translator.trans("imeepo-more-bbcode.forum.button_tooltip_cloud")
-      ),
-      0
-    );
-
-    /**
-     * Make selected text Audio.
-     */
-    items.add(
-      "audio",
-      Button.component(
-        {
-          icon: "fas fa-file-audio",
-          onclick: () => this.audio(),
-        },
-        app.translator.trans("imeepo-more-bbcode.forum.button_tooltip_audio")
-      ),
-      0
-    );
-
-    /**
-     * Make selected text Audio.
-     */
-    items.add(
-      "clip",
-      Button.component(
-        {
-          icon: "fas fa-file-video",
-          onclick: () => this.clip(),
-        },
-        app.translator.trans("imeepo-more-bbcode.forum.button_tooltip_clip")
-      ),
-      0
-    );
-
-    /**
-     * Make selected text Table.
-     */
-    items.add(
-      "table",
-      Button.component(
-        {
-          icon: "fas fa-file-video",
-          onclick: () => this.insertTable(),
-        },
-        app.translator.trans("imeepo-more-bbcode.forum.button_tooltip_table")
-      ),
-      0
-    );
-
-    /**
-     * Make selected text Word.
-     */
-    items.add(
-      "word",
-      Button.component(
-        {
-          icon: "fas fa-file-word",
-          onclick: () => this.insertWord(),
-        },
-        app.translator.trans("imeepo-more-bbcode.forum.button_tooltip_word")
-      ),
-      0
-    );
-
-    /**
-     * Make selected text Size.
-     */
-    items.add(
-      "size",
-      Button.component(
-        {
-          icon: "fas fa-text-height",
-          onclick: () => this.insertSize(),
-        },
-        app.translator.trans("imeepo-more-bbcode.forum.button_tooltip_size")
-      ),
-      0
-    );
-
-    /**
-     * Make selected text Color.
-     */
-    items.add(
-      "color",
-      Button.component(
-        {
-          icon: "fas fa-palette",
-          onclick: () => this.insertColor(),
-        },
-        app.translator.trans("imeepo-more-bbcode.forum.button_tooltip_color")
-      ),
-      0
-    );
-
-    /**
-     * Make selected text Tab.
-     */
-    items.add(
-      "tab",
-      Button.component(
-        {
-          icon: "fas fa-tasks",
-          onclick: () => this.insertTab(),
-        },
-        app.translator.trans("imeepo-more-bbcode.forum.button_tooltip_tab")
-      ),
-      0
-    );
-
-    /**
-     * Make selected text Down.
-     */
-    items.add(
-      "down",
-      Button.component(
-        {
-          icon: "fas fa-download",
-          onclick: () => this.insertDown(),
-        },
-        app.translator.trans("imeepo-more-bbcode.forum.button_tooltip_down")
-      ),
-      0
-    );
-
-    const symbols = JSON.parse(app.forum.attribute("editorSymbols") || "[]");
-
-    if (symbols.length > 0) {
-      items.add("sep", Separator.component());
-
-      for (let i in symbols) {
-        const symbol = symbols[i];
-        items.add(
-          "symbol-" + i,
-          Button.component({
-            children: symbol.label || symbol.insert,
-            className: "Button",
-            onclick: () => this.insertAtCursor(symbol.insert),
-          })
-        );
-      }
+    function tooltip(name, hotkey) {
+      //return app.translator.trans(`imeepo-more-bbcode.forum.${name}_tooltip`) + (hotkey ? ` <${modifierKey}-${hotkey}>` : '');
+      return app.translator.trans(`imeepo-more-bbcode.forum.${name}`);
     }
 
-    /**
-     * Make selected text Notification .
-     */
-    items.add(
-      "warning",
-      Button.component(
-        {
-          //icon: "fas fa-tasks",
-          onclick: () => this.notification_warning(),
-        },
-        app.translator.trans("imeepo-more-bbcode.forum.button_tooltip_notification_warning")
-      ),
-      0
-    );
-    items.add(
-      "asuccess",
-      Button.component(
-        {
-          //icon: "fas fa-tasks",
-          onclick: () => this.notification_asuccess(),
-        },
-        app.translator.trans(
-          "imeepo-more-bbcode.forum.button_tooltip_notification_asuccess"
-        )
-      ),
-      0
-    );
-    items.add(
-      "ainfo",
-      Button.component(
-        {
-          //icon: "fas fa-tasks",
-          onclick: () => this.notification_ainfo(),
-        },
-        app.translator.trans(
-          "imeepo-more-bbcode.forum.button_tooltip_notification_ainfo"
-        )
-      ),
-      0
-    );
-    items.add(
-      "abasic",
-      Button.component(
-        {
-          //icon: "fas fa-tasks",
-          onclick: () => this.notification_abasic(),
-        },
-        app.translator.trans(
-          "imeepo-more-bbcode.forum.button_tooltip_notification_abasic"
-        )
-      ),
-      0
-    );
-    items.add(
-      "acustom",
-      Button.component(
-        {
-          //icon: "fas fa-tasks",
-          onclick: () => this.notification_acustom(),
-        },
-        app.translator.trans(
-          "imeepo-more-bbcode.forum.button_tooltip_notification_acustom"
-        )
-      ),
-      0
-    );
-    items.add(
-      "bwarning",
-      Button.component(
-        {
-          //icon: "fas fa-tasks",
-          onclick: () => this.notification_bwarning(),
-        },
-        app.translator.trans(
-          "imeepo-more-bbcode.forum.button_tooltip_notification_bwarning"
-        )
-      ),
-      0
-    );
-    items.add(
-      "bsuccess",
-      Button.component(
-        {
-          //icon: "fas fa-tasks",
-          onclick: () => this.notification_bsuccess(),
-        },
-        app.translator.trans(
-          "imeepo-more-bbcode.forum.button_tooltip_notification_bsuccess"
-        )
-      ),
-      0
-    );
-    items.add(
-      "berror",
-      Button.component(
-        {
-          //icon: "fas fa-tasks",
-          onclick: () => this.notification_berror(),
-        },
-        app.translator.trans(
-          "imeepo-more-bbcode.forum.button_tooltip_notification_berror"
-        )
-      ),
-      0
-    );
-    items.add(
-      "cwarning",
-      Button.component(
-        {
-          //icon: "fas fa-tasks",
-          onclick: () => this.notification_cwarning(),
-        },
-        app.translator.trans(
-          "imeepo-more-bbcode.forum.button_tooltip_notification_cwarning"
-        )
-      ),
-      0
-    );
-    items.add(
-      "cnotice",
-      Button.component(
-        {
-          //icon: "fas fa-tasks",
-          onclick: () => this.notification_cnotice(),
-        },
-        app.translator.trans(
-          "imeepo-more-bbcode.forum.button_tooltip_notification_cnotice"
-        )
-      ),
-      0
-    );
-    items.add(
-      "cerror",
-      Button.component(
-        {
-          //icon: "fas fa-tasks",
-          onclick: () => this.notification_cerror(),
-        },
-        app.translator.trans(
-          "imeepo-more-bbcode.forum.button_tooltip_notification_cerror"
-        )
-      ),
-      0
-    );
-    items.add(
-      "csuccess",
-      Button.component(
-        {
-          //icon: "fas fa-tasks",
-          onclick: () => this.notification_csuccess(),
-        },
-        app.translator.trans(
-          "imeepo-more-bbcode.forum.button_tooltip_notification_csuccess"
-        )
-      ),
-      0
-    );
-    items.add(
-      "bcustom",
-      Button.component(
-        {
-          //icon: "fas fa-tasks",
-          onclick: () => this.notification_bcustom(),
-        },
-        app.translator.trans(
-          "imeepo-more-bbcode.forum.button_tooltip_notification_bcustom"
-        )
-      ),
-      0
-    );
-    items.add(
-      "dnotice",
-      Button.component(
-        {
-          //icon: "fas fa-tasks",
-          onclick: () => this.notification_dnotice(),
-        },
-        app.translator.trans(
-          "imeepo-more-bbcode.forum.button_tooltip_notification_dnotice"
-        )
-      ),
-      0
-    );
-    items.add(
-      "derror",
-      Button.component(
-        {
-          //icon: "fas fa-tasks",
-          onclick: () => this.notification_derror(),
-        },
-        app.translator.trans(
-          "imeepo-more-bbcode.forum.button_tooltip_notification_derror"
-        )
-      ),
-      0
-    );
-    items.add(
-      "dwarning",
-      Button.component(
-        {
-          //icon: "fas fa-tasks",
-          onclick: () => this.notification_dwarning(),
-        },
-        app.translator.trans(
-          "imeepo-more-bbcode.forum.button_tooltip_notification_dwarning"
-        )
-      ),
-      0
-    );
-    items.add(
-      "dsuccess",
-      Button.component(
-        {
-          //icon: "fas fa-tasks",
-          onclick: () => this.notification_dsuccess(),
-        },
-        app.translator.trans(
-          "imeepo-more-bbcode.forum.button_tooltip_notification_dsuccess"
-        )
-      ),
-      0
-    );
+    const makeApplyStyle = (id) => {
+      return () => applyStyle(id, this.attrs.textEditor);
+    };
+
+    items.add('left', <MarkdownButton title={tooltip('button_tooltip_left')} icon="fas fa-align-left" onclick={makeApplyStyle('left')} />, 1000);
+    items.add('center', <MarkdownButton title={tooltip('button_tooltip_center')} icon="fas fa-align-center" onclick={makeApplyStyle('center')} />, 1000);
+    items.add('right', <MarkdownButton title={tooltip('button_tooltip_right')} icon="fas fa-align-right" onclick={makeApplyStyle('right')} />, 1000);
+    items.add('justify', <MarkdownButton title={tooltip('button_tooltip_justify')} icon="fas fa-align-justify" onclick={makeApplyStyle('justify')} />, 1000);
+    items.add('dropcap', <MarkdownButton title={tooltip('button_tooltip_dropcap')} icon="fas fa-list-alt" onclick={makeApplyStyle('dropcap')} />, 1000);
+    items.add('ileft', <MarkdownButton title={tooltip('button_tooltip_img_left')} icon="fas fa-fast-backward" onclick={makeApplyStyle('ileft')} />, 1000);
+    items.add('iright', <MarkdownButton title={tooltip('button_tooltip_img_right')} icon="fas fa-fast-forward" onclick={makeApplyStyle('iright')} />, 1000);
+    items.add('pleft', <MarkdownButton title={tooltip('button_tooltip_p_left')} icon="fas fa-outdent" onclick={makeApplyStyle('pleft')} />, 1000);
+    items.add('pright', <MarkdownButton title={tooltip('button_tooltip_p_right')} icon="fas fa-indent" onclick={makeApplyStyle('pright')} />, 1000);
+    items.add('details', <MarkdownButton title={tooltip('button_tooltip_details')} icon="fas fa-eye-slash" onclick={makeApplyStyle('details')} />, 1000);
+    items.add('like', <MarkdownButton title={tooltip('button_tooltip_like')} icon="fas fa-thumbs-up" onclick={makeApplyStyle('like')} />, 1000);
+    items.add('reply', <MarkdownButton title={tooltip('button_tooltip_reply')} icon="fas fa-reply-all" onclick={makeApplyStyle('reply')} />, 1000);
+    items.add('login', <MarkdownButton title={tooltip('button_tooltip_login')} icon="fas fa-sign-in-alt" onclick={makeApplyStyle('login')} />, 1000);
+    items.add('cloud', <MarkdownButton title={tooltip('button_tooltip_cloud')} icon="fas fa-download" onclick={makeApplyStyle('cloud')} />, 1000);
+    items.add('down', <MarkdownButton title={tooltip('button_tooltip_down')} icon="fas fa-download" onclick={makeApplyStyle('down')} />, 1000);
+    items.add('audio', <MarkdownButton title={tooltip('button_tooltip_audio')} icon="fas fa-file-audio" onclick={makeApplyStyle('audio')} />, 1000);
+    items.add('clip', <MarkdownButton title={tooltip('button_tooltip_clip')} icon="fas fa-file-video" onclick={makeApplyStyle('clip')} />, 1000);
+    items.add('table', <MarkdownButton title={tooltip('button_tooltip_table')} icon="fas fa-table" onclick={makeApplyStyle('table')} />, 1000);
+    items.add('word', <MarkdownButton title={tooltip('button_tooltip_word')} icon="fas fa-file-word" onclick={makeApplyStyle('word')} />, 1000);
+    items.add('size', <MarkdownButton title={tooltip('button_tooltip_size')} icon="fas fa-text-height" onclick={makeApplyStyle('size')} />, 1000);
+    items.add('color', <MarkdownButton title={tooltip('button_tooltip_color')} icon="fas fa-palette" onclick={makeApplyStyle('color')} />, 1000);
+    items.add('tab', <MarkdownButton title={tooltip('button_tooltip_tab')} icon="fas fa-tasks" onclick={makeApplyStyle('tab')} />, 1000);
+
+    items.add('warning', <MarkdownButton title={tooltip('button_tooltip_notification_warning')} icon="fas fa-bell" onclick={makeApplyStyle('warning')} />, 1000);
+    items.add('asuccess', <MarkdownButton title={tooltip('button_tooltip_notification_asuccess')} icon="fas fa-bell" onclick={makeApplyStyle('asuccess')} />, 1000);
+    items.add('ainfo', <MarkdownButton title={tooltip('button_tooltip_notification_asuccess')} icon="fas fa-bell" onclick={makeApplyStyle('ainfo')} />, 1000);
+    items.add('abasic', <MarkdownButton title={tooltip('button_tooltip_notification_abasic')} icon="fas fa-bell" onclick={makeApplyStyle('abasic')} />, 1000);
+    items.add('acustom', <MarkdownButton title={tooltip('button_tooltip_notification_acustom')} icon="fas fa-bell" onclick={makeApplyStyle('acustom')} />, 1000);
+    items.add('bwarning', <MarkdownButton title={tooltip('button_tooltip_notification_bwarning')} icon="fas fa-bell" onclick={makeApplyStyle('bwarning')} />, 1000);
+    items.add('bsuccess', <MarkdownButton title={tooltip('button_tooltip_notification_bsuccess')} icon="fas fa-bell" onclick={makeApplyStyle('bsuccess')} />, 1000);
+    items.add('berror', <MarkdownButton title={tooltip('button_tooltip_notification_berror')} icon="fas fa-bell" onclick={makeApplyStyle('berror')} />, 1000);
+    items.add('cwarning', <MarkdownButton title={tooltip('button_tooltip_notification_cwarning')} icon="fas fa-bell" onclick={makeApplyStyle('cwarning')} />, 1000);
+    items.add('cnotice', <MarkdownButton title={tooltip('button_tooltip_notification_cnotice')} icon="fas fa-bell" onclick={makeApplyStyle('cnotice')} />, 1000);
+    items.add('cerror', <MarkdownButton title={tooltip('button_tooltip_notification_cerror')} icon="fas fa-bell" onclick={makeApplyStyle('cerror')} />, 1000);
+    items.add('csuccess', <MarkdownButton title={tooltip('button_tooltip_notification_csuccess')} icon="fas fa-bell" onclick={makeApplyStyle('csuccess')} />, 1000);
+    items.add('bcustom', <MarkdownButton title={tooltip('button_tooltip_notification_bcustom')} icon="fas fa-bell" onclick={makeApplyStyle('bcustom')} />, 1000);
+    items.add('dnotice', <MarkdownButton title={tooltip('button_tooltip_notification_dnotice')} icon="fas fa-bell" onclick={makeApplyStyle('dnotice')} />, 1000);
+    items.add('derror', <MarkdownButton title={tooltip('button_tooltip_notification_derror')} icon="fas fa-bell" onclick={makeApplyStyle('derror')} />, 1000);
+    items.add('dwarning', <MarkdownButton title={tooltip('button_tooltip_notification_dwarning')} icon="fas fa-bell" onclick={makeApplyStyle('dwarning')} />, 1000);
+    items.add('dsuccess', <MarkdownButton title={tooltip('button_tooltip_notification_dsuccess')} icon="fas fa-bell" onclick={makeApplyStyle('dsuccess')} />, 1000);
+
+    //items.add('bold', <MarkdownButton title={tooltip('bold', 'b')} icon="fas fa-bold" onclick={makeApplyStyle('bold')} />, 900);
+    //items.add('italic', <MarkdownButton title={tooltip('italic', 'i')} icon="fas fa-italic" onclick={makeApplyStyle('italic')} />, 800);
+    //items.add(
+    //  'strikethrough',
+    //  <MarkdownButton title={tooltip('strikethrough')} icon="fas fa-strikethrough" onclick={makeApplyStyle('strikethrough')} />,
+    //  700
+    //);
+    //items.add('quote', <MarkdownButton title={tooltip('quote')} icon="fas fa-quote-left" onclick={makeApplyStyle('quote')} />, 600);
+    //items.add('spoiler', <MarkdownButton title={tooltip('spoiler')} icon="fas fa-exclamation-triangle" onclick={makeApplyStyle('spoiler')} />, 500);
+    //items.add('code', <MarkdownButton title={tooltip('code')} icon="fas fa-code" onclick={makeApplyStyle('code')} />, 400);
+    //items.add('link', <MarkdownButton title={tooltip('link')} icon="fas fa-link" onclick={makeApplyStyle('link')} />, 300);
+    //items.add('image', <MarkdownButton title={tooltip('image')} icon="fas fa-image" onclick={makeApplyStyle('image')} />, 200);
+    //items.add(
+    //  'unordered_list',
+    //  <MarkdownButton title={tooltip('unordered_list')} icon="fas fa-list-ul" onclick={makeApplyStyle('unordered_list')} />,
+    //  100
+    //);
+    //items.add('ordered_list', <MarkdownButton title={tooltip('ordered_list')} icon="fas fa-list-ol" onclick={makeApplyStyle('ordered_list')} />, 0);
 
     return items;
-  }
-
-  /**
-   * Make selected text left Right Center Justify.
-   */
-  left() {
-    this.attrs.textEditor.insertAtCursor("[left][/left]");
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 7);
-  }
-  right() {
-    this.attrs.textEditor.insertAtCursor("[right][/right]");
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 8);
-  }
-  center() {
-    this.attrs.textEditor.insertAtCursor("[center][/center]");
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 9);
-  }
-  justify() {
-    this.attrs.textEditor.insertAtCursor("[justify][/justify]");
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 10);
-  }
-
-  dropcap() {
-    this.attrs.textEditor.insertAtCursor("[dropcap][/dropcap]");
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 10);
-  }
-
-  ileft() {
-    this.attrs.textEditor.insertAtCursor("[ileft][/ileft]");
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 8);
-  }
-
-  iright() {
-    this.attrs.textEditor.insertAtCursor("[iright][/iright]");
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 9);
-  }
-
-  pleft() {
-    this.attrs.textEditor.insertAtCursor("[pleft][/pleft]");
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 8);
-  }
-
-  pright() {
-    this.attrs.textEditor.insertAtCursor("[pright][/pright]");
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 9);
-  }
-
-  details() {
-    this.attrs.textEditor.insertAtCursor("[details=TITLE]CONTENT[/details]");
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 10);
-  }
-
-  reply() {
-    this.attrs.textEditor.insertAtCursor("[reply][/reply]");
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 8);
-  }
-
-  login() {
-    this.attrs.textEditor.insertAtCursor("[login][/login]");
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 8);
-  }
-
-  like() {
-    this.attrs.textEditor.insertAtCursor("[like][/like]");
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 7);
-  }
-
-  cloud() {
-    this.attrs.textEditor.insertAtCursor(
-      "[cloud type=other title=title url=link]Password[/cloud]"
-    );
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 8);
-  }
-
-  audio() {
-    this.attrs.textEditor.insertAtCursor('[audio mp3="URL"]');
-  }
-
-  clip() {
-    this.attrs.textEditor.insertAtCursor('[clip mp4="URL"]');
-  }
-
-  insertTable(e) {
-    //console.log(e);
-    //console.log(this.attrs.textEditor);
-    this.attrs.textEditor.insertAtCursor(
-      `|Column|Column|Column|Column|
-|---|---|---|---|
-| row  |  row | row | row  |` + "\n"
-    );
-  }
-
-  insertWord() {
-    //console.log(e);
-    //console.log(this.attrs.textEditor);
-    this.attrs.textEditor.insertAtCursor(`[GDOC][/GDOC]` + "\n");
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 7);
-  }
-
-  insertSize() {
-    this.attrs.textEditor.insertAtCursor("[SIZE=16][/SIZE]");
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 7);
-  }
-
-  insertColor() {
-    this.attrs.textEditor.insertAtCursor("[COLOR=red][/COLOR]");
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 8);
-  }
-
-  insertTab(e) {
-    //console.log(e);
-    //console.log(this.attrs.textEditor);
-    this.attrs.textEditor.insertAtCursor(
-      `[tabs]
-    [tab="hi"]Hi[/tab]
-    [tab="hello"]Hello[/tab]
-[/tabs]` + "\n"
-    );
-  }
-
-  insertDown() {
-    this.attrs.textEditor.insertAtCursor("[down link=\"https://khatvongsong.vn/\" size=2kB name=file.zip]");
-  }
-
-  notification_awarning() {
-    this.attrs.textEditor.insertAtCursor(
-      "[awarning]this is an awarning message.[/awarning]"
-    );
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 11);
-  }
-  notification_asuccess() {
-    this.attrs.textEditor.insertAtCursor(
-      "[asuccess]this is an asuccess message.[/asuccess]"
-    );
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 11);
-  }
-  notification_ainfo() {
-    this.attrs.textEditor.insertAtCursor(
-      "[ainfo]this is an ainfo message.[/ainfo]"
-    );
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 8);
-  }
-  notification_abasic() {
-    this.attrs.textEditor.insertAtCursor(
-      "[abasic]this is an abasic message.[/abasic]"
-    );
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 9);
-  }
-  notification_acustom() {
-    this.attrs.textEditor.insertAtCursor(
-      "[acustom]red,black,green,this is an acustom message.[/acustom]"
-    );
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 10);
-  }
-  notification_bwarning() {
-    this.attrs.textEditor.insertAtCursor(
-      "[bwarning]this is n bwarning message.[/bwarning]"
-    );
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 11);
-  }
-  notification_berror() {
-    this.attrs.textEditor.insertAtCursor(
-      "[berror]this is a berror message.[/berror]"
-    );
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 9);
-  }
-  notification_cwarning() {
-    this.attrs.textEditor.insertAtCursor(
-      "[cwarning]darkorange,white,darkorange,this is a cwarning title,this is a cwarning message.[/cwarning]"
-    );
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 11);
-  }
-  notification_cnotice() {
-    this.attrs.textEditor.insertAtCursor(
-      "[cnotice]teal,white,teal,this is a cnotice title,this is a cnotice message.[/cnotice]"
-    );
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 10);
-  }
-  notification_cerror() {
-    this.attrs.textEditor.insertAtCursor(
-      "[cerror]red,white,red,this is a cerror title,this is a cerror message.[/cerror]"
-    );
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 9);
-  }
-  notification_csuccess() {
-    this.attrs.textEditor.insertAtCursor(
-      "[csuccess]green,white,green,this is a cerror title,this is a csuccess message.[/csuccess]"
-    );
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 11);
-  }
-  notification_bcustom() {
-    this.attrs.textEditor.insertAtCursor(
-      "[bcustom]title=this is a bcustom title font=red bg=black border=green[/bcustom]"
-    );
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 10);
-  }
-  notification_dnotice() {
-    this.attrs.textEditor.insertAtCursor(
-      '[dnotice title="this is a dnotice title" font="teal" bg="white" border="teal"]this is a dnotice message.[/dnotice]'
-    );
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 10);
-  }
-  notification_derror() {
-    this.attrs.textEditor.insertAtCursor(
-      '[derror title="this is a derror title" font="red" bg="white" border="red"]this is a derror message.[/derror]'
-    );
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 9);
-  }
-  notification_dwarning() {
-    this.attrs.textEditor.insertAtCursor(
-      '[dwarning title="this is a dwarning title" font="darkorange" bg="white" border="darkorange"]this is a dwarning message.[/dwarning]'
-    );
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 11);
-  }
-  notification_dsuccess() {
-    this.attrs.textEditor.insertAtCursor(
-      '[dsuccess title="this is a dsuccess title" font="green" bg="white" border="green"]this is a dsuccess message.[/dsuccess]'
-    );
-    const range = this.attrs.textEditor.getSelectionRange();
-    this.attrs.textEditor.moveCursorTo(range[1] - 11);
   }
 }
 

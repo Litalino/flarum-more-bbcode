@@ -100,6 +100,11 @@ php flarum cache:clear
 ```
 
 ## Update content
+### 1.1.0
+* Change the look
+* Scan block click bbcode
+* Add Cloud Mega Mediafire Dropbox
+* Fix Css
 ### 1.0.7
 * Add BBCODE ALERT
 ### 1.0.6
