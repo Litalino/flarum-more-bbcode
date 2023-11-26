@@ -112,6 +112,8 @@ composer require litalino/flarum-more-bbcode
 php flarum migrate
 php flarum cache:clear
 
+### 1.3.4
+* Waiting Combination: flarum/bbcode
 ### 1.3.3
 * Fix css details
 ### 1.3.2
