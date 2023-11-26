@@ -100,6 +100,16 @@ php flarum cache:clear
 ```
 
 ## Update content
+Then upgrade from the old extension to the new one:
+
+composer remove flarum/markdown
+composer require litalino/flarum-more-bbcode:"*"
+
+Updating
+composer require litalino/flarum-more-bbcode
+php flarum migrate
+php flarum cache:clear
+
 ### 1.3.0
 * Combination: flarum/markdown
 * Remove flarum/markdown
