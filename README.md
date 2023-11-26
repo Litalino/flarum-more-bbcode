@@ -100,6 +100,9 @@ php flarum cache:clear
 ```
 
 ## Update content
+### 1.2.0
+* Change the look
+* Fix Css
 ### 1.1.0
 * Change the look
 * Scan block click bbcode

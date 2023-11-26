@@ -21,6 +21,7 @@
             bottom: 100%;
         }
         @media @phone {
+            padding-top: 40px;
             right: 0;
             columns: 6;
             -webkit-columns: 6;
@@ -50,6 +51,240 @@
             display: block;
         }
     }
+}
+/*
+.More-bbcode-buttonsDropdown.open {
+  & .More-BBcode-Dropdown {
+    & .Dropdown-menu:hover {
+        top: auto;
+        left: unset;
+        right: 0px;
+        columns: 4;
+        -webkit-columns: 4;
+        -moz-columns: 4;
+        @media @tablet-up {
+            bottom: 100%;
+        }
+        @media @phone {
+            right: 0;
+            columns: 4;
+            -webkit-columns: 4;
+            -moz-columns: 4;
+        }
+    }
+  }
+}
+*/
+.More-bbcode-buttonsDropdown.open {
+  & .More-BBcode-Dropdown {
+    & button:not(.Dropdown-menu.button) {
+      border: 0;
+      padding: 5px 4px;
+      background: none;
+      vertical-align: -1px;
+    }
+    & .Dropdown-menu {
+      display: none;
+    }
+    
+  }
+  & .More-BBcode-Dropdown:hover  {
+    cursor: pointer;
+    & .Dropdown-menu {
+      display: block;
+      left: unset;
+      right: 0;
+      bottom: 5px;
+      columns: 9;
+      -webkit-columns: 9;
+      -moz-columns: 9;
+      @media @tablet-up {
+          //bottom: 100%;
+      }
+      @media @phone {
+          right: 0;
+          columns: 6;
+          -webkit-columns: 6;
+          -moz-columns: 6;
+      }
+      & .tooltip.top.in {
+        //top: -25px !important;
+        //left: auto;
+        display: block;
+      }
+      & li {
+        text-align: center;
+        margin-left: 10px;
+      }
+    }
+      
+  }
+  
+  & .More-BBcode-Dropdown.item-size:hover{
+    & .Dropdown-menu {
+      display: block;
+      left: unset;
+      right: 0;
+      bottom: 0;
+      height: max-content;
+      columns: 6;
+      -webkit-columns: 6;
+      -moz-columns: 6;
+      @media @tablet-up {
+          //bottom: 100%;
+      }
+      @media @phone {
+          right: 0;
+          columns: 4;
+          -webkit-columns: 4;
+          -moz-columns: 4;
+      }
+      & li {
+        & button {
+        width: 40px;
+        }
+        
+      }
+      & li.item-size_18 {
+        & i:after {
+          content: "18";
+        }
+      }
+      & li.item-size_20 {
+        & i:after {
+          content: "20";
+        }
+      }
+      & li.item-size_22 {
+        & i:after {
+          content: "22";
+        }
+      }
+      & li.item-size_24 {
+        & i:after {
+          content: "24";
+        }
+      }
+      & li.item-size_26 {
+        & i:after {
+          content: "26";
+        }
+      }
+      & li.item-size_28 {
+        & i:after {
+          content: "28";
+        }
+      }
+      & li.item-size_30 {
+        & i:after {
+          content: "30";
+        }
+      }
+      & li.item-size_32 {
+        & i:after {
+          content: "32";
+        }
+      }
+      & li.item-size_34 {
+        & i:after {
+          content: "34";
+        }
+      }
+      & li.item-size_36 {
+        & i:after {
+          content: "36";
+        }
+      }
+      & li.item-size_38 {
+        & i:after {
+          content: "38";
+        }
+      }
+      & li.item-size_40 {
+        & i:after {
+          content: "40";
+        }
+      }
+
+    }
+  }
+  & .More-BBcode-Dropdown.item-heading:hover{
+    & .Dropdown-menu {
+      display: block;
+      left: unset;
+      right: 0;
+      top: 0;
+      height: max-content;
+      columns: 5;
+      -webkit-columns: 5;
+      -moz-columns: 5;
+      @media @tablet-up {
+          //bottom: 100%;
+      }
+      @media @phone {
+          right: 0;
+          columns: 5;
+          -webkit-columns: 5;
+          -moz-columns: 5;
+      }
+      & li {
+        & button {
+        width: 30px;
+        }
+      }
+    }
+  }
+  & .More-BBcode-Dropdown.item-color:hover{
+    & .Dropdown-menu {
+      display: block;
+      left: unset;
+      right: 0;
+      bottom: 0;
+      height: max-content;
+      columns: 4;
+      -webkit-columns: 4;
+      -moz-columns: 4;
+      @media @tablet-up {
+          //bottom: 100%;
+      }
+      @media @phone {
+          right: 0;
+          columns: 4;
+          -webkit-columns: 4;
+          -moz-columns: 4;
+      }
+      & li {
+        & button {
+        width: 50px;
+        }
+      }
+    }
+  }
+  & .More-BBcode-Dropdown.item-alert:hover{
+    & .Dropdown-menu {
+      display: block;
+      left: unset;
+      right: 0;
+      bottom: 0px;
+      columns: 4;
+      -webkit-columns: 4;
+      -moz-columns: 4;
+      @media @tablet-up {
+          //bottom: 100%;
+      }
+      @media @phone {
+          right: 0;
+          columns: 6;
+          -webkit-columns: 6;
+          -moz-columns: 6;
+      }
+      & li {
+        & button {
+        width: 80px;
+        }
+      }
+    }
+  }
 }
 
 .Post-body table {
@@ -730,7 +965,7 @@ details {
     float: left;
     font-size: 4rem;
     line-height: 0.65;
-    margin: 0.2em 0.1em 0.2em 0;
+    margin: 0.1em 0.1em 0.2em 0;
   }
 
   & .dropcap {
@@ -738,10 +973,10 @@ details {
     background: #303030;
     color: #FDF9F2;
     float: left;
-    font-size: 1.2rem;
-    line-height: 1.3;
-    /* margin: 0.2em 0.1em 0.2em 0; */
-    padding: 0.3em;
+    font-size: 4rem;
+    line-height: 1;
+    margin: 0.1em 0.1em 0.2em 0;
+    padding: 0.1em;
   }
   & .dropcap:before, .dropcap:after {
     content: "";
@@ -783,4 +1018,89 @@ details {
     padding: 0px 0px 20px
   }
   
+}
+/*ICON TEXT*/
+.fa-h:before {
+    content: "H";
+}
+.fa-h2:before {
+    content: "H2";
+}
+.fa-h3:before {
+    content: "H3";
+}
+.fa-h4:before {
+    content: "H4";
+}
+.fa-h5:before {
+    content: "H5";
+}
+.fa-h6:before {
+    content: "H6";
+}
+
+.fa-warning:before {
+    content: "Awarning";
+}.fa-asuccess:before {
+    content: "Asuccess";
+}.fa-ainfo:before {
+    content: "Ainfo";
+}.fa-abasic:before {
+    content: "Abasic";
+}.fa-acustom:before {
+    content: "Acustom";
+}.fa-bcustom:before {
+    content: "Bcustom";
+}.fa-bwarning:before {
+    content: "Bwarning";
+}.fa-bsuccess:before {
+    content: "Bsuccess";
+}.fa-berror:before {
+    content: "Berror";
+}.fa-bcustom:before {
+    content: "Bcustom";
+}.fa-bnotice:before {
+    content: "Bnotice";
+}.fa-cwarning:before {
+    content: "Cwarning";
+}.fa-cnotice:before {
+    content: "Cnotice";
+}.fa-cerror:before {
+    content: "Cerror";
+}.fa-csuccess:before {
+    content: "Csuccess";
+}.fa-dnotice:before {
+    content: "Dnotice";
+}.fa-derror:before {
+    content: "Derror";
+}.fa-dwarning:before {
+    content: "Dwarning";
+}.fa-dsuccess:before {
+    content: "Dsuccess";
+}
+
+.fa-color-t:before {
+    content: "Grey";
+    background: grey;
+}.fa-color-g:before {
+    content: "Green";
+    background: green;
+}.fa-color-b:before {
+    content: "Bule";
+    background: blue;
+}.fa-color-p:before {
+    content: "Purple";
+    background: purple;
+}.fa-color-y:before {
+    content: "Yellow";
+    background: yellow;
+}.fa-color-o:before {
+    content: "Ogran";
+    background: orange;
+}.fa-color-r:before {
+    content: "Red";
+    background: red;
+}.fa-color-s:before {
+    content: "Silver";
+    background: silver;
 }

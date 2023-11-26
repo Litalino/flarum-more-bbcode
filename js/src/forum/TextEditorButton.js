@@ -20,26 +20,18 @@ import DiscussionControls from "flarum/forum/utils/DiscussionControls";
 import LogInModal from "flarum/forum/components/LogInModal";
 
 import PostStream from "flarum/forum/components/PostStream";
-import Separator from "flarum/components/Separator";
+//import Separator from "flarum/components/Separator";
 
 import ComposerPostPreview from "flarum/forum/components/ComposerPostPreview";
 
 ///////////////////
+import BasicEditorDriver from 'flarum/common/utils/BasicEditorDriver';
+
 import styleSelectedText from "flarum/common/utils/styleSelectedText";
 
 import MarkdownButton from "./MarkdownButton";
 
 ///////////////////
-
-
-function makeShortcut(id, key, editorDriver) {
-  return function (e) {
-    if (e.key === key && ((e.metaKey && modifierKey === '⌘') || (e.ctrlKey && modifierKey === 'ctrl'))) {
-      e.preventDefault();
-      applyStyle(id, editorDriver);
-    }
-  };
-}
 
 export default class TextEditorButton extends Component {
   view() {
@@ -52,7 +44,6 @@ export default class TextEditorButton extends Component {
       this.markdownToolbarItems().toArray()
     );
   }
-
   /**
    * Build an item list for the contents of the dropdown menu.
    * 
@@ -84,24 +75,6 @@ export default class TextEditorButton extends Component {
       size: { prefix: '[size=16] ', suffix: ' [/size]', trimFirst: true },
       color: { prefix: '[color=red] ', suffix: ' [/color]', trimFirst: true },
       tab: { prefix: '\n[tabs]\n\n[tab="hi"]Hi[/tab]\n\n[tab="hello"]Hello[/tab]\n\n[/tabs]\n', trimFirst: true },
-
-      warning: { prefix: '[awarning] ', suffix: ' [/awarning]', trimFirst: true },
-      asuccess: { prefix: '[asuccess] ', suffix: ' [/asuccess]', trimFirst: true },
-      ainfo: { prefix: '[ainfo] ', suffix: ' [/ainfo]', trimFirst: true },
-      abasic: { prefix: '[abasic] ', suffix: ' [/abasic]', trimFirst: true },
-	    acustom: { prefix: '[acustom] ', suffix: ' [/acustom]', trimFirst: true },
-      bwarning: { prefix: '[bwarning] ', suffix: ' [/bwarning]', trimFirst: true },
-      bsuccess: { prefix: '[bsuccess] ', suffix: ' [/bsuccess]', trimFirst: true },
-      berror: { prefix: '[berror] ', suffix: ' [/berror]', trimFirst: true },
-      cwarning: { prefix: '[cwarning] ', suffix: ' [/cwarning]', trimFirst: true },
-      cnotice: { prefix: '[cnotice] ', suffix: ' [/cnotice]', trimFirst: true },
-      cerror: { prefix: '[cerror] ', suffix: ' [/cerror]', trimFirst: true },
-      csuccess: { prefix: '[csuccess] ', suffix: ' [/csuccess]', trimFirst: true },
-      bcustom: { prefix: '[bcustom] ', suffix: ' [/bcustom]', trimFirst: true },
-      dnotice: { prefix: '[dnotice] ', suffix: ' [/dnotice]', trimFirst: true },
-      derror: { prefix: '[derror] ', suffix: ' [/derror]', trimFirst: true },
-      dwarning: { prefix: '[dwarning] ', suffix: ' [/dwarning]', trimFirst: true },
-      dsuccess: { prefix: '[dsuccess] ', suffix: ' [/dsuccess]', trimFirst: true },
       
       //bold: { prefix: '**', suffix: '**', trimFirst: true },
       //italic: { prefix: '_', suffix: '_', trimFirst: true },
@@ -115,6 +88,14 @@ export default class TextEditorButton extends Component {
       //spoiler: { prefix: '>!', suffix: '!<', blockPrefix: '>! ', multiline: true, trimFirst: true },
     };
 
+    extend(BasicEditorDriver.prototype, 'keyHandlers', function (items) {
+      items.add('left', makeShortcut('left', 'l', this));
+      items.add('center', makeShortcut('left', 'c', this));
+      items.add('right', makeShortcut('right', 'r', this));
+      items.add('justify', makeShortcut('justify', 'j', this));
+    });
+  
+
     const applyStyle = (id, editorDriver) => {
       // This is a nasty hack that breaks encapsulation of the editor.
       // In future releases, we'll need to tweak the editor driver interface
@@ -123,21 +104,30 @@ export default class TextEditorButton extends Component {
     };
 
     const items = typeof oldFunc === 'function' ? oldFunc() : new ItemList();
-    
+
+    function makeShortcut(id, key, editorDriver) {
+      return function (e) {
+        if (e.key === key && ((e.metaKey && modifierKey === '⌘') || (e.ctrlKey && modifierKey === 'ctrl'))) {
+          e.preventDefault();
+          applyStyle(id, editorDriver);
+        }
+      };
+    }
 
     function tooltip(name, hotkey) {
       //return app.translator.trans(`imeepo-more-bbcode.forum.${name}_tooltip`) + (hotkey ? ` <${modifierKey}-${hotkey}>` : '');
-      return app.translator.trans(`imeepo-more-bbcode.forum.${name}`);
+      //return app.translator.trans(`imeepo-more-bbcode.forum.${name}`);
+      return app.translator.trans(`imeepo-more-bbcode.forum.${name}`) + (hotkey ? ` <${modifierKey}-${hotkey}>` : '');
     }
 
     const makeApplyStyle = (id) => {
       return () => applyStyle(id, this.attrs.textEditor);
     };
 
-    items.add('left', <MarkdownButton title={tooltip('button_tooltip_left')} icon="fas fa-align-left" onclick={makeApplyStyle('left')} />, 1000);
-    items.add('center', <MarkdownButton title={tooltip('button_tooltip_center')} icon="fas fa-align-center" onclick={makeApplyStyle('center')} />, 1000);
-    items.add('right', <MarkdownButton title={tooltip('button_tooltip_right')} icon="fas fa-align-right" onclick={makeApplyStyle('right')} />, 1000);
-    items.add('justify', <MarkdownButton title={tooltip('button_tooltip_justify')} icon="fas fa-align-justify" onclick={makeApplyStyle('justify')} />, 1000);
+    items.add('left', <MarkdownButton title={tooltip('button_tooltip_left', 'l')} icon="fas fa-align-left" onclick={makeApplyStyle('left')} />, 1000);
+    items.add('center', <MarkdownButton title={tooltip('button_tooltip_center', 'c')} icon="fas fa-align-center" onclick={makeApplyStyle('center')} />, 1000);
+    items.add('right', <MarkdownButton title={tooltip('button_tooltip_right', 'r')} icon="fas fa-align-right" onclick={makeApplyStyle('right')} />, 1000);
+    items.add('justify', <MarkdownButton title={tooltip('button_tooltip_justify', 'j')} icon="fas fa-align-justify" onclick={makeApplyStyle('justify')} />, 1000);
     items.add('dropcap', <MarkdownButton title={tooltip('button_tooltip_dropcap')} icon="fas fa-list-alt" onclick={makeApplyStyle('dropcap')} />, 1000);
     items.add('ileft', <MarkdownButton title={tooltip('button_tooltip_img_left')} icon="fas fa-fast-backward" onclick={makeApplyStyle('ileft')} />, 1000);
     items.add('iright', <MarkdownButton title={tooltip('button_tooltip_img_right')} icon="fas fa-fast-forward" onclick={makeApplyStyle('iright')} />, 1000);
@@ -153,49 +143,364 @@ export default class TextEditorButton extends Component {
     items.add('clip', <MarkdownButton title={tooltip('button_tooltip_clip')} icon="fas fa-file-video" onclick={makeApplyStyle('clip')} />, 1000);
     items.add('table', <MarkdownButton title={tooltip('button_tooltip_table')} icon="fas fa-table" onclick={makeApplyStyle('table')} />, 1000);
     items.add('word', <MarkdownButton title={tooltip('button_tooltip_word')} icon="fas fa-file-word" onclick={makeApplyStyle('word')} />, 1000);
-    items.add('size', <MarkdownButton title={tooltip('button_tooltip_size')} icon="fas fa-text-height" onclick={makeApplyStyle('size')} />, 1000);
-    items.add('color', <MarkdownButton title={tooltip('button_tooltip_color')} icon="fas fa-palette" onclick={makeApplyStyle('color')} />, 1000);
+    //items.add('size', <MarkdownButton title={tooltip('button_tooltip_size')} icon="fas fa-text-height" onclick={makeApplyStyle('size')} />, 1000);
+    //items.add('color', <MarkdownButton title={tooltip('button_tooltip_color')} icon="fas fa-palette" onclick={makeApplyStyle('color')} />, 1000);
     items.add('tab', <MarkdownButton title={tooltip('button_tooltip_tab')} icon="fas fa-tasks" onclick={makeApplyStyle('tab')} />, 1000);
 
-    items.add('warning', <MarkdownButton title={tooltip('button_tooltip_notification_warning')} icon="fas fa-bell" onclick={makeApplyStyle('warning')} />, 1000);
-    items.add('asuccess', <MarkdownButton title={tooltip('button_tooltip_notification_asuccess')} icon="fas fa-bell" onclick={makeApplyStyle('asuccess')} />, 1000);
-    items.add('ainfo', <MarkdownButton title={tooltip('button_tooltip_notification_asuccess')} icon="fas fa-bell" onclick={makeApplyStyle('ainfo')} />, 1000);
-    items.add('abasic', <MarkdownButton title={tooltip('button_tooltip_notification_abasic')} icon="fas fa-bell" onclick={makeApplyStyle('abasic')} />, 1000);
-    items.add('acustom', <MarkdownButton title={tooltip('button_tooltip_notification_acustom')} icon="fas fa-bell" onclick={makeApplyStyle('acustom')} />, 1000);
-    items.add('bwarning', <MarkdownButton title={tooltip('button_tooltip_notification_bwarning')} icon="fas fa-bell" onclick={makeApplyStyle('bwarning')} />, 1000);
-    items.add('bsuccess', <MarkdownButton title={tooltip('button_tooltip_notification_bsuccess')} icon="fas fa-bell" onclick={makeApplyStyle('bsuccess')} />, 1000);
-    items.add('berror', <MarkdownButton title={tooltip('button_tooltip_notification_berror')} icon="fas fa-bell" onclick={makeApplyStyle('berror')} />, 1000);
-    items.add('cwarning', <MarkdownButton title={tooltip('button_tooltip_notification_cwarning')} icon="fas fa-bell" onclick={makeApplyStyle('cwarning')} />, 1000);
-    items.add('cnotice', <MarkdownButton title={tooltip('button_tooltip_notification_cnotice')} icon="fas fa-bell" onclick={makeApplyStyle('cnotice')} />, 1000);
-    items.add('cerror', <MarkdownButton title={tooltip('button_tooltip_notification_cerror')} icon="fas fa-bell" onclick={makeApplyStyle('cerror')} />, 1000);
-    items.add('csuccess', <MarkdownButton title={tooltip('button_tooltip_notification_csuccess')} icon="fas fa-bell" onclick={makeApplyStyle('csuccess')} />, 1000);
-    items.add('bcustom', <MarkdownButton title={tooltip('button_tooltip_notification_bcustom')} icon="fas fa-bell" onclick={makeApplyStyle('bcustom')} />, 1000);
-    items.add('dnotice', <MarkdownButton title={tooltip('button_tooltip_notification_dnotice')} icon="fas fa-bell" onclick={makeApplyStyle('dnotice')} />, 1000);
-    items.add('derror', <MarkdownButton title={tooltip('button_tooltip_notification_derror')} icon="fas fa-bell" onclick={makeApplyStyle('derror')} />, 1000);
-    items.add('dwarning', <MarkdownButton title={tooltip('button_tooltip_notification_dwarning')} icon="fas fa-bell" onclick={makeApplyStyle('dwarning')} />, 1000);
-    items.add('dsuccess', <MarkdownButton title={tooltip('button_tooltip_notification_dsuccess')} icon="fas fa-bell" onclick={makeApplyStyle('dsuccess')} />, 1000);
-
-    //items.add('bold', <MarkdownButton title={tooltip('bold', 'b')} icon="fas fa-bold" onclick={makeApplyStyle('bold')} />, 900);
-    //items.add('italic', <MarkdownButton title={tooltip('italic', 'i')} icon="fas fa-italic" onclick={makeApplyStyle('italic')} />, 800);
-    //items.add(
-    //  'strikethrough',
-    //  <MarkdownButton title={tooltip('strikethrough')} icon="fas fa-strikethrough" onclick={makeApplyStyle('strikethrough')} />,
-    //  700
-    //);
-    //items.add('quote', <MarkdownButton title={tooltip('quote')} icon="fas fa-quote-left" onclick={makeApplyStyle('quote')} />, 600);
-    //items.add('spoiler', <MarkdownButton title={tooltip('spoiler')} icon="fas fa-exclamation-triangle" onclick={makeApplyStyle('spoiler')} />, 500);
-    //items.add('code', <MarkdownButton title={tooltip('code')} icon="fas fa-code" onclick={makeApplyStyle('code')} />, 400);
-    //items.add('link', <MarkdownButton title={tooltip('link')} icon="fas fa-link" onclick={makeApplyStyle('link')} />, 300);
-    //items.add('image', <MarkdownButton title={tooltip('image')} icon="fas fa-image" onclick={makeApplyStyle('image')} />, 200);
-    //items.add(
-    //  'unordered_list',
-    //  <MarkdownButton title={tooltip('unordered_list')} icon="fas fa-list-ul" onclick={makeApplyStyle('unordered_list')} />,
-    //  100
-    //);
-    //items.add('ordered_list', <MarkdownButton title={tooltip('ordered_list')} icon="fas fa-list-ol" onclick={makeApplyStyle('ordered_list')} />, 0);
+    
+    items.add(
+      "size",
+      Dropdown.component(
+        {
+          className: "More-BBcode-Dropdown item-size",
+          //buttonClassName: "Button Button--flat",
+          label: icon("fas fa-text-height"),
+        },
+        this.size().toArray()
+      )
+    );
+    
+    items.add(
+      "color",
+      Dropdown.component(
+        {
+          className: "More-BBcode-Dropdown item-color",
+          //buttonClassName: "Button Button--flat",
+          label: icon("fas fa-palette"),
+        },
+        this.color().toArray()
+      )
+    );
+    
+    items.add(
+      "heading",
+      /*Button.component(
+        {
+          className: "More-BBcode-Dropdown",
+          //buttonClassName: "Button Button--flat",
+          label: icon("fas fa-th-large"),
+        }
+        //this.menu2().toArray()
+      ),
+      0*/
+      Dropdown.component(
+        {
+          className: "More-BBcode-Dropdown item-heading",
+          //buttonClassName: "Button Button--flat",
+          label: icon("fas fa-h"),
+        },
+        this.heading().toArray()
+      )
+    );
+    items.add(
+      "alert",
+      Dropdown.component(
+        {
+          className: "More-BBcode-Dropdown item-alert",
+          //buttonClassName: "Button Button--flat",
+          label: icon("fas fa-bell"),
+        },
+        this.alert().toArray()
+      )
+    );
 
     return items;
   }
+
+    /**
+   * Build an item list for the contents of the dropdown menu.
+   *
+   * @return {ItemList}
+   */
+
+  size(oldFunc) {
+    const items = typeof oldFunc === "function" ? oldFunc() : new ItemList();
+
+    const modifierKey = navigator.userAgent.match(/Macintosh/) ? '⌘' : 'ctrl';
+
+    const styles = {
+      size_18: { prefix: "[size=18] Change text", suffix: " [/size]", trimFirst: true },
+      size_20: { prefix: "[size=20] Change text", suffix: " [/size]", trimFirst: true },
+      size_22: { prefix: "[size=22] Change text", suffix: " [/size]", trimFirst: true },
+      size_24: { prefix: "[size=24] Change text", suffix: " [/size]", trimFirst: true },
+      size_26: { prefix: "[size=26] Change text", suffix: " [/size]", trimFirst: true },
+      size_28: { prefix: "[size=28] Change text", suffix: " [/size]", trimFirst: true },
+      size_30: { prefix: "[size=30] Change text", suffix: " [/size]", trimFirst: true },
+      size_32: { prefix: "[size=32] Change text", suffix: " [/size]", trimFirst: true },
+      size_34: { prefix: "[size=34] Change text", suffix: " [/size]", trimFirst: true },
+      size_36: { prefix: "[size=36] Change text", suffix: " [/size]", trimFirst: true },
+      size_38: { prefix: "[size=38] Change text", suffix: " [/size]", trimFirst: true },
+      size_40: { prefix: "[size=40] Change text", suffix: " [/size]", trimFirst: true },
+    };
+
+    //extend(BasicEditorDriver.prototype, 'keyHandlers', function (items) {
+    //  items.add("h2", makeShortcut("h2", "2", this));
+    //  items.add("h3", makeShortcut("h3", "3", this));
+    //  items.add('h4', makeShortcut('h4', '4', this));
+    //});
+  
+
+    const applyStyle = (id, editorDriver) => {
+      // This is a nasty hack that breaks encapsulation of the editor.
+      // In future releases, we'll need to tweak the editor driver interface
+      // to support triggering events like this.
+      styleSelectedText(editorDriver.el, styles[id]);
+    };
+
+
+    function makeShortcut(id, key, editorDriver) {
+      return function (e) {
+        if (e.key === key && ((e.metaKey && modifierKey === '⌘') || (e.ctrlKey && modifierKey === 'ctrl'))) {
+          e.preventDefault();
+          applyStyle(id, editorDriver);
+        }
+      };
+    }
+
+    function tooltip(name, hotkey) {
+      //return app.translator.trans(`imeepo-more-bbcode.forum.${name}_tooltip`) + (hotkey ? ` <${modifierKey}-${hotkey}>` : '');
+      //return app.translator.trans(`imeepo-more-bbcode.forum.${name}`);
+      //return app.translator.trans(`imeepo-more-bbcode.forum.${name}`) + (hotkey ? ` <${modifierKey}-${hotkey}>` : '');
+    }
+
+    const makeApplyStyle = (id) => {
+      return () => applyStyle(id, this.attrs.textEditor);
+    };
+
+    items.add('size_18', <MarkdownButton title={tooltip('size_18')} icon="fas fa-font" onclick={makeApplyStyle('size_18')} />, 2000);
+    items.add('size_20', <MarkdownButton title={tooltip('size_20')} icon="fas fa-font" onclick={makeApplyStyle('size_20')} />, 1900);
+    items.add('size_22', <MarkdownButton title={tooltip('size_22')} icon="fas fa-font" onclick={makeApplyStyle('size_22')} />, 1800);
+    items.add('size_24', <MarkdownButton title={tooltip('size_24')} icon="fas fa-font" onclick={makeApplyStyle('size_24')} />, 1700);
+    items.add('size_26', <MarkdownButton title={tooltip('size_26')} icon="fas fa-font" onclick={makeApplyStyle('size_26')} />, 1600);
+    items.add('size_28', <MarkdownButton title={tooltip('size_28')} icon="fas fa-font" onclick={makeApplyStyle('size_28')} />, 1500);
+    items.add('size_30', <MarkdownButton title={tooltip('size_30')} icon="fas fa-font" onclick={makeApplyStyle('size_30')} />, 1400);
+    items.add('size_32', <MarkdownButton title={tooltip('size_32')} icon="fas fa-font" onclick={makeApplyStyle('size_32')} />, 1300);
+    items.add('size_34', <MarkdownButton title={tooltip('size_34')} icon="fas fa-font" onclick={makeApplyStyle('size_34')} />, 1200);
+    items.add('size_36', <MarkdownButton title={tooltip('size_36')} icon="fas fa-font" onclick={makeApplyStyle('size_36')} />, 1100);
+    items.add('size_38', <MarkdownButton title={tooltip('size_38')} icon="fas fa-font" onclick={makeApplyStyle('size_38')} />, 1000);
+    items.add('size_40', <MarkdownButton title={tooltip('size_40')} icon="fas fa-font" onclick={makeApplyStyle('size_40')} />, 900);
+    
+    return items;
+  }
+
+  color(oldFunc) {
+    const items = typeof oldFunc === "function" ? oldFunc() : new ItemList();
+
+    const modifierKey = navigator.userAgent.match(/Macintosh/) ? '⌘' : 'ctrl';
+
+    const styles = {
+      colorT: { prefix: "[colort] Change text", suffix: " [/colort]", trimFirst: true },
+      colorG: { prefix: "[colorg] Change text", suffix: " [/colorg]", trimFirst: true },
+      colorB: { prefix: "[colorb] Change text", suffix: " [/colorb]", trimFirst: true },
+      colorP: { prefix: "[colorp] Change text", suffix: " [/colorp]", trimFirst: true },
+      colorY: { prefix: "[colory] Change text", suffix: " [/colory]", trimFirst: true },
+      colorO: { prefix: "[coloro] Change text", suffix: " [/coloro]", trimFirst: true },
+      colorR: { prefix: "[colorr] Change text", suffix: " [/colorr]", trimFirst: true },
+      colorS: { prefix: "[colors] Change text", suffix: " [/colors]", trimFirst: true },
+    };
+
+    //extend(BasicEditorDriver.prototype, 'keyHandlers', function (items) {
+    //  items.add("h2", makeShortcut("h2", "2", this));
+    //  items.add("h3", makeShortcut("h3", "3", this));
+    //  items.add('h4', makeShortcut('h4', '4', this));
+    //});
+  
+
+    const applyStyle = (id, editorDriver) => {
+      // This is a nasty hack that breaks encapsulation of the editor.
+      // In future releases, we'll need to tweak the editor driver interface
+      // to support triggering events like this.
+      styleSelectedText(editorDriver.el, styles[id]);
+    };
+
+
+    function makeShortcut(id, key, editorDriver) {
+      return function (e) {
+        if (e.key === key && ((e.metaKey && modifierKey === '⌘') || (e.ctrlKey && modifierKey === 'ctrl'))) {
+          e.preventDefault();
+          applyStyle(id, editorDriver);
+        }
+      };
+    }
+
+    function tooltip(name, hotkey) {
+      //return app.translator.trans(`imeepo-more-bbcode.forum.${name}_tooltip`) + (hotkey ? ` <${modifierKey}-${hotkey}>` : '');
+      //return app.translator.trans(`imeepo-more-bbcode.forum.${name}`);
+      return app.translator.trans(`imeepo-more-bbcode.forum.${name}`) + (hotkey ? ` <${modifierKey}-${hotkey}>` : '');
+    }
+
+    const makeApplyStyle = (id) => {
+      return () => applyStyle(id, this.attrs.textEditor);
+    };
+
+    items.add('colorT', <MarkdownButton title={tooltip('colorT')} icon="fas fa-color-t" onclick={makeApplyStyle('colorT')} />, 1000);
+    items.add('colorG', <MarkdownButton title={tooltip('colorG')} icon="fas fa-color-g" onclick={makeApplyStyle('colorG')} />, 1000);
+    items.add('colorB', <MarkdownButton title={tooltip('colorB')} icon="fas fa-color-b" onclick={makeApplyStyle('colorB')} />, 1000);
+    items.add('colorP', <MarkdownButton title={tooltip('colorP')} icon="fas fa-color-p" onclick={makeApplyStyle('colorP')} />, 1000);
+    items.add('colorY', <MarkdownButton title={tooltip('colorY')} icon="fas fa-color-y" onclick={makeApplyStyle('colorY')} />, 1000);
+    items.add('colorO', <MarkdownButton title={tooltip('colorO')} icon="fas fa-color-o" onclick={makeApplyStyle('colorO')} />, 1000);
+    items.add('colorR', <MarkdownButton title={tooltip('colorR')} icon="fas fa-color-r" onclick={makeApplyStyle('colorR')} />, 1000);
+    items.add('colorS', <MarkdownButton title={tooltip('colorS')} icon="fas fa-color-s" onclick={makeApplyStyle('colorS')} />, 1000);
+
+    return items;
+  }
+  heading(oldFunc) {
+    const items = typeof oldFunc === "function" ? oldFunc() : new ItemList();
+
+    const modifierKey = navigator.userAgent.match(/Macintosh/) ? '⌘' : 'ctrl';
+
+    const styles = {
+      h2: { prefix: '## ', suffix: ' ##', trimFirst: true },
+      h3: { prefix: '### ', suffix: ' ###', trimFirst: true },
+      h4: { prefix: '#### ', suffix: ' ####', trimFirst: true },
+      h5: { prefix: '##### ', suffix: ' #####', trimFirst: true },
+      h6: { prefix: '###### ', suffix: ' ######', trimFirst: true },
+    };
+
+    extend(BasicEditorDriver.prototype, 'keyHandlers', function (items) {
+      items.add("h2", makeShortcut("h2", "2", this));
+      items.add("h3", makeShortcut("h3", "3", this));
+      items.add('h4', makeShortcut('h4', '4', this));
+    });
+  
+
+    const applyStyle = (id, editorDriver) => {
+      // This is a nasty hack that breaks encapsulation of the editor.
+      // In future releases, we'll need to tweak the editor driver interface
+      // to support triggering events like this.
+      styleSelectedText(editorDriver.el, styles[id]);
+    };
+
+
+    function makeShortcut(id, key, editorDriver) {
+      return function (e) {
+        if (e.key === key && ((e.metaKey && modifierKey === '⌘') || (e.ctrlKey && modifierKey === 'ctrl'))) {
+          e.preventDefault();
+          applyStyle(id, editorDriver);
+        }
+      };
+    }
+
+    function tooltip(name, hotkey) {
+      //return app.translator.trans(`imeepo-more-bbcode.forum.${name}_tooltip`) + (hotkey ? ` <${modifierKey}-${hotkey}>` : '');
+      //return app.translator.trans(`imeepo-more-bbcode.forum.${name}`);
+      return app.translator.trans(`imeepo-more-bbcode.forum.${name}`) + (hotkey ? ` <${modifierKey}-${hotkey}>` : '');
+    }
+
+    const makeApplyStyle = (id) => {
+      return () => applyStyle(id, this.attrs.textEditor);
+    };
+
+    items.add('h2', <MarkdownButton title={tooltip('h2', '2')} icon="fas fa-h2" onclick={makeApplyStyle('h2')} />, 500);
+    items.add('h3', <MarkdownButton title={tooltip('h3', '3')} icon="fas fa-h3" onclick={makeApplyStyle('h3')} />, 400);
+    items.add('h4', <MarkdownButton title={tooltip('h4', '4')} icon="fas fa-h4" onclick={makeApplyStyle('h4')} />, 300);
+    items.add('h5', <MarkdownButton title={tooltip('h5', '5')} icon="fas fa-h5" onclick={makeApplyStyle('h5')} />, 200);
+    items.add('h6', <MarkdownButton title={tooltip('h6', '6')} icon="fas fa-h6" onclick={makeApplyStyle('h6')} />, 100);
+    /*items.add(
+      "h2",
+      Button.component(
+        {
+          icon: "fas fa-align-right",
+          onclick: () => this.right(),
+        },
+        app.translator.trans("imeepo-more-bbcode.forum.button_tooltip_right")
+      ),
+      50
+    );*/
+
+
+    return items;
+  }
+  alert(oldFunc) {
+    const items = typeof oldFunc === "function" ? oldFunc() : new ItemList();
+
+    const modifierKey = navigator.userAgent.match(/Macintosh/) ? '⌘' : 'ctrl';
+
+    const styles = {
+      warning: { prefix: '[awarning] this is an awarning message.', suffix: ' [/awarning]', trimFirst: true },
+      asuccess: { prefix: '[asuccess] this is an asuccess message.', suffix: ' [/asuccess]', trimFirst: true },
+      ainfo: { prefix: '[ainfo] this is an ainfo message.', suffix: ' [/ainfo]', trimFirst: true },
+      abasic: { prefix: '[abasic] this is an abasic message.', suffix: ' [/abasic]', trimFirst: true },
+      acustom: { prefix: '[acustom]red,black,green,this is an acustom message.', suffix: ' [/acustom]', trimFirst: true },
+      bcustom: { prefix: '[bcustom]title=this is a bcustom title font=red bg=black border=green', suffix: '[/bcustom]', trimFirst: true },
+
+      
+      bwarning: { prefix: '[bwarning] this is n bwarning message.', suffix: ' [/bwarning]', trimFirst: true },
+      bsuccess: { prefix: '[bsuccess] this is an bsuccess message.', suffix: ' [/bsuccess]', trimFirst: true },
+      berror: { prefix: '[berror] this is a berror message.', suffix: ' [/berror]', trimFirst: true },
+      bnotice: { prefix: '[bnotice] this is an bnotice message.', suffix: ' [/bnotice]', trimFirst: true },
+
+      cwarning: { prefix: '[cwarning]darkorange,white,darkorange,THIS IS A CWARNING TITLE,This is a CWARNING message.', suffix: ' [/cwarning]', trimFirst: true },
+      cnotice: { prefix: '[cnotice]teal,white,teal,this is a cnotice title,this is a cnotice message.', suffix: ' [/cnotice]', trimFirst: true },
+      cerror: { prefix: '[cerror]red,white,red,this is a cerror title,this is a cerror message.', suffix: ' [/cerror]', trimFirst: true },
+      csuccess: { prefix: '[csuccess]green,white,green,this is a cerror title,this is a csuccess message.', suffix: ' [/csuccess]', trimFirst: true },
+
+      dnotice: { prefix: '[dnotice title="this is a dnotice title" font="teal" bg="white" border="teal"] this is a dnotice message.', suffix: ' [/dnotice]', trimFirst: true },
+      derror: { prefix: '[derror title="this is a derror title" font="red" bg="white" border="red"]this is a derror message.', suffix: ' [/derror]', trimFirst: true },
+      dwarning: { prefix: '[dwarning title="this is a dwarning title" font="darkorange" bg="white" border="darkorange"]this is a dwarning message.', suffix: ' [/dwarning]', trimFirst: true },
+      dsuccess: { prefix: '[dsuccess title="this is a dsuccess title" font="green" bg="white" border="green"]this is a dsuccess message.', suffix: ' [/dsuccess]', trimFirst: true },
+    };
+
+    //extend(BasicEditorDriver.prototype, 'keyHandlers', function (items) {
+      //items.add("h2", makeShortcut("h2", "2", this));
+      //items.add("h3", makeShortcut("h3", "3", this));
+      //items.add('h4', makeShortcut('h4', '4', this));
+    //});
+  
+
+    const applyStyle = (id, editorDriver) => {
+      // This is a nasty hack that breaks encapsulation of the editor.
+      // In future releases, we'll need to tweak the editor driver interface
+      // to support triggering events like this.
+      styleSelectedText(editorDriver.el, styles[id]);
+    };
+
+
+    function makeShortcut(id, key, editorDriver) {
+      return function (e) {
+        if (e.key === key && ((e.metaKey && modifierKey === '⌘') || (e.ctrlKey && modifierKey === 'ctrl'))) {
+          e.preventDefault();
+          applyStyle(id, editorDriver);
+        }
+      };
+    }
+
+    function tooltip(name, hotkey) {
+      //return app.translator.trans(`imeepo-more-bbcode.forum.${name}_tooltip`) + (hotkey ? ` <${modifierKey}-${hotkey}>` : '');
+      //return app.translator.trans(`imeepo-more-bbcode.forum.${name}`);
+      //return app.translator.trans(`imeepo-more-bbcode.forum.${name}`) + (hotkey ? ` <${modifierKey}-${hotkey}>` : '');
+    }
+
+    const makeApplyStyle = (id) => {
+      return () => applyStyle(id, this.attrs.textEditor);
+    };
+
+    items.add('warning', <MarkdownButton title={tooltip('button_tooltip_notification_warning')} icon="fas fa-warning" onclick={makeApplyStyle('warning')} />, 2000);
+    items.add('asuccess', <MarkdownButton title={tooltip('button_tooltip_notification_asuccess')} icon="fas fa-asuccess" onclick={makeApplyStyle('asuccess')} />, 1900);
+    items.add('ainfo', <MarkdownButton title={tooltip('button_tooltip_notification_asuccess')} icon="fas fa-ainfo" onclick={makeApplyStyle('ainfo')} />, 1800);
+    items.add('abasic', <MarkdownButton title={tooltip('button_tooltip_notification_abasic')} icon="fas fa-abasic" onclick={makeApplyStyle('abasic')} />, 1700);
+    items.add('acustom', <MarkdownButton title={tooltip('button_tooltip_notification_acustom')} icon="fas fa-acustom" onclick={makeApplyStyle('acustom')} />, 1600);
+    items.add('bcustom', <MarkdownButton title={tooltip('button_tooltip_notification_bcustom')} icon="fas fa-bcustom" onclick={makeApplyStyle('bcustom')} />, 800);
+    
+    items.add('bwarning', <MarkdownButton title={tooltip('button_tooltip_notification_bwarning')} icon="fas fa-bwarning" onclick={makeApplyStyle('bwarning')} />, 1500);
+    items.add('bsuccess', <MarkdownButton title={tooltip('button_tooltip_notification_bsuccess')} icon="fas fa-bsuccess" onclick={makeApplyStyle('bsuccess')} />, 1400);
+    items.add('berror', <MarkdownButton title={tooltip('button_tooltip_notification_berror')} icon="fas fa-berror" onclick={makeApplyStyle('berror')} />, 1300);
+    items.add('bnotice', <MarkdownButton title={tooltip('button_tooltip_notification_bnotice')} icon="fas fa-bnotice" onclick={makeApplyStyle('bnotice')} />, 1100);
+    
+    items.add('cwarning', <MarkdownButton title={tooltip('button_tooltip_notification_cwarning')} icon="fas fa-cwarning" onclick={makeApplyStyle('cwarning')} />, 1200);
+    items.add('cnotice', <MarkdownButton title={tooltip('button_tooltip_notification_cnotice')} icon="fas fa-cnotice" onclick={makeApplyStyle('cnotice')} />, 1100);
+    items.add('cerror', <MarkdownButton title={tooltip('button_tooltip_notification_cerror')} icon="fas fa-cerror" onclick={makeApplyStyle('cerror')} />, 1000);
+    items.add('csuccess', <MarkdownButton title={tooltip('button_tooltip_notification_csuccess')} icon="fas fa-csuccess" onclick={makeApplyStyle('csuccess')} />, 900);
+    
+    items.add('dnotice', <MarkdownButton title={tooltip('button_tooltip_notification_dnotice')} icon="fas fa-dnotice" onclick={makeApplyStyle('dnotice')} />, 700);
+    items.add('derror', <MarkdownButton title={tooltip('button_tooltip_notification_derror')} icon="fas fa-derror" onclick={makeApplyStyle('derror')} />, 600);
+    items.add('dwarning', <MarkdownButton title={tooltip('button_tooltip_notification_dwarning')} icon="fas fa-dwarning" onclick={makeApplyStyle('dwarning')} />, 500);
+    items.add('dsuccess', <MarkdownButton title={tooltip('button_tooltip_notification_dsuccess')} icon="fas fa-dsuccess" onclick={makeApplyStyle('dsuccess')} />, 400);
+
+    return items;
+  }
+
+
 }
 
 app.initializers.add("litalino/more-bbcode", () => {
