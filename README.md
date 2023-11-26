@@ -113,7 +113,7 @@ php flarum migrate
 php flarum cache:clear
 
 ### 1.3.1
-* Fix extend H2 H3 H4 H5 ispoiler
+* Fix extend H2 H3 H4 H6 ispoiler
 ### 1.3.0
 * Combination: flarum/markdown
 * Remove flarum/markdown
