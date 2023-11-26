@@ -14,9 +14,6 @@
     "flarum/core": "^1.2.0",
     "flarum/likes": "^1.8.0"
   },
-  "replace": {
-    "flarum/markdown": "*"
-  },
   "authors": [
     {
       "name": "litalino",
@@ -31,6 +28,9 @@
   ],
   "support": {
     "source": "https://github.com/litalino/flarum-more-bbcode"
+  },
+  "replace": {
+    "flarum/markdown": "*"
   },
   "autoload": {
     "psr-4": {
