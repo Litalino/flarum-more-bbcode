@@ -5,6 +5,7 @@
         padding: 5px 4px;
         font-size: 16px;
         vertical-align: -1px;
+        //margin-top: 5px;
     }
     & .Button--flat {
         background: transparent;
@@ -12,8 +13,8 @@
     }
     & .Dropdown-menu {
         top: auto;
-        left: unset;
-        right: 0px;
+        left: 0;
+        right: unset;
         columns: 8;
         -webkit-columns: 8;
         -moz-columns: 8;
@@ -211,18 +212,20 @@
   & .More-BBcode-Dropdown.item-heading:hover{
     & .Dropdown-menu {
       display: block;
-      left: unset;
-      right: 0;
+      left: 0;
+      right: unset;
       top: 0;
       height: max-content;
       columns: 5;
       -webkit-columns: 5;
       -moz-columns: 5;
-      @media @tablet-up {
-          //bottom: 100%;
-      }
+      //@media @tablet-up {
+        
+      //}
       @media @phone {
           right: 0;
+          top: unset;
+          bottom: unset;
           columns: 5;
           -webkit-columns: 5;
           -moz-columns: 5;
@@ -274,9 +277,9 @@
       }
       @media @phone {
           right: 0;
-          columns: 6;
-          -webkit-columns: 6;
-          -moz-columns: 6;
+          columns: 4;
+          -webkit-columns: 4;
+          -moz-columns: 4;
       }
       & li {
         & button {

@@ -100,6 +100,9 @@ php flarum cache:clear
 ```
 
 ## Update content
+### 1.3.0
+* Combination: flarum/markdown
+* Remove flarum/markdown
 ### 1.2.0
 * Change the look
 * Fix Css

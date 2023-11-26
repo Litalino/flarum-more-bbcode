@@ -11,6 +11,9 @@
     "flarum/core": "^1.2.0",
     "flarum/likes": "^1.8.0"
   },
+  "replace": {
+    "flarum/markdown": "*"
+  },
   "authors": [
     {
       "name": "litalino",

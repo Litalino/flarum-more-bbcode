@@ -53,6 +53,18 @@ export default class TextEditorButton extends Component {
     const modifierKey = navigator.userAgent.match(/Macintosh/) ? '⌘' : 'ctrl';
 
     const styles = {
+      header: { prefix: '### ' },
+      bold: { prefix: '**', suffix: '**', trimFirst: true },
+      italic: { prefix: '_', suffix: '_', trimFirst: true },
+      strikethrough: { prefix: '~~', suffix: '~~', trimFirst: true },
+      quote: { prefix: '> ', multiline: true, surroundWithNewlines: true },
+      code: { prefix: '`', suffix: '`', blockPrefix: '```', blockSuffix: '```' },
+      link: { prefix: '[', suffix: '](https://)', replaceNext: 'https://', scanFor: 'https?://' },
+      image: { prefix: '![', suffix: '](https://)', replaceNext: 'https://', scanFor: 'https?://' },
+      unordered_list: { prefix: '- ', multiline: true, surroundWithNewlines: true },
+      ordered_list: { prefix: '1. ', multiline: true, orderedList: true },
+      spoiler: { prefix: '>!', suffix: '!<', blockPrefix: '>! ', multiline: true, trimFirst: true },
+
       left: { prefix: '[left] ', suffix: ' [/left]', trimFirst: true },
       center: { prefix: '[center] ', suffix: ' [/center]', trimFirst: true },
       right: { prefix: '[right] ', suffix: ' [/right]', trimFirst: true },
@@ -124,28 +136,72 @@ export default class TextEditorButton extends Component {
       return () => applyStyle(id, this.attrs.textEditor);
     };
 
-    items.add('left', <MarkdownButton title={tooltip('button_tooltip_left', 'l')} icon="fas fa-align-left" onclick={makeApplyStyle('left')} />, 1000);
-    items.add('center', <MarkdownButton title={tooltip('button_tooltip_center', 'c')} icon="fas fa-align-center" onclick={makeApplyStyle('center')} />, 1000);
-    items.add('right', <MarkdownButton title={tooltip('button_tooltip_right', 'r')} icon="fas fa-align-right" onclick={makeApplyStyle('right')} />, 1000);
-    items.add('justify', <MarkdownButton title={tooltip('button_tooltip_justify', 'j')} icon="fas fa-align-justify" onclick={makeApplyStyle('justify')} />, 1000);
-    items.add('dropcap', <MarkdownButton title={tooltip('button_tooltip_dropcap')} icon="fas fa-list-alt" onclick={makeApplyStyle('dropcap')} />, 1000);
-    items.add('ileft', <MarkdownButton title={tooltip('button_tooltip_img_left')} icon="fas fa-fast-backward" onclick={makeApplyStyle('ileft')} />, 1000);
-    items.add('iright', <MarkdownButton title={tooltip('button_tooltip_img_right')} icon="fas fa-fast-forward" onclick={makeApplyStyle('iright')} />, 1000);
-    items.add('pleft', <MarkdownButton title={tooltip('button_tooltip_p_left')} icon="fas fa-outdent" onclick={makeApplyStyle('pleft')} />, 1000);
-    items.add('pright', <MarkdownButton title={tooltip('button_tooltip_p_right')} icon="fas fa-indent" onclick={makeApplyStyle('pright')} />, 1000);
-    items.add('details', <MarkdownButton title={tooltip('button_tooltip_details')} icon="fas fa-eye-slash" onclick={makeApplyStyle('details')} />, 1000);
-    items.add('like', <MarkdownButton title={tooltip('button_tooltip_like')} icon="fas fa-thumbs-up" onclick={makeApplyStyle('like')} />, 1000);
-    items.add('reply', <MarkdownButton title={tooltip('button_tooltip_reply')} icon="fas fa-reply-all" onclick={makeApplyStyle('reply')} />, 1000);
-    items.add('login', <MarkdownButton title={tooltip('button_tooltip_login')} icon="fas fa-sign-in-alt" onclick={makeApplyStyle('login')} />, 1000);
-    items.add('cloud', <MarkdownButton title={tooltip('button_tooltip_cloud')} icon="fas fa-download" onclick={makeApplyStyle('cloud')} />, 1000);
-    items.add('down', <MarkdownButton title={tooltip('button_tooltip_down')} icon="fas fa-download" onclick={makeApplyStyle('down')} />, 1000);
-    items.add('audio', <MarkdownButton title={tooltip('button_tooltip_audio')} icon="fas fa-file-audio" onclick={makeApplyStyle('audio')} />, 1000);
-    items.add('clip', <MarkdownButton title={tooltip('button_tooltip_clip')} icon="fas fa-file-video" onclick={makeApplyStyle('clip')} />, 1000);
+    //items.add('header', <MarkdownButton title={tooltip('lib.header_tooltip')} icon="fas fa-heading" onclick={makeApplyStyle('header')} />, 20000);
+    
+    
+    items.add(
+      "heading",
+      /*Button.component(
+        {
+          className: "More-BBcode-Dropdown",
+          //buttonClassName: "Button Button--flat",
+          label: icon("fas fa-th-large"),
+        }
+        //this.menu2().toArray()
+      ),
+      0*/
+      Dropdown.component(
+        {
+          className: "More-BBcode-Dropdown item-heading",
+          //buttonClassName: "Button Button--flat",
+          label: icon("fas fa-h"),
+        },
+        this.heading().toArray()
+      ),
+      20000
+    );
+    items.add('bold', <MarkdownButton title={tooltip('lib.bold_tooltip', 'b')} icon="fas fa-bold" onclick={makeApplyStyle('bold')} />, 19000);
+    items.add('italic', <MarkdownButton title={tooltip('lib.italic_tooltip', 'i')} icon="fas fa-italic" onclick={makeApplyStyle('italic')} />, 18000);
+    items.add(
+      'strikethrough',
+      <MarkdownButton title={tooltip('lib.strikethrough_tooltip')} icon="fas fa-strikethrough" onclick={makeApplyStyle('strikethrough')} />,
+      17000
+    );
+    items.add('quote', <MarkdownButton title={tooltip('lib.quote_tooltip')} icon="fas fa-quote-left" onclick={makeApplyStyle('quote')} />, 16000);
+    items.add('spoiler', <MarkdownButton title={tooltip('lib.spoiler_tooltip')} icon="fas fa-exclamation-triangle" onclick={makeApplyStyle('spoiler')} />, 15000);
+    items.add('code', <MarkdownButton title={tooltip('lib.code_tooltip')} icon="fas fa-code" onclick={makeApplyStyle('code')} />, 14000);
+    items.add('link', <MarkdownButton title={tooltip('lib.link_tooltip')} icon="fas fa-link" onclick={makeApplyStyle('link')} />, 13000);
+    items.add('image', <MarkdownButton title={tooltip('lib.image_tooltip')} icon="fas fa-image" onclick={makeApplyStyle('image')} />, 12000);
+    items.add(
+      'unordered_list',
+      <MarkdownButton title={tooltip('lib.unordered_list_tooltip')} icon="fas fa-list-ul" onclick={makeApplyStyle('unordered_list')} />,
+      11000
+    );
+    items.add('ordered_list', <MarkdownButton title={tooltip('lib.ordered_list_tooltip')} icon="fas fa-list-ol" onclick={makeApplyStyle('ordered_list')} />, 10000);
+
+
+    items.add('left', <MarkdownButton title={tooltip('button_tooltip_left', 'l')} icon="fas fa-align-left" onclick={makeApplyStyle('left')} />, 9500);
+    items.add('center', <MarkdownButton title={tooltip('button_tooltip_center', 'c')} icon="fas fa-align-center" onclick={makeApplyStyle('center')} />, 9000);
+    items.add('right', <MarkdownButton title={tooltip('button_tooltip_right', 'r')} icon="fas fa-align-right" onclick={makeApplyStyle('right')} />, 8500);
+    items.add('justify', <MarkdownButton title={tooltip('button_tooltip_justify', 'j')} icon="fas fa-align-justify" onclick={makeApplyStyle('justify')} />, 8000);
+    items.add('dropcap', <MarkdownButton title={tooltip('button_tooltip_dropcap')} icon="fas fa-list-alt" onclick={makeApplyStyle('dropcap')} />, 7500);
+    items.add('ileft', <MarkdownButton title={tooltip('button_tooltip_img_left')} icon="fas fa-fast-backward" onclick={makeApplyStyle('ileft')} />, 7000);
+    items.add('iright', <MarkdownButton title={tooltip('button_tooltip_img_right')} icon="fas fa-fast-forward" onclick={makeApplyStyle('iright')} />, 6500);
+    items.add('pleft', <MarkdownButton title={tooltip('button_tooltip_p_left')} icon="fas fa-outdent" onclick={makeApplyStyle('pleft')} />, 6000);
+    items.add('pright', <MarkdownButton title={tooltip('button_tooltip_p_right')} icon="fas fa-indent" onclick={makeApplyStyle('pright')} />, 5500);
+    items.add('details', <MarkdownButton title={tooltip('button_tooltip_details')} icon="fas fa-eye-slash" onclick={makeApplyStyle('details')} />, 5000);
+    items.add('like', <MarkdownButton title={tooltip('button_tooltip_like')} icon="fas fa-thumbs-up" onclick={makeApplyStyle('like')} />, 4500);
+    items.add('reply', <MarkdownButton title={tooltip('button_tooltip_reply')} icon="fas fa-reply-all" onclick={makeApplyStyle('reply')} />, 4000);
+    items.add('login', <MarkdownButton title={tooltip('button_tooltip_login')} icon="fas fa-sign-in-alt" onclick={makeApplyStyle('login')} />, 3500);
+    items.add('cloud', <MarkdownButton title={tooltip('button_tooltip_cloud')} icon="fas fa-download" onclick={makeApplyStyle('cloud')} />, 3000);
+    items.add('down', <MarkdownButton title={tooltip('button_tooltip_down')} icon="fas fa-download" onclick={makeApplyStyle('down')} />, 2500);
+    items.add('audio', <MarkdownButton title={tooltip('button_tooltip_audio')} icon="fas fa-file-audio" onclick={makeApplyStyle('audio')} />, 2000);
+    items.add('clip', <MarkdownButton title={tooltip('button_tooltip_clip')} icon="fas fa-file-video" onclick={makeApplyStyle('clip')} />, 1500);
     items.add('table', <MarkdownButton title={tooltip('button_tooltip_table')} icon="fas fa-table" onclick={makeApplyStyle('table')} />, 1000);
-    items.add('word', <MarkdownButton title={tooltip('button_tooltip_word')} icon="fas fa-file-word" onclick={makeApplyStyle('word')} />, 1000);
+    items.add('word', <MarkdownButton title={tooltip('button_tooltip_word')} icon="fas fa-file-word" onclick={makeApplyStyle('word')} />, 900);
     //items.add('size', <MarkdownButton title={tooltip('button_tooltip_size')} icon="fas fa-text-height" onclick={makeApplyStyle('size')} />, 1000);
     //items.add('color', <MarkdownButton title={tooltip('button_tooltip_color')} icon="fas fa-palette" onclick={makeApplyStyle('color')} />, 1000);
-    items.add('tab', <MarkdownButton title={tooltip('button_tooltip_tab')} icon="fas fa-tasks" onclick={makeApplyStyle('tab')} />, 1000);
+    items.add('tab', <MarkdownButton title={tooltip('button_tooltip_tab')} icon="fas fa-tasks" onclick={makeApplyStyle('tab')} />, 0);
 
     
     items.add(
@@ -169,27 +225,6 @@ export default class TextEditorButton extends Component {
           label: icon("fas fa-palette"),
         },
         this.color().toArray()
-      )
-    );
-    
-    items.add(
-      "heading",
-      /*Button.component(
-        {
-          className: "More-BBcode-Dropdown",
-          //buttonClassName: "Button Button--flat",
-          label: icon("fas fa-th-large"),
-        }
-        //this.menu2().toArray()
-      ),
-      0*/
-      Dropdown.component(
-        {
-          className: "More-BBcode-Dropdown item-heading",
-          //buttonClassName: "Button Button--flat",
-          label: icon("fas fa-h"),
-        },
-        this.heading().toArray()
       )
     );
     items.add(
