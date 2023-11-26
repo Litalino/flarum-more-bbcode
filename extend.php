@@ -25,6 +25,12 @@ return [
         ->js(__DIR__ . '/js/dist/admin.js'),
     (new Extend\Formatter)
         ->configure(function (Configurator $config) {
+            $config->Litedown;
+
+            // Overwrite the default inline spoiler so that it is compatible
+            // with more styling for children in an external stylesheet.
+            $config->tags['ispoiler']->template = '<span class="spoiler" data-s9e-livepreview-ignore-attrs="class" onclick="removeAttribute(\'class\')"><xsl:apply-templates/></span>';
+            
             // 添加自定义BBCode
             // https://s9etextformatter.readthedocs.io/Plugins/BBCodes/Add_custom_BBCodes/
             $config->BBCodes->addCustom(
