@@ -3,7 +3,10 @@
   "description": "Adds more BBCode",
   "keywords": [
     "flarum",
-    "flarum extension"
+    "flarum extension",
+    "markdown",
+    "editor",
+    "bbcode"
   ],
   "type": "flarum-extension",
   "license": "MIT",
