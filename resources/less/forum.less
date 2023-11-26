@@ -1107,3 +1107,25 @@ details {
     content: "Silver";
     background: silver;
 }
+
+span.spoiler {
+  // Style the inline spoiler itself: a dark block, invisible font
+  background: #444;
+  color: transparent;
+
+  // Try to generically hide all possible children
+  * {
+    // Links and other interactive elements would give their presence
+    // away when hovering
+    pointer-events: none;
+
+    // Children can have special text or background colors
+    background: transparent;
+    color: transparent;
+  }
+
+  // Hide images visually
+  img {
+    visibility: hidden;
+  }
+}
