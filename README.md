@@ -17,6 +17,8 @@ composer require litalino/flarum-more-bbcode:"*"
 ```
 
 ## How to use
+![1 3 0-n](https://github.com/Litalino/flarum-more-bbcode/assets/99712477/122046d1-362f-41a6-815a-2279cd703eec)
+
 
 ### Login/reply visible
 When creating/editing a post, you can simply use [reply]BBCode to make it hidden from other users. Only the user who replied can see the hidden content.
