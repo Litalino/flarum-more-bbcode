@@ -76,25 +76,29 @@ imeepo-more-bbcode:
     h4: H4
     h5: H5
     h6: H6
-    colorT: Grey
-    colorG: Green
-    colorB: Bule
-    colorP: Purple
-    colorY: Yellow
-    colorO: Ogran
-    colorR: Ređ
-    colorS: Silver
-    size_18: Size 18
-    size_20: Size 20
-    size_22: Size 22
-    size_24: Size 24
-    size_26: Size 26
-    size_28: Size 28
-    size_30: Size 30
-    size_32: Size 32
-    size_34: Size 34
-    size_36: Size 36
-    size_38: Size 38
-    size_40: Size 40
+    color_grey: Màu xám
+    color_green: Màu xanh lá cây
+    color_blue: Màu xanh biển
+    color_purple: Màu tím
+    color_yellow: Màu vàng
+    color_orange: Màu da cam
+    color_red: Màu đỏ
+    color_silver: Màu bạc
+    color_pink: Màu hồng
+    color_brown: Màu nâu
+    color_white: Màu trắng
+    color_black: Màu đen
+    size_18: Kích cỡ 18
+    size_20: Kích cỡ 20
+    size_22: Kích cỡ 22
+    size_24: Kích cỡ 24
+    size_26: Kích cỡ 26
+    size_28: Kích cỡ 28
+    size_30: Kích cỡ 30
+    size_32: Kích cỡ 32
+    size_34: Kích cỡ 34
+    size_36: Kích cỡ 36
+    size_38: Kích cỡ 38
+    size_40: Kích cỡ 40
     quote:
       wrote: đã viết

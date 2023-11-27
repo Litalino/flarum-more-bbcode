@@ -116,6 +116,9 @@ composer require litalino/flarum-more-bbcode
 php flarum migrate
 php flarum cache:clear
 
+### 1.3.7
+* FIX ICON
+* Fix CSS COlOR
 ### 1.3.6
 * Add BBcode Progress Bar
 * Fix CSS

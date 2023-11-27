@@ -192,7 +192,7 @@ export default class TextEditorButton extends Component {
     items.add('like', <MarkdownButton title={tooltip('button_tooltip_like')} icon="fas fa-thumbs-up" onclick={makeApplyStyle('like')} />, 4500);
     items.add('reply', <MarkdownButton title={tooltip('button_tooltip_reply')} icon="fas fa-reply-all" onclick={makeApplyStyle('reply')} />, 4000);
     items.add('login', <MarkdownButton title={tooltip('button_tooltip_login')} icon="fas fa-sign-in-alt" onclick={makeApplyStyle('login')} />, 3500);
-    items.add('cloud', <MarkdownButton title={tooltip('button_tooltip_cloud')} icon="fas fa-download" onclick={makeApplyStyle('cloud')} />, 3000);
+    items.add('cloud', <MarkdownButton title={tooltip('button_tooltip_cloud')} icon="fas fa-cloud" onclick={makeApplyStyle('cloud')} />, 3000);
     items.add('down', <MarkdownButton title={tooltip('button_tooltip_down')} icon="fas fa-download" onclick={makeApplyStyle('down')} />, 2500);
     items.add('audio', <MarkdownButton title={tooltip('button_tooltip_audio')} icon="fas fa-file-audio" onclick={makeApplyStyle('audio')} />, 2000);
     items.add('clip', <MarkdownButton title={tooltip('button_tooltip_clip')} icon="fas fa-file-video" onclick={makeApplyStyle('clip')} />, 1500);
@@ -245,7 +245,7 @@ export default class TextEditorButton extends Component {
         {
           className: "More-BBcode-Dropdown item-bar",
           //buttonClassName: "Button Button--flat",
-          label: icon("fas fa-bars"),
+          label: icon("fas fa-server"),
         },
         this.bar().toArray()
       ),
@@ -339,14 +339,27 @@ export default class TextEditorButton extends Component {
     const modifierKey = navigator.userAgent.match(/Macintosh/) ? '⌘' : 'ctrl';
 
     const styles = {
-      colorT: { prefix: "[colort] Change text", suffix: " [/colort]", trimFirst: true },
-      colorG: { prefix: "[colorg] Change text", suffix: " [/colorg]", trimFirst: true },
-      colorB: { prefix: "[colorb] Change text", suffix: " [/colorb]", trimFirst: true },
-      colorP: { prefix: "[colorp] Change text", suffix: " [/colorp]", trimFirst: true },
-      colorY: { prefix: "[colory] Change text", suffix: " [/colory]", trimFirst: true },
-      colorO: { prefix: "[coloro] Change text", suffix: " [/coloro]", trimFirst: true },
-      colorR: { prefix: "[colorr] Change text", suffix: " [/colorr]", trimFirst: true },
-      colorS: { prefix: "[colors] Change text", suffix: " [/colors]", trimFirst: true },
+      //colorT: { prefix: "[colort] Change text", suffix: " [/colort]", trimFirst: true },
+      //colorG: { prefix: "[colorg] Change text", suffix: " [/colorg]", trimFirst: true },
+      //colorB: { prefix: "[colorb] Change text", suffix: " [/colorb]", trimFirst: true },
+      //colorP: { prefix: "[colorp] Change text", suffix: " [/colorp]", trimFirst: true },
+      //colorY: { prefix: "[colory] Change text", suffix: " [/colory]", trimFirst: true },
+      //colorO: { prefix: "[coloro] Change text", suffix: " [/coloro]", trimFirst: true },
+      //colorR: { prefix: "[colorr] Change text", suffix: " [/colorr]", trimFirst: true },
+      //colorS: { prefix: "[colors] Change text", suffix: " [/colors]", trimFirst: true },
+      
+      color_grey: { prefix: "[color=grey] Change text", suffix: " [/color]", trimFirst: true },
+      color_green: { prefix: "[color=green] Change text", suffix: " [/color]", trimFirst: true },
+      color_blue: { prefix: "[color=blue] Change text", suffix: " [/color]", trimFirst: true },
+      color_purple: { prefix: "[color=purple] Change text", suffix: " [/color]", trimFirst: true },
+      color_yellow: { prefix: "[color=yellow] Change text", suffix: " [/color]", trimFirst: true },
+      color_orange: { prefix: "[color=orange] Change text", suffix: " [/color]", trimFirst: true },
+      color_red: { prefix: "[color=red] Change text", suffix: " [/color]", trimFirst: true },
+      color_silver: { prefix: "[color=silver] Change text", suffix: " [/color]", trimFirst: true },
+      color_pink: { prefix: "[color=pink] Change text", suffix: " [/color]", trimFirst: true },
+      color_brown : { prefix: "[color=brown] Change text", suffix: " [/color]", trimFirst: true },
+      color_white : { prefix: "[color=white] Change text", suffix: " [/color]", trimFirst: true },
+      color_black : { prefix: "[color=black] Change text", suffix: " [/color]", trimFirst: true },
     };
 
     //extend(BasicEditorDriver.prototype, 'keyHandlers', function (items) {
@@ -383,14 +396,27 @@ export default class TextEditorButton extends Component {
       return () => applyStyle(id, this.attrs.textEditor);
     };
 
-    items.add('colorT', <MarkdownButton title={tooltip('colorT')} icon="fas fa-color-t" onclick={makeApplyStyle('colorT')} />, 1000);
-    items.add('colorG', <MarkdownButton title={tooltip('colorG')} icon="fas fa-color-g" onclick={makeApplyStyle('colorG')} />, 1000);
-    items.add('colorB', <MarkdownButton title={tooltip('colorB')} icon="fas fa-color-b" onclick={makeApplyStyle('colorB')} />, 1000);
-    items.add('colorP', <MarkdownButton title={tooltip('colorP')} icon="fas fa-color-p" onclick={makeApplyStyle('colorP')} />, 1000);
-    items.add('colorY', <MarkdownButton title={tooltip('colorY')} icon="fas fa-color-y" onclick={makeApplyStyle('colorY')} />, 1000);
-    items.add('colorO', <MarkdownButton title={tooltip('colorO')} icon="fas fa-color-o" onclick={makeApplyStyle('colorO')} />, 1000);
-    items.add('colorR', <MarkdownButton title={tooltip('colorR')} icon="fas fa-color-r" onclick={makeApplyStyle('colorR')} />, 1000);
-    items.add('colorS', <MarkdownButton title={tooltip('colorS')} icon="fas fa-color-s" onclick={makeApplyStyle('colorS')} />, 1000);
+    //items.add('colorT', <MarkdownButton title={tooltip('color_grey')} icon="fas fa-color-t" onclick={makeApplyStyle('colorT')} />, 1000);
+    //items.add('colorG', <MarkdownButton title={tooltip('color_green')} icon="fas fa-color-g" onclick={makeApplyStyle('colorG')} />, 1000);
+    //items.add('colorB', <MarkdownButton title={tooltip('color_blue')} icon="fas fa-color-b" onclick={makeApplyStyle('colorB')} />, 1000);
+    //items.add('colorP', <MarkdownButton title={tooltip('color_purple')} icon="fas fa-color-p" onclick={makeApplyStyle('colorP')} />, 1000);
+    //items.add('colorY', <MarkdownButton title={tooltip('color_yellow')} icon="fas fa-color-y" onclick={makeApplyStyle('colorY')} />, 1000);
+    //items.add('colorO', <MarkdownButton title={tooltip('color_ogran')} icon="fas fa-color-o" onclick={makeApplyStyle('colorO')} />, 1000);
+    //items.add('colorR', <MarkdownButton title={tooltip('color_red')} icon="fas fa-color-r" onclick={makeApplyStyle('colorR')} />, 1000);
+    //items.add('colorS', <MarkdownButton title={tooltip('color_silver')} icon="fas fa-color-s" onclick={makeApplyStyle('colorS')} />, 1000);
+
+    items.add('color_grey', <MarkdownButton title={tooltip('color_grey')} icon="fas fa-color-grey" onclick={makeApplyStyle('color_grey')} />, 1000);
+    items.add('color_green', <MarkdownButton title={tooltip('color_green')} icon="fas fa-color-green" onclick={makeApplyStyle('color_green')} />, 1000);
+    items.add('color_blue', <MarkdownButton title={tooltip('color_blue')} icon="fas fa-color-blue" onclick={makeApplyStyle('color_blue')} />, 1000);
+    items.add('color_purple', <MarkdownButton title={tooltip('color_purple')} icon="fas fa-color-purple" onclick={makeApplyStyle('color_purple')} />, 1000);
+    items.add('color_yellow', <MarkdownButton title={tooltip('color_yellow')} icon="fas fa-color-yellow" onclick={makeApplyStyle('color_yellow')} />, 1000);
+    items.add('color_orange', <MarkdownButton title={tooltip('color_orange')} icon="fas fa-color-orange" onclick={makeApplyStyle('color_orange')} />, 1000);
+    items.add('color_red', <MarkdownButton title={tooltip('color_red')} icon="fas fa-color-red" onclick={makeApplyStyle('color_red')} />, 1000);
+    items.add('color_silver', <MarkdownButton title={tooltip('color_silver')} icon="fas fa-color-silver" onclick={makeApplyStyle('color_silver')} />, 1000);
+    items.add('color_pink', <MarkdownButton title={tooltip('color_pink')} icon="fas fa-color-pink" onclick={makeApplyStyle('color_pink')} />, 1000);
+    items.add('color_brown', <MarkdownButton title={tooltip('color_brown')} icon="fas fa-color-brown" onclick={makeApplyStyle('color_brown')} />, 1000);
+    items.add('color_white ', <MarkdownButton title={tooltip('color_white')} icon="fas fa-color-white" onclick={makeApplyStyle('color_white')} />, 1000);
+    items.add('color_black', <MarkdownButton title={tooltip('color_black')} icon="fas fa-color-black" onclick={makeApplyStyle('color_black')} />, 1000);
 
     return items;
   }
@@ -594,9 +620,9 @@ export default class TextEditorButton extends Component {
       return () => applyStyle(id, this.attrs.textEditor);
     };
 
-    items.add('black', <MarkdownButton title={tooltip('button_tooltip_bar_black')} icon="fas fa-bars black" onclick={makeApplyStyle('black')} />);
-    items.add('blue', <MarkdownButton title={tooltip('button_tooltip_bar_blue')} icon="fas fa-bars blue" onclick={makeApplyStyle('blue')} />);
-    items.add('red', <MarkdownButton title={tooltip('button_tooltip_bar_red')} icon="fas fa-bars red" onclick={makeApplyStyle('red')} />);
+    items.add('black', <MarkdownButton title={tooltip('button_tooltip_bar_black')} icon="fas fa-bar black" onclick={makeApplyStyle('black')} />);
+    items.add('blue', <MarkdownButton title={tooltip('button_tooltip_bar_blue')} icon="fas fa-bar blue" onclick={makeApplyStyle('blue')} />);
+    items.add('red', <MarkdownButton title={tooltip('button_tooltip_bar_red')} icon="fas fa-bar red" onclick={makeApplyStyle('red')} />);
     
     return items;
   }

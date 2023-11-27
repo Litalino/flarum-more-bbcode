@@ -139,6 +139,7 @@ return [
                 '<div class="bbextend-gdoc"><a href="{URL}" target="_blank"><i class="fas fa-file-word"></i> View Google Doc</a></div>'
             );
 
+            //OLD
             $config->BBCodes->addCustom(             
                 '[SIZE1]{TEXT}[/SIZE1]',             
                 '<span style="font-size: 12px;">{TEXT}</span>'
@@ -189,14 +190,15 @@ return [
                 '[COLORS]{TEXT}[/COLORS]',             
                 '<span style="color: #95a5a6;">{TEXT}</span>'
             );
-            
+            //NEW
             $config->BBCodes->addCustom(             
                 '[COLOR={COLOR}]{TEXT}[/COLOR]',             
                 '<span style="color: {COLOR}">{TEXT}</span>'
             );
             $config->BBCodes->addCustom(             
-                '[SIZE={NUMBER}]{TEXT}[/SIZE]',             
-                '<span style="font-size: {NUMBER}px;">{TEXT}</span>'
+                //'[SIZE={NUMBER}]{TEXT}[/SIZE]',
+                '[SIZE={RANGE=18,40}]{TEXT}[/SIZE]',
+                '<span style="font-size: {RANGE}px;">{TEXT}</span>'
             );
             $config->BBCodes->addCustom(             
                 '[INS]{TEXT}[/INS]',             
@@ -213,33 +215,6 @@ return [
             $config->BBCodes->addCustom(             
                 '[SUP]{TEXT}[/SUP]',             
                 '<sup>{TEXT}</sup>'
-            );
-
-            $config->BBCodes->addCustom(
-                '[DETAILS title={TEXT1;optional}]{TEXT2}[/DETAILS]',
-                '<details><summary>{TEXT1}</summary><div>{TEXT2}</div></details>'
-            );
-            
-            $config->BBCodes->addCustom(
-                '[tabs]{TEXT}[/tabs]',
-                '<div class="tabs"><xsl:apply-templates/></div>'
-            );
-            $config->BBCodes->addCustom(
-                '[tab name={ANYTHING} active={ANYTHING?}]{TEXT}[/tab]',
-                <<<'XML'
-<div class="tab">
-    <input type="radio">
-        <xsl:if test="@active">
-            <xsl:attribute name="checked">checked</xsl:attribute>
-        </xsl:if>
-    </input>
-    <label>{@name}</label>
-
-    <div class="content">
-        <xsl:apply-templates/>
-    </div>
-</div>
-XML
             );
             //16-11-2023 //composer require ramesh-dada/bbcode-alerts
             $config->BBCodes->addCustom(
@@ -351,6 +326,34 @@ XML
                         </div>
                     </div>
                 </div>'
+            );
+            
+
+            $config->BBCodes->addCustom(
+                '[DETAILS title={TEXT1;optional}]{TEXT2}[/DETAILS]',
+                '<details><summary>{TEXT1}</summary><div>{TEXT2}</div></details>'
+            );
+            
+            $config->BBCodes->addCustom(
+                '[tabs]{TEXT}[/tabs]',
+                '<div class="tabs"><xsl:apply-templates/></div>'
+            );
+            $config->BBCodes->addCustom(
+                '[tab name={ANYTHING} active={ANYTHING?}]{TEXT}[/tab]',
+                <<<'XML'
+<div class="tab">
+    <input type="radio">
+        <xsl:if test="@active">
+            <xsl:attribute name="checked">checked</xsl:attribute>
+        </xsl:if>
+    </input>
+    <label>{@name}</label>
+
+    <div class="content">
+        <xsl:apply-templates/>
+    </div>
+</div>
+XML
             );
         }),
     new Extend\Locales(__DIR__ . '/resources/locale'),
