@@ -26,6 +26,7 @@ return [
     (new Extend\Formatter)
         ->render(Render::class)
         ->configure(Configure::class)
+        //->configure(LiteYouTubeTemplate::class)
         ->configure(function (Configurator $config) {
             $config->Litedown;
 
