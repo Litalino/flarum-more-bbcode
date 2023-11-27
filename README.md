@@ -104,7 +104,8 @@ php flarum cache:clear
 ## Update content
 Then upgrade from the old extension to the new one:
 
-composer remove flarum/markdown
+composer remove flarum/markdown or Disable
+composer remove flarum/bbcode or Disable
 composer require litalino/flarum-more-bbcode:"*"
 
 Updating
@@ -112,6 +113,9 @@ composer require litalino/flarum-more-bbcode
 php flarum migrate
 php flarum cache:clear
 
+### 1.3.5
+* Combination: flarum/bbcode
+* Fix Ctrl Key
 ### 1.3.4
 * Waiting Combination: flarum/bbcode
 ### 1.3.3

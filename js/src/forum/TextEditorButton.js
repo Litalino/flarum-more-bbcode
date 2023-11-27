@@ -87,24 +87,22 @@ export default class TextEditorButton extends Component {
       size: { prefix: '[size=16] ', suffix: ' [/size]', trimFirst: true },
       color: { prefix: '[color=red] ', suffix: ' [/color]', trimFirst: true },
       tab: { prefix: '\n[tabs]\n\n[tab="hi"]Hi[/tab]\n\n[tab="hello"]Hello[/tab]\n\n[/tabs]\n', trimFirst: true },
-      
-      //bold: { prefix: '**', suffix: '**', trimFirst: true },
-      //italic: { prefix: '_', suffix: '_', trimFirst: true },
-      //strikethrough: { prefix: '~~', suffix: '~~', trimFirst: true },
-      //quote: { prefix: '> ', multiline: true, surroundWithNewlines: true },
-      //code: { prefix: '`', suffix: '`', blockPrefix: '```', blockSuffix: '```' },
-      //link: { prefix: '[', suffix: '](https://)', replaceNext: 'https://', scanFor: 'https?://' },
-      //image: { prefix: '![', suffix: '](https://)', replaceNext: 'https://', scanFor: 'https?://' },
-      //unordered_list: { prefix: '- ', multiline: true, surroundWithNewlines: true },
-      //ordered_list: { prefix: '1. ', multiline: true, orderedList: true },
-      //spoiler: { prefix: '>!', suffix: '!<', blockPrefix: '>! ', multiline: true, trimFirst: true },
     };
 
     extend(BasicEditorDriver.prototype, 'keyHandlers', function (items) {
       items.add('left', makeShortcut('left', 'l', this));
-      items.add('center', makeShortcut('left', 'c', this));
+      items.add('center', makeShortcut('center', 'c', this));
       items.add('right', makeShortcut('right', 'r', this));
       items.add('justify', makeShortcut('justify', 'j', this));
+
+      items.add('strikethrough', makeShortcut('strikethrough', 'n', this));
+      items.add('quote', makeShortcut('quote', 'q', this));
+      items.add('spoiler', makeShortcut('spoiler', 's', this));
+      items.add('code', makeShortcut('code', 'm', this));
+      items.add('link', makeShortcut('link', 'd', this));
+      items.add('image', makeShortcut('image', 'h', this));
+      items.add('unordered_list', makeShortcut('unordered_list', 'u', this));
+      items.add('ordered_list', makeShortcut('ordered_list', 'o', this));
     });
   
 
@@ -164,20 +162,20 @@ export default class TextEditorButton extends Component {
     items.add('italic', <MarkdownButton title={tooltip('lib.italic_tooltip', 'i')} icon="fas fa-italic" onclick={makeApplyStyle('italic')} />, 18000);
     items.add(
       'strikethrough',
-      <MarkdownButton title={tooltip('lib.strikethrough_tooltip')} icon="fas fa-strikethrough" onclick={makeApplyStyle('strikethrough')} />,
+      <MarkdownButton title={tooltip('lib.strikethrough_tooltip', 'n')} icon="fas fa-strikethrough" onclick={makeApplyStyle('strikethrough')} />,
       17000
     );
-    items.add('quote', <MarkdownButton title={tooltip('lib.quote_tooltip')} icon="fas fa-quote-left" onclick={makeApplyStyle('quote')} />, 16000);
-    items.add('spoiler', <MarkdownButton title={tooltip('lib.spoiler_tooltip')} icon="fas fa-exclamation-triangle" onclick={makeApplyStyle('spoiler')} />, 15000);
-    items.add('code', <MarkdownButton title={tooltip('lib.code_tooltip')} icon="fas fa-code" onclick={makeApplyStyle('code')} />, 14000);
-    items.add('link', <MarkdownButton title={tooltip('lib.link_tooltip')} icon="fas fa-link" onclick={makeApplyStyle('link')} />, 13000);
-    items.add('image', <MarkdownButton title={tooltip('lib.image_tooltip')} icon="fas fa-image" onclick={makeApplyStyle('image')} />, 12000);
+    items.add('quote', <MarkdownButton title={tooltip('lib.quote_tooltip', 'q')} icon="fas fa-quote-left" onclick={makeApplyStyle('quote')} />, 16000);
+    items.add('spoiler', <MarkdownButton title={tooltip('lib.spoiler_tooltip', 's')} icon="fas fa-exclamation-triangle" onclick={makeApplyStyle('spoiler')} />, 15000);
+    items.add('code', <MarkdownButton title={tooltip('lib.code_tooltip', 'm')} icon="fas fa-code" onclick={makeApplyStyle('code')} />, 14000);
+    items.add('link', <MarkdownButton title={tooltip('lib.link_tooltip', 'd')} icon="fas fa-link" onclick={makeApplyStyle('link')} />, 13000);
+    items.add('image', <MarkdownButton title={tooltip('lib.image_tooltip', 'h')} icon="fas fa-image" onclick={makeApplyStyle('image')} />, 12000);
     items.add(
       'unordered_list',
-      <MarkdownButton title={tooltip('lib.unordered_list_tooltip')} icon="fas fa-list-ul" onclick={makeApplyStyle('unordered_list')} />,
+      <MarkdownButton title={tooltip('lib.unordered_list_tooltip', 'u')} icon="fas fa-list-ul" onclick={makeApplyStyle('unordered_list')} />,
       11000
     );
-    items.add('ordered_list', <MarkdownButton title={tooltip('lib.ordered_list_tooltip')} icon="fas fa-list-ol" onclick={makeApplyStyle('ordered_list')} />, 10000);
+    items.add('ordered_list', <MarkdownButton title={tooltip('lib.ordered_list_tooltip', 'o')} icon="fas fa-list-ol" onclick={makeApplyStyle('ordered_list')} />, 10000);
 
 
     items.add('left', <MarkdownButton title={tooltip('button_tooltip_left', 'l')} icon="fas fa-align-left" onclick={makeApplyStyle('left')} />, 9500);

@@ -24,8 +24,8 @@ return [
     (new Extend\Frontend('admin'))
         ->js(__DIR__ . '/js/dist/admin.js'),
     (new Extend\Formatter)
-        //->render(Render::class)
-        //->configure(Configure::class)
+        ->render(Render::class)
+        ->configure(Configure::class)
         ->configure(function (Configurator $config) {
             $config->Litedown;
 
