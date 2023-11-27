@@ -116,6 +116,8 @@ composer require litalino/flarum-more-bbcode
 php flarum migrate
 php flarum cache:clear
 
+### 1.3.8
+* Fix CSS
 ### 1.3.7
 * Fix ICON
 * Fix CSS COLOR
