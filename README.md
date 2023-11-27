@@ -42,6 +42,9 @@ Very elegant sharing network disk link, or Github/Gitee warehouse link
 [cloud type=google title=title url=link]password[/cloud]
 [cloud type=one title=title url=link]password[/cloud]
 [cloud type=f title=title url=link]password[/cloud]
+[cloud type=mega title=title url=link]password[/cloud]
+[cloud type=dropbox title=title url=link]password[/cloud]
+[cloud type=mediafire title=title url=link]password[/cloud]
 
 [cloud type=lz title=title url=link]password[/cloud]
 [cloud type=123 title=title url=link]password[/cloud]
@@ -113,6 +116,9 @@ composer require litalino/flarum-more-bbcode
 php flarum migrate
 php flarum cache:clear
 
+### 1.3.6
+* Add BBcode Progress Bar
+* Fix CSS
 ### 1.3.5
 * Combination: flarum/bbcode
 * Fix Ctrl Key

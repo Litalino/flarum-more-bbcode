@@ -15,9 +15,9 @@
         top: auto;
         left: 0;
         right: unset;
-        columns: 8;
-        -webkit-columns: 8;
-        -moz-columns: 8;
+        columns: 7;
+        -webkit-columns: 7;
+        -moz-columns: 7;
         @media @tablet-up {
             bottom: 100%;
         }
@@ -50,6 +50,7 @@
     & ul {
         & li {
             display: block;
+            margin-left: 10px;
         }
     }
 }
@@ -96,9 +97,9 @@
       left: unset;
       right: 0;
       bottom: 5px;
-      columns: 9;
-      -webkit-columns: 9;
-      -moz-columns: 9;
+      columns: 8;
+      -webkit-columns: 8;
+      -moz-columns: 8;
       @media @tablet-up {
           //bottom: 100%;
       }
@@ -286,6 +287,33 @@
         width: 80px;
         }
       }
+    }
+  }
+  & .More-BBcode-Dropdown.item-bar:hover{
+    & .Dropdown-menu {
+      display: block;
+      left: unset;
+      right: 0;
+      bottom: 0;
+      height: max-content;
+      columns: 3;
+      -webkit-columns: 3;
+      -moz-columns: 3;
+      @media @tablet-up {
+          //bottom: 100%;
+      }
+      @media @phone {
+          right: 0;
+          columns: 3;
+          -webkit-columns: 3;
+          -moz-columns: 3;
+      }
+      & li {
+        & button {
+        width: 20px;
+        }
+      }
+
     }
   }
 }
@@ -1152,4 +1180,55 @@ span.spoiler {
   img {
     visibility: hidden;
   }
+}
+// Progress Bar
+.MiniFLAR-ProgressBar-meter {
+  position: relative;
+  width: 100%;
+  border: 5px solid #666;
+  border-radius: 2px;
+  height: 2em;
+  margin-bottom: 2em;
+}
+
+.MiniFLAR-ProgressBar-meter-status {
+  color: white;
+  text-align: right;
+  padding-top: .3em;
+  padding-right: .8em;
+  background-color: #3aa6d0;
+  border-color: white;
+  border-right: 0.5em solid #8ccbe4;
+  width: 0;
+  height: 100%;
+  line-height: 1.2em;
+  -webkit-animation: width .5s ease-in;
+}
+
+@-webkit-keyframes width {
+  from {
+    width: 0;
+  }
+}
+
+.red {
+  color: red;
+}
+.blue {
+  color: blue;
+}
+.green {
+  color: green;
+}
+.pink {
+  color: pink;
+}
+.black {
+  color: black;
+}
+.silver {
+  color: gray;
+}
+.silver {
+  color: silver;
 }

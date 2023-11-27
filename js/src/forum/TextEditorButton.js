@@ -87,6 +87,7 @@ export default class TextEditorButton extends Component {
       size: { prefix: '[size=16] ', suffix: ' [/size]', trimFirst: true },
       color: { prefix: '[color=red] ', suffix: ' [/color]', trimFirst: true },
       tab: { prefix: '\n[tabs]\n\n[tab="hi"]Hi[/tab]\n\n[tab="hello"]Hello[/tab]\n\n[/tabs]\n', trimFirst: true },
+      bar: { prefix: '[pbar]Title,ProgressText,BorderColor,ProgressColor,LittleColor,BorderSize,Progress%,BorderRadius,BottomMargin', suffix: ' [/pbar]', trimFirst: true },
     };
 
     extend(BasicEditorDriver.prototype, 'keyHandlers', function (items) {
@@ -196,23 +197,11 @@ export default class TextEditorButton extends Component {
     items.add('audio', <MarkdownButton title={tooltip('button_tooltip_audio')} icon="fas fa-file-audio" onclick={makeApplyStyle('audio')} />, 2000);
     items.add('clip', <MarkdownButton title={tooltip('button_tooltip_clip')} icon="fas fa-file-video" onclick={makeApplyStyle('clip')} />, 1500);
     items.add('table', <MarkdownButton title={tooltip('button_tooltip_table')} icon="fas fa-table" onclick={makeApplyStyle('table')} />, 1000);
-    items.add('word', <MarkdownButton title={tooltip('button_tooltip_word')} icon="fas fa-file-word" onclick={makeApplyStyle('word')} />, 900);
+    items.add('word', <MarkdownButton title={tooltip('button_tooltip_word')} icon="fas fa-file-word" onclick={makeApplyStyle('word')} />, 950);
     //items.add('size', <MarkdownButton title={tooltip('button_tooltip_size')} icon="fas fa-text-height" onclick={makeApplyStyle('size')} />, 1000);
     //items.add('color', <MarkdownButton title={tooltip('button_tooltip_color')} icon="fas fa-palette" onclick={makeApplyStyle('color')} />, 1000);
-    items.add('tab', <MarkdownButton title={tooltip('button_tooltip_tab')} icon="fas fa-tasks" onclick={makeApplyStyle('tab')} />, 0);
-
+    //items.add('bar', <MarkdownButton title={tooltip('button_tooltip_bar')} icon="fas fa-tasks" onclick={makeApplyStyle('bar')} />, 800);
     
-    items.add(
-      "size",
-      Dropdown.component(
-        {
-          className: "More-BBcode-Dropdown item-size",
-          //buttonClassName: "Button Button--flat",
-          label: icon("fas fa-text-height"),
-        },
-        this.size().toArray()
-      )
-    );
     
     items.add(
       "color",
@@ -223,7 +212,20 @@ export default class TextEditorButton extends Component {
           label: icon("fas fa-palette"),
         },
         this.color().toArray()
-      )
+      ),
+      900
+    );    
+    items.add(
+      "size",
+      Dropdown.component(
+        {
+          className: "More-BBcode-Dropdown item-size",
+          //buttonClassName: "Button Button--flat",
+          label: icon("fas fa-text-height"),
+        },
+        this.size().toArray()
+      ),
+      850
     );
     items.add(
       "alert",
@@ -234,8 +236,23 @@ export default class TextEditorButton extends Component {
           label: icon("fas fa-bell"),
         },
         this.alert().toArray()
-      )
+      ),
+      800
     );
+    items.add(
+      "bar",
+      Dropdown.component(
+        {
+          className: "More-BBcode-Dropdown item-bar",
+          //buttonClassName: "Button Button--flat",
+          label: icon("fas fa-bars"),
+        },
+        this.bar().toArray()
+      ),
+      100
+    );
+    items.add('tab', <MarkdownButton title={tooltip('button_tooltip_tab')} icon="fas fa-tasks" onclick={makeApplyStyle('tab')} />, 0);
+    
 
     return items;
   }
@@ -530,6 +547,57 @@ export default class TextEditorButton extends Component {
     items.add('dwarning', <MarkdownButton title={tooltip('button_tooltip_notification_dwarning')} icon="fas fa-dwarning" onclick={makeApplyStyle('dwarning')} />, 500);
     items.add('dsuccess', <MarkdownButton title={tooltip('button_tooltip_notification_dsuccess')} icon="fas fa-dsuccess" onclick={makeApplyStyle('dsuccess')} />, 400);
 
+    return items;
+  }
+  bar(oldFunc) {
+    const items = typeof oldFunc === "function" ? oldFunc() : new ItemList();
+
+    const modifierKey = navigator.userAgent.match(/Macintosh/) ? '⌘' : 'ctrl';
+
+    const styles = {
+      black: { prefix: '[pbar]Back-end,40% Complete,black,black,gray,1,40,20,0', suffix: '[/pbar]', trimFirst: true },
+      blue: { prefix: '[pbar]Front-end,30% Complete,black,blue,teal,1,30,10,80', suffix: '[/pbar]', trimFirst: true },
+      red: { prefix: '[pbar]Total,70% Complete,black,red,pink,1,70,5,40', suffix: '[/pbar]', trimFirst: true },
+    };
+
+    //extend(BasicEditorDriver.prototype, 'keyHandlers', function (items) {
+      //items.add("h2", makeShortcut("h2", "2", this));
+      //items.add("h3", makeShortcut("h3", "3", this));
+      //items.add('h4', makeShortcut('h4', '4', this));
+    //});
+  
+
+    const applyStyle = (id, editorDriver) => {
+      // This is a nasty hack that breaks encapsulation of the editor.
+      // In future releases, we'll need to tweak the editor driver interface
+      // to support triggering events like this.
+      styleSelectedText(editorDriver.el, styles[id]);
+    };
+
+
+    function makeShortcut(id, key, editorDriver) {
+      return function (e) {
+        if (e.key === key && ((e.metaKey && modifierKey === '⌘') || (e.ctrlKey && modifierKey === 'ctrl'))) {
+          e.preventDefault();
+          applyStyle(id, editorDriver);
+        }
+      };
+    }
+
+    function tooltip(name, hotkey) {
+      //return app.translator.trans(`imeepo-more-bbcode.forum.${name}_tooltip`) + (hotkey ? ` <${modifierKey}-${hotkey}>` : '');
+      //return app.translator.trans(`imeepo-more-bbcode.forum.${name}`);
+      return app.translator.trans(`imeepo-more-bbcode.forum.${name}`) + (hotkey ? ` <${modifierKey}-${hotkey}>` : '');
+    }
+
+    const makeApplyStyle = (id) => {
+      return () => applyStyle(id, this.attrs.textEditor);
+    };
+
+    items.add('black', <MarkdownButton title={tooltip('button_tooltip_bar_black')} icon="fas fa-bars black" onclick={makeApplyStyle('black')} />);
+    items.add('blue', <MarkdownButton title={tooltip('button_tooltip_bar_blue')} icon="fas fa-bars blue" onclick={makeApplyStyle('blue')} />);
+    items.add('red', <MarkdownButton title={tooltip('button_tooltip_bar_red')} icon="fas fa-bars red" onclick={makeApplyStyle('red')} />);
+    
     return items;
   }
 

@@ -337,6 +337,21 @@ XML
                 '[down link={URL} size={TEXT1} name={TEXT2}][/down]',
                 '<a target="_blank" href="{URL}"><div class="ButtonGroup dadadownload"><div class="Button hasIcon Button--icon Button--primary dadadownload"><i class="fas fa-download"></i></div><div class="Button">{TEXT2}</div><div class="Button Button--primary">{TEXT1}</div></div></a>'
             );
+            //Progress Bar
+            $config->BBCodes->addCustom(
+                '[PBAR]{TEXT},{TEXT2},{COLOR},{COLOR2},{COLOR3},{NUMBER},{NUMBER2},{NUMBER3},{NUMBER4}[/PBAR]',
+                '<div class="MiniFLAR-ProgressBar-container">
+                    <h1 class="MiniFLAR-ProgressBar-header">{TEXT}</h1>
+                    <div class="MiniFLAR-ProgressBar-meter" style="border: {NUMBER}px solid {COLOR};border-radius:{NUMBER3}px;
+                    margin-bottom:{NUMBER4}px">
+                        <div class="MiniFLAR-ProgressBar-meter-status" style="width: {NUMBER2}%; background-color: {COLOR2};
+                            border-bottom-left-radius: {NUMBER3}px; border-top-left-radius: {NUMBER3}px;
+                            border-right: 0.5em solid {COLOR3}">
+                                <span class="MiniFLAR-ProgressBar-meter-pointer">{TEXT2}</span>
+                        </div>
+                    </div>
+                </div>'
+            );
         }),
     new Extend\Locales(__DIR__ . '/resources/locale'),
     (new Extend\ApiSerializer(PostSerializer::class))
