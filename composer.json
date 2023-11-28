@@ -83,7 +83,6 @@
       }
   ],
   "require-dev": {
-    "flarum/nicknames": "^1.8",
     "flarum/phpstan": "*"
   },
   "scripts": {

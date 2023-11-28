@@ -116,6 +116,10 @@ composer require litalino/flarum-more-bbcode
 php flarum migrate
 php flarum cache:clear
 
+### 1.4.0
+* Fix composer
+### 1.3.9
+* chore: enable phpstan
 ### 1.3.8
 * Fix CSS
 ### 1.3.7
