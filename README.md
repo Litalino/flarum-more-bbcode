@@ -116,6 +116,10 @@ composer require litalino/flarum-more-bbcode
 php flarum migrate
 php flarum cache:clear
 
+### 1.6.0
+* Fix CSS
+* ADD ICON
+* FIX PHP
 ### 1.5.0
 * Fix CSS
 * ADD IMG LEFT CENTER RIGHT {width, height, Text}

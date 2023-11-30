@@ -144,7 +144,7 @@ return [
             );
             $config->BBCodes->addCustom(
                 '[GDOC]{URL}[/GDOC]',
-                '<div class="bbextend-gdoc"><a href="{URL}" target="_blank"><i class="fas fa-file-word"></i> View Google Doc</a></div>'
+                '<p class="bbextend-gdoc"><a href="{URL}" target="_blank" rel="ugc noopener nofollow"><i class="fas fa-file-word"></i> View Google Doc</a></p>'
             );
             //NEW
             /*$config->BBCodes->addCustom(             
@@ -250,8 +250,8 @@ return [
 
             //download-button //composer require ramesh-dada/download-button
             $config->BBCodes->addCustom(
-                '[down link={URL} size={TEXT1} name={TEXT2}][/down]',
-                '<a target="_blank" href="{URL}"><div class="ButtonGroup dadadownload"><div class="Button hasIcon Button--icon Button--primary dadadownload"><i class="fas fa-download"></i></div><div class="Button">{TEXT2}</div><div class="Button Button--primary">{TEXT1}</div></div></a>'
+                '[down link={URL} size={TEXT1} name={TEXT2}]',
+                '<div class="ButtonGroup dadadownload"><span class="Button hasIcon Button--icon Button--primary dadadownload"><i class="fas fa-download"></i></span><span class="Button"><a href="{URL}" title="{TEXT2}" target="_blank" rel="ugc noopener nofollow">{TEXT2}</a></span><span class="Button Button--primary">{TEXT1}</span></div>'
             );
             //Progress Bar
             $config->BBCodes->addCustom(

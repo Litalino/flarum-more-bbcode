@@ -74,19 +74,19 @@ export default class TextEditorButton extends Component {
       iright: { prefix: '[Iright] ', suffix: ' [/Iright]', trimFirst: true },
       pleft: { prefix: '[pleft] ', suffix: ' [/pleft]', trimFirst: true },
       pright: { prefix: '[pright] ', suffix: ' [/pright]', trimFirst: true },
-      details: { prefix: '[details=TITLE] CONTENT ', suffix: '[/details]', blockPrefix: '[/details]', trimFirst: true },
+      details: { prefix: '[details="TITLE"] CONTENT ', suffix: '[/details]', blockPrefix: '[/details]', trimFirst: true },
       like: { prefix: '[like] ', suffix: ' [/like]', trimFirst: true },
       reply: { prefix: '[reply] ', suffix: ' [/reply]', trimFirst: true },
       login: { prefix: '[login] ', suffix: ' [/login]', trimFirst: true },
-      cloud: { prefix: '[cloud type=other title=title url=link] Insert Password or Remove Text "Password" ', suffix: '[/cloud]', trimFirst: true },
-      down: { prefix: '[down link="URL" size=2kB name=file.zip]', trimFirst: true },
+      cloud: { prefix: '[cloud type="other" title="title" url="link"] Insert Password or Remove Text "Password" ', suffix: '[/cloud]', trimFirst: true },
+      down: { prefix: '[down link="URL" size="2KB" name="file.zip"]', trimFirst: true },
       audio: { prefix: '[audio mp3="URL"]', trimFirst: true },
       clip: { prefix: '[clip mp4="URL"]', trimFirst: true },
-      table: { prefix: '\n| Column | Column | Column | Column |\n\n|---|---|---|---|\n\n| row  |  row | row | row  |\n', trimFirst: true },
+      table: { prefix: '\n| Column 1 | Column 2 | Column 3 | Column 4 |\n|---|---|---|---|\n| row 1 | row 2 | row 3 | row 4 |\n', trimFirst: true },
       word: { prefix: '[gdoc] ', suffix: ' [/gdoc]', trimFirst: true },
       size: { prefix: '[size=16] ', suffix: ' [/size]', trimFirst: true },
       color: { prefix: '[color=red] ', suffix: ' [/color]', trimFirst: true },
-      tab: { prefix: '\n[tabs]\n\n[tab="hi"]Hi[/tab]\n\n[tab="hello"]Hello[/tab]\n\n[/tabs]\n', trimFirst: true },
+      tab: { prefix: '\n[tabs]\n[tab="hi"]Hi[/tab]\n[tab="hello"]Hello[/tab]\n[/tabs]\n', trimFirst: true },
       bar: { prefix: '[pbar]Title,ProgressText,BorderColor,ProgressColor,LittleColor,BorderSize,Progress%,BorderRadius,BottomMargin', suffix: ' [/pbar]', trimFirst: true },
     };
 
@@ -153,7 +153,7 @@ export default class TextEditorButton extends Component {
         {
           className: "More-BBcode-Dropdown item-heading",
           //buttonClassName: "Button Button--flat",
-          label: icon("fas fa-h"),
+          label: icon("fas fa-paragraph"),
         },
         this.heading().toArray()
       ),
@@ -271,9 +271,9 @@ export default class TextEditorButton extends Component {
         },
         this.bar().toArray()
       ),
-      0
+      700
     );
-    //items.add('tab', <MarkdownButton title={tooltip('button_tooltip_tab')} icon="fas fa-tasks" onclick={makeApplyStyle('tab')} />, 0);
+    items.add('tab', <MarkdownButton title={tooltip('button_tooltip_tab')} icon="fas fa-tasks" onclick={makeApplyStyle('tab')} />, 0);
 
     return items;
   }
@@ -644,10 +644,10 @@ export default class TextEditorButton extends Component {
     const modifierKey = navigator.userAgent.match(/Macintosh/) ? '⌘' : 'ctrl';
 
     const styles = {
-      img: { prefix: '[IMG src=URL title=AddTitle alt=AddTitle height=auto width=auto]', trimFirst: true },
-      img_left: { prefix: '[Ileft]\n[IMG src=URL title=AddTitle alt=AddTitle height=auto  width=auto] Insert Text or Remove\n[/Ileft]', trimFirst: true },
-      img_center: { prefix: '[Icenter] [IMG src=URL title=AddTitle alt=AddTitle height=auto  width=auto] Insert Text or Remove\n[/Icenter]', trimFirst: true },
-      img_right: { prefix: '[Iright]\n[IMG src=URL title=AddTitle alt=AddTitle height=auto  width=auto] Insert Text or Remove\n[/Iright]', trimFirst: true },
+      img: { prefix: '[IMG src="URL" title="AddTitle" alt="AddTitle" height="auto" width="auto"]', trimFirst: true },
+      img_left: { prefix: '[Ileft]\n[IMG src="URL" title="AddTitle" alt="AddTitle" height="auto" width="auto"] Insert Text or Remove\n[/Ileft]', trimFirst: true },
+      img_center: { prefix: '[Icenter]\n[IMG src="URL" title="AddTitle" alt="AddTitle" height="auto" width="auto"] Insert Text or Remove\n[/Icenter]', trimFirst: true },
+      img_right: { prefix: '[Iright]\n[IMG src="URL" title="AddTitle" alt="AddTitle" height="auto" width="auto"] Insert Text or Remove\n[/Iright]', trimFirst: true },
     };
 
     //extend(BasicEditorDriver.prototype, 'keyHandlers', function (items) {
@@ -700,9 +700,11 @@ export default class TextEditorButton extends Component {
       sup: { prefix: '[sup]', suffix: ' [/sup]', trimFirst: true },
       sub: { prefix: '[sub]', suffix: ' [/sub]', trimFirst: true },
       var: { prefix: '[var]', suffix: ' [/var]', trimFirst: true },
-      acronym: { prefix: '[acronym  title=TITLE] TEXT', suffix: ' [/acronym]', trimFirst: true },
-      background: { prefix: '[background=silve] TEXT', suffix: ' [/background]', trimFirst: true },
+      acronym: { prefix: '[acronym title="TITLE"] TEXT', suffix: ' [/acronym]', trimFirst: true },
+      background: { prefix: '[background="silver"] TEXT', suffix: ' [/background]', trimFirst: true },
       hr: { prefix: '[hr]', trimFirst: true },
+      float_left: { prefix: '[float=left] ', suffix: ' [/float]', trimFirst: true },
+      float_right: { prefix: '[float=right] ', suffix: ' [/float]', trimFirst: true },
     };
 
     //extend(BasicEditorDriver.prototype, 'keyHandlers', function (items) {
@@ -737,14 +739,16 @@ export default class TextEditorButton extends Component {
       return () => applyStyle(id, this.attrs.textEditor);
     };
 
-    items.add('ins', <MarkdownButton title={tooltip('button_tooltip_ins')} icon="fas fa-ins brown" onclick={makeApplyStyle('ins')} />);
-    items.add('del', <MarkdownButton title={tooltip('button_tooltip_del')} icon="fas fa-del blue" onclick={makeApplyStyle('del')} />);
-    items.add('sup', <MarkdownButton title={tooltip('button_tooltip_sup')} icon="fas fa-sup green" onclick={makeApplyStyle('sup')} />);
-    items.add('sub', <MarkdownButton title={tooltip('button_tooltip_sub')} icon="fas fa-sub orange" onclick={makeApplyStyle('sub')} />);
+    items.add('ins', <MarkdownButton title={tooltip('button_tooltip_ins')} icon="fas fa-underline brown" onclick={makeApplyStyle('ins')} />);
+    //items.add('del', <MarkdownButton title={tooltip('button_tooltip_del')} icon="fas fa-strikethrough blue" onclick={makeApplyStyle('del')} />);
+    items.add('sup', <MarkdownButton title={tooltip('button_tooltip_sup')} icon="fas fa-superscript green" onclick={makeApplyStyle('sup')} />);
+    items.add('sub', <MarkdownButton title={tooltip('button_tooltip_sub')} icon="fas fa-subscript orange" onclick={makeApplyStyle('sub')} />);
     //items.add('var', <MarkdownButton title={tooltip('button_tooltip_var')} icon="fas fa-var grey" onclick={makeApplyStyle('var')} />);
     items.add('acronym', <MarkdownButton title={tooltip('button_tooltip_acronym')} icon="fas fa-acronym purple" onclick={makeApplyStyle('acronym')} />);
     items.add('background', <MarkdownButton title={tooltip('button_tooltip_background')} icon="fas fa-background white" onclick={makeApplyStyle('background')} />);
-    items.add('hr', <MarkdownButton title={tooltip('button_tooltip_hr')} icon="fas fa-hr pink" onclick={makeApplyStyle('hr')} />);
+    items.add('hr', <MarkdownButton title={tooltip('button_tooltip_hr')} icon="fas fa-minus pink" onclick={makeApplyStyle('hr')} />);
+    items.add('float_left', <MarkdownButton title={tooltip('button_tooltip_float_left')} icon="fas fa-arrow-left red" onclick={makeApplyStyle('float_left')} />);
+    items.add('float_right', <MarkdownButton title={tooltip('button_tooltip_float_right')} icon="fas fa-arrow-right red" onclick={makeApplyStyle('float_right')} />);
     
     return items;
   }
