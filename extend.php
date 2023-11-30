@@ -29,6 +29,7 @@ return [
         //->configure(LiteYouTubeTemplate::class)
         ->configure(function (Configurator $config) {
             $config->Litedown;
+            $config->PipeTables;
 
             // Overwrite the default inline spoiler so that it is compatible
             // with more styling for children in an external stylesheet.
@@ -66,7 +67,7 @@ return [
             );
 
             //ADD
-            $config->BBCodes->addCustom(
+            /*$config->BBCodes->addCustom(
                 '[right]{TEXT}[/right]',
                 '<div align="right">{TEXT}</div>'
             );
@@ -81,7 +82,7 @@ return [
             $config->BBCodes->addCustom(
                 '[center]{TEXT}[/center]',
                 '<div align="center">{TEXT}</div>'
-            );
+            );*/
             $config->BBCodes->addCustom(
                 '[pleft]{TEXT}[/pleft]',
                 '<div style="padding-left: 40px;">{TEXT}</div>'
@@ -99,12 +100,20 @@ return [
                 '<div class="img-left">{TEXT}</div>'
             );
             $config->BBCodes->addCustom(
+                '[img-center]{TEXT}[/img-center]',
+                '<div class="img-center">{TEXT}</div>'
+            );
+            $config->BBCodes->addCustom(
                 '[img-right]{TEXT}[/img-right]',
                 '<div class="img-right">{TEXT}</div>'
             );
             $config->BBCodes->addCustom(
                 '[ileft]{TEXT}[/ileft]',
                 '<div class="img-left">{TEXT}</div>'
+            );
+            $config->BBCodes->addCustom(
+                '[icenter]{TEXT}[/icenter]',
+                '<div class="img-center">{TEXT}</div>'
             );
             $config->BBCodes->addCustom(
                 '[iright]{TEXT}[/iright]',
@@ -114,11 +123,10 @@ return [
                 '[indent={NUMBER}]{TEXT}[/indent]',
                 '<div style="padding-left: {NUMBER}px;">{TEXT}</div>'
             );
-            $config->BBCodes->addCustom(
+            /*$config->BBCodes->addCustom(
                 '[hr]',
                 '<hr style="border-top: 1px solid var(--muted-color);">'
-            );
-
+            );*/
             $config->BBCodes->addCustom(
                '[audio mp3="{URL1?}" m4a="{URL2?}" wav="{URL3?}" ogg="{URL4?}" flac="{URL5?}" webm="{URL6?}" width="{NUMBER?;defaultValue=100}"]',
                '<p><audio class="bbaudio inline-exclude" style="width:{NUMBER}%;" controls controlsList="nodownload">
@@ -134,13 +142,160 @@ return [
                '[clip mp4="{URL?}"]',
                '<p><video controls src="{URL}"></video></p>'
             );
-            
             $config->BBCodes->addCustom(
                 '[GDOC]{URL}[/GDOC]',
                 '<div class="bbextend-gdoc"><a href="{URL}" target="_blank"><i class="fas fa-file-word"></i> View Google Doc</a></div>'
             );
+            //NEW
+            /*$config->BBCodes->addCustom(             
+                '[COLOR={COLOR}]{TEXT}[/COLOR]',             
+                '<span style="color: {COLOR}">{TEXT}</span>'
+            );*/
+            /*$config->BBCodes->addCustom(             
+                //'[SIZE={NUMBER}]{TEXT}[/SIZE]',
+                '[SIZE={RANGE=18,40}]{TEXT}[/SIZE]',
+                '<span style="font-size: {RANGE}px;">{TEXT}</span>'
+            );*/
+            /* $config->BBCodes->addCustom(             
+                '[INS]{TEXT}[/INS]',             
+                '<ins>{TEXT}</ins>'
+            );
+            $config->BBCodes->addCustom(             
+                '[DEL]{TEXT}[/DEL]',             
+                '<del>{TEXT}</del>'
+            );
+            $config->BBCodes->addCustom(             
+                '[VAR]{TEXT}[/VAR]',             
+                '<var>{TEXT}</var>'
+            );
+            $config->BBCodes->addCustom(             
+                '[SUP]{TEXT}[/SUP]',             
+                '<sup>{TEXT}</sup>'
+            );*/
+            //16-11-2023 //composer require ramesh-dada/bbcode-alerts
+            $config->BBCodes->addCustom(
+                '[awarning]{TEXT}[/awarning]',
+                '<div id="aaalertbody"><div class="aaalert aaerror"><p class="aainner"><strong>Warning! </strong>{TEXT}</p></div></div>'
+            );
+            $config->BBCodes->addCustom(
+                '[asuccess]{TEXT}[/asuccess]',
+                '<div id="aaalertbody"><div class="aaalert aasuccess"><p class="aainner">{TEXT}</p></div></div>'
+            );
+            $config->BBCodes->addCustom(
+                '[ainfo]{TEXT}[/ainfo]',
+                '<div id="aaalertbody"><div class="aaalert aainfo"><p class="aainner">{TEXT}</p></div></div>'
+            );
+            $config->BBCodes->addCustom(
+                '[abasic]{TEXT}[/abasic]',
+                '<div id="aaalertbody"><div class="aaalert"><p class="aainner">{TEXT}</p></div></div>'
+            );
+            $config->BBCodes->addCustom(
+                '[acustom]{COLOR},{COLOR2},{COLOR3},{TEXT}[/acustom]',
+                '<div id="aaalertbody"><div class="aaalert"><p class="aainner" style="color: {COLOR}; background-color: {COLOR2}; border-color: {COLOR3};">{TEXT}</p></div></div>'
+            );
+            $config->BBCodes->addCustom(
+                '[bcustom]title={TEXT} font={COLOR} bg={COLOR2} border={COLOR3}[/bcustom]',
+                '<div id="aaalertbody"><div class="aaalert"><p class="aainner" style="color: {COLOR}; background-color: {COLOR2}; border-color: {COLOR3};">{TEXT}</p></div></div>'
+            );
+            $config->BBCodes->addCustom(
+                '[berror]{TEXT}[/berror]',
+                '<div id="aaalertbody"><div class="bbalert-box bberror"><span>ERROR: </span>{TEXT}</div></div>'
+            );
+            $config->BBCodes->addCustom(
+                '[cerror]{COLOR},{COLOR2},{COLOR3},{TEXT},{TEXT2}[/cerror]',
+                '<div id="aaalertbody"><div class="bbalert-box bberror" style="color: {COLOR}; background-color: {COLOR2}; border-color: {COLOR3};"><span>{TEXT}: </span>{TEXT2}</div></div>'
+            );
+            $config->BBCodes->addCustom(
+                '[bsuccess]{TEXT}[/bsuccess]',
+                '<div id="aaalertbody"><div class="bbalert-box bbsuccess"><span>SUCCESS: </span>{TEXT}</div></div>'
+            );
+            $config->BBCodes->addCustom(
+                '[csuccess]{COLOR},{COLOR2},{COLOR3},{TEXT},{TEXT2}[/csuccess]',
+                '<div id="aaalertbody"><div class="bbalert-box bbsuccess" style="color: {COLOR}; background-color: {COLOR2}; border-color: {COLOR3};"><span>{TEXT}: </span>{TEXT2}</div></div>'
+            );
+            $config->BBCodes->addCustom(
+                '[bwarning]{TEXT}[/bwarning]',
+                '<div id="aaalertbody"><div class="bbalert-box bbwarning"><span>WARNING: </span>{TEXT}</div></div>'
+            );
 
-            //OLD
+            $config->BBCodes->addCustom(
+                '[cwarning]{COLOR},{COLOR2},{COLOR3},{TEXT},{TEXT2}[/cwarning]',
+                '<div id="aaalertbody"><div class="bbalert-box bbwarning" style="color: {COLOR}; background-color: {COLOR2}; border-color: {COLOR3};"><span>{TEXT}: </span>{TEXT2}</div></div>'
+            );
+
+            $config->BBCodes->addCustom(
+                '[bnotice]{TEXT}[/bnotice]',
+                '<div id="aaalertbody"><div class="bbalert-box bbnotice"><span>Notice: </span>{TEXT}</div></div>'
+            );
+            $config->BBCodes->addCustom(
+                '[cnotice]{COLOR},{COLOR2},{COLOR3},{TEXT},{TEXT2}[/cnotice]',
+                '<div id="aaalertbody"><div class="bbalert-box bbnotice" style="color: {COLOR}; background-color: {COLOR2}; border-color: {COLOR3};"><span>{TEXT}: </span>{TEXT2}</div></div>'
+            );
+            $config->BBCodes->addCustom(
+                '[derror title="{TEXT}" font="{COLOR}" bg="{COLOR2}" border="{COLOR3}"]{TEXT2}[/derror]',
+                '<div id="aaalertbody"><div class="bbalert-box bberror" style="color: {COLOR}; background-color: {COLOR2}; border-color: {COLOR3};"><span>{TEXT}: </span>{TEXT2}</div></div>'
+            );
+            $config->BBCodes->addCustom(
+                '[dsuccess title="{TEXT}" font="{COLOR}" bg="{COLOR2}" border="{COLOR3}"]{TEXT2}[/dsuccess]',
+                '<div id="aaalertbody"><div class="bbalert-box bbsuccess" style="color: {COLOR}; background-color: {COLOR2}; border-color: {COLOR3};"><span>{TEXT}: </span>{TEXT2}</div></div>'
+            );
+            $config->BBCodes->addCustom(
+                '[dwarning title="{TEXT}" font="{COLOR}" bg="{COLOR2}" border="{COLOR3}"]{TEXT2}[/dwarning]',
+                '<div id="aaalertbody"><div class="bbalert-box bbwarning" style="color: {COLOR}; background-color: {COLOR2}; border-color: {COLOR3};"><span>{TEXT}: </span>{TEXT2}</div></div>'
+            );
+            $config->BBCodes->addCustom(
+                '[dnotice title="{TEXT}" font="{COLOR}" bg="{COLOR2}" border="{COLOR3}"]{TEXT2}[/dnotice]',
+                '<div id="aaalertbody"><div class="bbalert-box bbnotice" style="color: {COLOR}; background-color: {COLOR2}; border-color: {COLOR3};"><span>{TEXT}: </span>{TEXT2}</div></div>'
+            );
+
+            //download-button //composer require ramesh-dada/download-button
+            $config->BBCodes->addCustom(
+                '[down link={URL} size={TEXT1} name={TEXT2}][/down]',
+                '<a target="_blank" href="{URL}"><div class="ButtonGroup dadadownload"><div class="Button hasIcon Button--icon Button--primary dadadownload"><i class="fas fa-download"></i></div><div class="Button">{TEXT2}</div><div class="Button Button--primary">{TEXT1}</div></div></a>'
+            );
+            //Progress Bar
+            $config->BBCodes->addCustom(
+                '[PBAR]{TEXT},{TEXT2},{COLOR},{COLOR2},{COLOR3},{NUMBER},{NUMBER2},{NUMBER3},{NUMBER4}[/PBAR]',
+                '<div class="MiniFLAR-ProgressBar-container">
+                    <h1 class="MiniFLAR-ProgressBar-header">{TEXT}</h1>
+                    <div class="MiniFLAR-ProgressBar-meter" style="border: {NUMBER}px solid {COLOR};border-radius:{NUMBER3}px;
+                    margin-bottom:{NUMBER4}px">
+                        <div class="MiniFLAR-ProgressBar-meter-status" style="width: {NUMBER2}%; background-color: {COLOR2};
+                            border-bottom-left-radius: {NUMBER3}px; border-top-left-radius: {NUMBER3}px;
+                            border-right: 0.5em solid {COLOR3}">
+                                <span class="MiniFLAR-ProgressBar-meter-pointer">{TEXT2}</span>
+                        </div>
+                    </div>
+                </div>'
+            );
+
+            $config->BBCodes->addCustom(
+                '[DETAILS title={TEXT1;optional}]{TEXT2}[/DETAILS]',
+                '<details><summary>{TEXT1}</summary><div>{TEXT2}</div></details>'
+            );
+            
+            $config->BBCodes->addCustom(
+                '[tabs]{TEXT}[/tabs]',
+                '<div class="tabs"><xsl:apply-templates/></div>'
+            );
+            $config->BBCodes->addCustom(
+                '[tab name={ANYTHING} active={ANYTHING?}]{TEXT}[/tab]',
+                <<<'XML'
+<div class="tab">
+    <input type="radio">
+        <xsl:if test="@active">
+            <xsl:attribute name="checked">checked</xsl:attribute>
+        </xsl:if>
+    </input>
+    <label>{@name}</label>
+
+    <div class="content">
+        <xsl:apply-templates/>
+    </div>
+</div>
+XML
+            );
+            //OLD SUPPORT #
             $config->BBCodes->addCustom(             
                 '[SIZE1]{TEXT}[/SIZE1]',             
                 '<span style="font-size: 12px;">{TEXT}</span>'
@@ -157,8 +312,7 @@ return [
                 '[SIZE4]{TEXT}[/SIZE4]',             
                 '<span style="font-size: 26px;">{TEXT}</span>'
             );
-
-            //$event->configurator->BBCodes->addFromRepository('COLORT');
+            //OLD SUPPORT #
             $config->BBCodes->addCustom(             
                 '[COLORT]{TEXT}[/COLORT]',             
                 '<span style="color: #1abc9c;">{TEXT}</span>'
@@ -190,171 +344,6 @@ return [
             $config->BBCodes->addCustom(             
                 '[COLORS]{TEXT}[/COLORS]',             
                 '<span style="color: #95a5a6;">{TEXT}</span>'
-            );
-            //NEW
-            $config->BBCodes->addCustom(             
-                '[COLOR={COLOR}]{TEXT}[/COLOR]',             
-                '<span style="color: {COLOR}">{TEXT}</span>'
-            );
-            $config->BBCodes->addCustom(             
-                //'[SIZE={NUMBER}]{TEXT}[/SIZE]',
-                '[SIZE={RANGE=18,40}]{TEXT}[/SIZE]',
-                '<span style="font-size: {RANGE}px;">{TEXT}</span>'
-            );
-            $config->BBCodes->addCustom(             
-                '[INS]{TEXT}[/INS]',             
-                '<ins>{TEXT}</ins>'
-            );
-            $config->BBCodes->addCustom(             
-                '[DEL]{TEXT}[/DEL]',             
-                '<del>{TEXT}</del>'
-            );
-            $config->BBCodes->addCustom(             
-                '[VAR]{TEXT}[/VAR]',             
-                '<var>{TEXT}</var>'
-            );
-            $config->BBCodes->addCustom(             
-                '[SUP]{TEXT}[/SUP]',             
-                '<sup>{TEXT}</sup>'
-            );
-            //16-11-2023 //composer require ramesh-dada/bbcode-alerts
-            $config->BBCodes->addCustom(
-                '[awarning]{TEXT}[/awarning]',
-                '<div id="aaalertbody"><div class="aaalert aaerror"><p class="aainner"><strong>Warning! </strong>{TEXT}</p></div></div>'
-            );
-
-            $config->BBCodes->addCustom(
-                '[asuccess]{TEXT}[/asuccess]',
-                '<div id="aaalertbody"><div class="aaalert aasuccess"><p class="aainner">{TEXT}</p></div></div>'
-            );
-
-            $config->BBCodes->addCustom(
-                '[ainfo]{TEXT}[/ainfo]',
-                '<div id="aaalertbody"><div class="aaalert aainfo"><p class="aainner">{TEXT}</p></div></div>'
-            );
-
-            $config->BBCodes->addCustom(
-                '[abasic]{TEXT}[/abasic]',
-                '<div id="aaalertbody"><div class="aaalert"><p class="aainner">{TEXT}</p></div></div>'
-            );
-
-            $config->BBCodes->addCustom(
-                '[acustom]{COLOR},{COLOR2},{COLOR3},{TEXT}[/acustom]',
-                '<div id="aaalertbody"><div class="aaalert"><p class="aainner" style="color: {COLOR}; background-color: {COLOR2}; border-color: {COLOR3};">{TEXT}</p></div></div>'
-            );
-
-            $config->BBCodes->addCustom(
-                '[bcustom]title={TEXT} font={COLOR} bg={COLOR2} border={COLOR3}[/bcustom]',
-                '<div id="aaalertbody"><div class="aaalert"><p class="aainner" style="color: {COLOR}; background-color: {COLOR2}; border-color: {COLOR3};">{TEXT}</p></div></div>'
-            );
-
-            $config->BBCodes->addCustom(
-                '[berror]{TEXT}[/berror]',
-                '<div id="aaalertbody"><div class="bbalert-box bberror"><span>ERROR: </span>{TEXT}</div></div>'
-            );
-
-            $config->BBCodes->addCustom(
-                '[cerror]{COLOR},{COLOR2},{COLOR3},{TEXT},{TEXT2}[/cerror]',
-                '<div id="aaalertbody"><div class="bbalert-box bberror" style="color: {COLOR}; background-color: {COLOR2}; border-color: {COLOR3};"><span>{TEXT}: </span>{TEXT2}</div></div>'
-            );
-
-            $config->BBCodes->addCustom(
-                '[bsuccess]{TEXT}[/bsuccess]',
-                '<div id="aaalertbody"><div class="bbalert-box bbsuccess"><span>SUCCESS: </span>{TEXT}</div></div>'
-            );
-
-            $config->BBCodes->addCustom(
-                '[csuccess]{COLOR},{COLOR2},{COLOR3},{TEXT},{TEXT2}[/csuccess]',
-                '<div id="aaalertbody"><div class="bbalert-box bbsuccess" style="color: {COLOR}; background-color: {COLOR2}; border-color: {COLOR3};"><span>{TEXT}: </span>{TEXT2}</div></div>'
-            );
-
-            $config->BBCodes->addCustom(
-                '[bwarning]{TEXT}[/bwarning]',
-                '<div id="aaalertbody"><div class="bbalert-box bbwarning"><span>WARNING: </span>{TEXT}</div></div>'
-            );
-
-            $config->BBCodes->addCustom(
-                '[cwarning]{COLOR},{COLOR2},{COLOR3},{TEXT},{TEXT2}[/cwarning]',
-                '<div id="aaalertbody"><div class="bbalert-box bbwarning" style="color: {COLOR}; background-color: {COLOR2}; border-color: {COLOR3};"><span>{TEXT}: </span>{TEXT2}</div></div>'
-            );
-
-            $config->BBCodes->addCustom(
-                '[bnotice]{TEXT}[/bnotice]',
-                '<div id="aaalertbody"><div class="bbalert-box bbnotice"><span>Notice: </span>{TEXT}</div></div>'
-            );
-
-            $config->BBCodes->addCustom(
-                '[cnotice]{COLOR},{COLOR2},{COLOR3},{TEXT},{TEXT2}[/cnotice]',
-                '<div id="aaalertbody"><div class="bbalert-box bbnotice" style="color: {COLOR}; background-color: {COLOR2}; border-color: {COLOR3};"><span>{TEXT}: </span>{TEXT2}</div></div>'
-            );
-
-            $config->BBCodes->addCustom(
-                '[derror title="{TEXT}" font="{COLOR}" bg="{COLOR2}" border="{COLOR3}"]{TEXT2}[/derror]',
-                '<div id="aaalertbody"><div class="bbalert-box bberror" style="color: {COLOR}; background-color: {COLOR2}; border-color: {COLOR3};"><span>{TEXT}: </span>{TEXT2}</div></div>'
-            );
-
-            $config->BBCodes->addCustom(
-                '[dsuccess title="{TEXT}" font="{COLOR}" bg="{COLOR2}" border="{COLOR3}"]{TEXT2}[/dsuccess]',
-                '<div id="aaalertbody"><div class="bbalert-box bbsuccess" style="color: {COLOR}; background-color: {COLOR2}; border-color: {COLOR3};"><span>{TEXT}: </span>{TEXT2}</div></div>'
-            );
-
-            $config->BBCodes->addCustom(
-                '[dwarning title="{TEXT}" font="{COLOR}" bg="{COLOR2}" border="{COLOR3}"]{TEXT2}[/dwarning]',
-                '<div id="aaalertbody"><div class="bbalert-box bbwarning" style="color: {COLOR}; background-color: {COLOR2}; border-color: {COLOR3};"><span>{TEXT}: </span>{TEXT2}</div></div>'
-            );
-
-            $config->BBCodes->addCustom(
-                '[dnotice title="{TEXT}" font="{COLOR}" bg="{COLOR2}" border="{COLOR3}"]{TEXT2}[/dnotice]',
-                '<div id="aaalertbody"><div class="bbalert-box bbnotice" style="color: {COLOR}; background-color: {COLOR2}; border-color: {COLOR3};"><span>{TEXT}: </span>{TEXT2}</div></div>'
-            );
-
-            //download-button //composer require ramesh-dada/download-button
-            $config->BBCodes->addCustom(
-                '[down link={URL} size={TEXT1} name={TEXT2}][/down]',
-                '<a target="_blank" href="{URL}"><div class="ButtonGroup dadadownload"><div class="Button hasIcon Button--icon Button--primary dadadownload"><i class="fas fa-download"></i></div><div class="Button">{TEXT2}</div><div class="Button Button--primary">{TEXT1}</div></div></a>'
-            );
-            //Progress Bar
-            $config->BBCodes->addCustom(
-                '[PBAR]{TEXT},{TEXT2},{COLOR},{COLOR2},{COLOR3},{NUMBER},{NUMBER2},{NUMBER3},{NUMBER4}[/PBAR]',
-                '<div class="MiniFLAR-ProgressBar-container">
-                    <h1 class="MiniFLAR-ProgressBar-header">{TEXT}</h1>
-                    <div class="MiniFLAR-ProgressBar-meter" style="border: {NUMBER}px solid {COLOR};border-radius:{NUMBER3}px;
-                    margin-bottom:{NUMBER4}px">
-                        <div class="MiniFLAR-ProgressBar-meter-status" style="width: {NUMBER2}%; background-color: {COLOR2};
-                            border-bottom-left-radius: {NUMBER3}px; border-top-left-radius: {NUMBER3}px;
-                            border-right: 0.5em solid {COLOR3}">
-                                <span class="MiniFLAR-ProgressBar-meter-pointer">{TEXT2}</span>
-                        </div>
-                    </div>
-                </div>'
-            );
-            
-
-            $config->BBCodes->addCustom(
-                '[DETAILS title={TEXT1;optional}]{TEXT2}[/DETAILS]',
-                '<details><summary>{TEXT1}</summary><div>{TEXT2}</div></details>'
-            );
-            
-            $config->BBCodes->addCustom(
-                '[tabs]{TEXT}[/tabs]',
-                '<div class="tabs"><xsl:apply-templates/></div>'
-            );
-            $config->BBCodes->addCustom(
-                '[tab name={ANYTHING} active={ANYTHING?}]{TEXT}[/tab]',
-                <<<'XML'
-<div class="tab">
-    <input type="radio">
-        <xsl:if test="@active">
-            <xsl:attribute name="checked">checked</xsl:attribute>
-        </xsl:if>
-    </input>
-    <label>{@name}</label>
-
-    <div class="content">
-        <xsl:apply-templates/>
-    </div>
-</div>
-XML
             );
         }),
     new Extend\Locales(__DIR__ . '/resources/locale'),
