@@ -9,12 +9,12 @@ imeepo-more-bbcode:
       code_tooltip: Chèn khối mã
       header_tooltip: Thêm văn bản tiêu đề
       image_tooltip: Thêm một hình ảnh
-      italic_tooltip: Thêm văn bản in nghiêng
+      italic_tooltip: Văn bản in nghiêng
       link_tooltip: Thêm một liên kết
       ordered_list_tooltip: Danh sách có thứ tự
       quote_tooltip: Chèn một trích dẫn
       spoiler_tooltip: Chèn một spoiler
-      strikethrough_tooltip: Thêm văn bản gạch ngang
+      strikethrough_tooltip: Văn bản gạch ngang
       unordered_list_tooltip: Danh sách không thứ tự
     hidden_content: NỘI DUNG ẨN
     hidden_content_reply: Trả lời nội dung hiển thị
@@ -47,9 +47,9 @@ imeepo-more-bbcode:
     button_tooltip_color: "Văn bản màu"
     button_tooltip_video: "Chèn video"
     button_tooltip_tab: "Chèn Tab"
-    button_tooltip_ins: "Chèn gạch chân văn bản"
-    button_tooltip_del: "Chèn gạch ngang văn bản"
-    button_tooltip_sup: "Chèn chữ chữ bên trên"
+    button_tooltip_ins: "Gạch chân văn bản"
+    button_tooltip_del: "Gạch ngang văn bản"
+    button_tooltip_sup: "Chèn chữ nhõ bên trên"
     button_tooltip_sub: "Chèn chữ nhỏ bên dưới"
     button_tooltip_var: "Chèn chữ nghiêng văn bản"
     button_tooltip_acronym: "Chèn chữ viết tắt"
