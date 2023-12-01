@@ -11,11 +11,11 @@ imeepo-more-bbcode:
       image_tooltip: Thêm một hình ảnh
       italic_tooltip: Thêm văn bản in nghiêng
       link_tooltip: Thêm một liên kết
-      ordered_list_tooltip: Thêm Danh sách có thứ tự
+      ordered_list_tooltip: Danh sách có thứ tự
       quote_tooltip: Chèn một trích dẫn
       spoiler_tooltip: Chèn một spoiler
       strikethrough_tooltip: Thêm văn bản gạch ngang
-      unordered_list_tooltip: Thêm Danh sách không có thứ tự
+      unordered_list_tooltip: Danh sách không thứ tự
     hidden_content: NỘI DUNG ẨN
     hidden_content_reply: Trả lời nội dung hiển thị
     hidden_content_login: Đăng nhập nội dung hiển thị
