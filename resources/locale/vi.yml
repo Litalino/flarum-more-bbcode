@@ -6,7 +6,7 @@ imeepo-more-bbcode:
   forum:
     lib:
       bold_tooltip: Thêm văn bản in đậm
-      code_tooltip: Nhập mã
+      code_tooltip: Chèn khối mã
       header_tooltip: Thêm văn bản tiêu đề
       image_tooltip: Thêm một hình ảnh
       italic_tooltip: Thêm văn bản in nghiêng
