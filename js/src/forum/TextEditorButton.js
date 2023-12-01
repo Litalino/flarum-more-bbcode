@@ -92,7 +92,7 @@ export default class TextEditorButton extends Component {
 
     extend(BasicEditorDriver.prototype, 'keyHandlers', function (items) {
       items.add('left', makeShortcut('left', 'l', this));
-      items.add('center', makeShortcut('center', 'c', this));
+      items.add('center', makeShortcut('center', 'g', this));
       items.add('right', makeShortcut('right', 'r', this));
       items.add('justify', makeShortcut('justify', 'j', this));
 
@@ -203,10 +203,10 @@ export default class TextEditorButton extends Component {
       9600
     ); 
     items.add('left', <MarkdownButton title={tooltip('button_tooltip_left', 'l')} icon="fas fa-align-left" onclick={makeApplyStyle('left')} />, 9500);
-    items.add('center', <MarkdownButton title={tooltip('button_tooltip_center', 'c')} icon="fas fa-align-center" onclick={makeApplyStyle('center')} />, 9000);
+    items.add('center', <MarkdownButton title={tooltip('button_tooltip_center', 'g')} icon="fas fa-align-center" onclick={makeApplyStyle('center')} />, 9000);
     items.add('right', <MarkdownButton title={tooltip('button_tooltip_right', 'r')} icon="fas fa-align-right" onclick={makeApplyStyle('right')} />, 8500);
     items.add('justify', <MarkdownButton title={tooltip('button_tooltip_justify', 'j')} icon="fas fa-align-justify" onclick={makeApplyStyle('justify')} />, 8000);
-    items.add('dropcap', <MarkdownButton title={tooltip('button_tooltip_dropcap')} icon="fas fa-list-alt" onclick={makeApplyStyle('dropcap')} />, 7500);
+    //items.add('dropcap', <MarkdownButton title={tooltip('button_tooltip_dropcap')} icon="fas fa-list-alt" onclick={makeApplyStyle('dropcap')} />, 7500);
     //items.add('ileft', <MarkdownButton title={tooltip('button_tooltip_img_left')} icon="fas fa-fast-backward" onclick={makeApplyStyle('ileft')} />, 7000);
     //items.add('iright', <MarkdownButton title={tooltip('button_tooltip_img_right')} icon="fas fa-fast-forward" onclick={makeApplyStyle('iright')} />, 6500);
     items.add('pleft', <MarkdownButton title={tooltip('button_tooltip_p_left')} icon="fas fa-outdent" onclick={makeApplyStyle('pleft')} />, 6000);
@@ -705,6 +705,8 @@ export default class TextEditorButton extends Component {
       hr: { prefix: '[hr]', trimFirst: true },
       float_left: { prefix: '[float=left] ', suffix: ' [/float]', trimFirst: true },
       float_right: { prefix: '[float=right] ', suffix: ' [/float]', trimFirst: true },
+      dropcap: { prefix: '[dropcap] ', suffix: ' [/dropcap]', trimFirst: true },
+
     };
 
     //extend(BasicEditorDriver.prototype, 'keyHandlers', function (items) {
@@ -732,7 +734,7 @@ export default class TextEditorButton extends Component {
     function tooltip(name, hotkey) {
       //return app.translator.trans(`imeepo-more-bbcode.forum.${name}_tooltip`) + (hotkey ? ` <${modifierKey}-${hotkey}>` : '');
       //return app.translator.trans(`imeepo-more-bbcode.forum.${name}`);
-      //return app.translator.trans(`imeepo-more-bbcode.forum.${name}`) + (hotkey ? ` <${modifierKey}-${hotkey}>` : '');
+      return app.translator.trans(`imeepo-more-bbcode.forum.${name}`) + (hotkey ? ` <${modifierKey}-${hotkey}>` : '');
     }
 
     const makeApplyStyle = (id) => {
@@ -749,7 +751,8 @@ export default class TextEditorButton extends Component {
     items.add('hr', <MarkdownButton title={tooltip('button_tooltip_hr')} icon="fas fa-minus pink" onclick={makeApplyStyle('hr')} />);
     items.add('float_left', <MarkdownButton title={tooltip('button_tooltip_float_left')} icon="fas fa-arrow-left red" onclick={makeApplyStyle('float_left')} />);
     items.add('float_right', <MarkdownButton title={tooltip('button_tooltip_float_right')} icon="fas fa-arrow-right red" onclick={makeApplyStyle('float_right')} />);
-    
+    items.add('dropcap', <MarkdownButton title={tooltip('button_tooltip_dropcap')} icon="fas fa-list-alt" onclick={makeApplyStyle('dropcap')} />);
+
     return items;
   }
 

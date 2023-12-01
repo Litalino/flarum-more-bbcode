@@ -349,16 +349,18 @@
       display: block;
       left: unset;
       right: 0;
-      bottom: 0;
+      top: 0;
       height: max-content;
-      columns: 4;
-      -webkit-columns: 4;
-      -moz-columns: 4;
+      columns: 5;
+      -webkit-columns: 5;
+      -moz-columns: 5;
       @media @tablet-up {
           //bottom: 100%;
       }
       @media @phone {
           right: 0;
+          top: unset;
+          bottom: unset;
           columns: 4;
           -webkit-columns: 4;
           -moz-columns: 4;
