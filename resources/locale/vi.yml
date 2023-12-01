@@ -53,7 +53,7 @@ imeepo-more-bbcode:
     button_tooltip_sub: "Chèn chữ nhỏ bên dưới"
     button_tooltip_var: "Chèn chữ nghiêng văn bản"
     button_tooltip_acronym: "Chèn chữ viết tắt"
-    button_tooltip_background: "Chèn chữ Background"
+    button_tooltip_background: "Chèn chữ Background (xanh lá, xanh dương, tím, vàng, cam, đỏ, bạc, hồng, nâu, trắng, đen)"
     button_tooltip_hr: "Chèn thước ngang"
     button_tooltip_float_left: "Chèn nổi bên trái"
     button_tooltip_float_right: "Chèn nổi bên phải"
