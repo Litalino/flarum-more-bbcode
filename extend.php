@@ -11,7 +11,8 @@
 
 namespace Litalino\MoreBBCode;
 
-use Flarum\Api\Serializer\PostSerializer;
+//use Flarum\Api\Serializer\PostSerializer;
+use Flarum\Api\Serializer\BasicPostSerializer;
 use Flarum\Extend;
 use Litalino\MoreBBCode\ReplaceCode;
 use s9e\TextFormatter\Configurator;
@@ -23,6 +24,16 @@ return [
 
     (new Extend\Frontend('admin'))
         ->js(__DIR__ . '/js/dist/admin.js'),
+
+    
+    // hỗ trợ ngôn ngữ
+    new Extend\Locales(__DIR__ . '/resources/locale'),
+
+    //Thêm quyền vào chủ đề để xem bài viết
+    (new Extend\ApiSerializer(BasicPostSerializer::class))
+        ->attributes(ReplaceCode::class),
+
+    //Thêm hỗ trợ mã
     (new Extend\Formatter)
         ->render(Render::class)
         ->configure(Configure::class)
@@ -346,7 +357,4 @@ XML
                 '<span style="color: #95a5a6;">{TEXT}</span>'
             );
         }),
-    new Extend\Locales(__DIR__ . '/resources/locale'),
-    (new Extend\ApiSerializer(PostSerializer::class))
-        ->attributes(ReplaceCode::class),
 ];
