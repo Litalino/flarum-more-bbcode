@@ -87,6 +87,7 @@ export default class TextEditorButton extends Component {
       size: { prefix: '[size=16] ', suffix: ' [/size]', trimFirst: true },
       color: { prefix: '[color=red] ', suffix: ' [/color]', trimFirst: true },
       tab: { prefix: '\n[tabs]\n[tab="hi"]Hi[/tab]\n[tab="hello"]Hello[/tab]\n[/tabs]\n', trimFirst: true },
+      iframe: { prefix: '<iframe style="border:none;" width="100%"  height="370px" class="iframe_src" title="Iframe Example" src="Iframe URL">', suffix: '</iframe>', replaceNext: 'https://', scanFor: 'https?://', trimFirst: true },
       bar: { prefix: '[pbar]Title,ProgressText,BorderColor,ProgressColor,LittleColor,BorderSize,Progress%,BorderRadius,BottomMargin', suffix: ' [/pbar]', trimFirst: true },
     };
 
@@ -273,6 +274,7 @@ export default class TextEditorButton extends Component {
       ),
       700
     );
+    items.add('iframe', <MarkdownButton title={tooltip('button_tooltip_iframe')} icon="fas fa-compress" onclick={makeApplyStyle('iframe')} />, 100);
     items.add('tab', <MarkdownButton title={tooltip('button_tooltip_tab')} icon="fas fa-tasks" onclick={makeApplyStyle('tab')} />, 0);
 
     return items;
