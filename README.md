@@ -116,6 +116,9 @@ composer require litalino/flarum-more-bbcode
 php flarum migrate
 php flarum cache:clear
 
+### 2.0.0
+* Fix : Css
+* Fix H1 Progress Bar to H3
 ### 1.9.0
 * Add : Iframe
 ### 1.8.0

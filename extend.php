@@ -268,7 +268,7 @@ return [
             $config->BBCodes->addCustom(
                 '[PBAR]{TEXT},{TEXT2},{COLOR},{COLOR2},{COLOR3},{NUMBER},{NUMBER2},{NUMBER3},{NUMBER4}[/PBAR]',
                 '<div class="MiniFLAR-ProgressBar-container">
-                    <h1 class="MiniFLAR-ProgressBar-header">{TEXT}</h1>
+                    <h3 class="MiniFLAR-ProgressBar-header">{TEXT}</h3>
                     <div class="MiniFLAR-ProgressBar-meter" style="border: {NUMBER}px solid {COLOR};border-radius:{NUMBER3}px;
                     margin-bottom:{NUMBER4}px">
                         <div class="MiniFLAR-ProgressBar-meter-status" style="width: {NUMBER2}%; background-color: {COLOR2};
