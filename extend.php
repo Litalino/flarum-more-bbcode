@@ -11,7 +11,8 @@
 
 namespace Litalino\MoreBBCode;
 
-use Flarum\Api\Serializer\PostSerializer;
+//use Flarum\Api\Serializer\PostSerializer;
+use Flarum\Api\Serializer\BasicPostSerializer;
 use Flarum\Extend;
 use Litalino\MoreBBCode\ReplaceCode;
 use s9e\TextFormatter\Configurator;
@@ -23,6 +24,16 @@ return [
 
     (new Extend\Frontend('admin'))
         ->js(__DIR__ . '/js/dist/admin.js'),
+
+    
+    // hỗ trợ ngôn ngữ
+    new Extend\Locales(__DIR__ . '/resources/locale'),
+
+    //Thêm quyền vào chủ đề để xem bài viết
+    (new Extend\ApiSerializer(BasicPostSerializer::class))
+        ->attributes(ReplaceCode::class),
+
+    //Thêm hỗ trợ mã
     (new Extend\Formatter)
         ->render(Render::class)
         ->configure(Configure::class)
@@ -257,7 +268,7 @@ return [
             $config->BBCodes->addCustom(
                 '[PBAR]{TEXT},{TEXT2},{COLOR},{COLOR2},{COLOR3},{NUMBER},{NUMBER2},{NUMBER3},{NUMBER4}[/PBAR]',
                 '<div class="MiniFLAR-ProgressBar-container">
-                    <h1 class="MiniFLAR-ProgressBar-header">{TEXT}</h1>
+                    <h3 class="MiniFLAR-ProgressBar-header">{TEXT}</h3>
                     <div class="MiniFLAR-ProgressBar-meter" style="border: {NUMBER}px solid {COLOR};border-radius:{NUMBER3}px;
                     margin-bottom:{NUMBER4}px">
                         <div class="MiniFLAR-ProgressBar-meter-status" style="width: {NUMBER2}%; background-color: {COLOR2};
@@ -346,7 +357,4 @@ XML
                 '<span style="color: #95a5a6;">{TEXT}</span>'
             );
         }),
-    new Extend\Locales(__DIR__ . '/resources/locale'),
-    (new Extend\ApiSerializer(PostSerializer::class))
-        ->attributes(ReplaceCode::class),
 ];

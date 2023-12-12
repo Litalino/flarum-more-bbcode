@@ -2,12 +2,13 @@
 
 namespace Litalino\MoreBBCode;
 
-use Flarum\Api\Serializer\PostSerializer;
+//use Flarum\Api\Serializer\PostSerializer;
+use Flarum\Api\Serializer\BasicPostSerializer;
 use Flarum\Database\AbstractModel;
 
 class ReplaceCode extends FormatContent
 {
-    public function __invoke(PostSerializer $serializer, AbstractModel $post, array $attributes): array
+    public function __invoke(BasicPostSerializer $serializer, AbstractModel $post, array $attributes): array
     {
         //$discussion = $post->discussion;
         $actor = $serializer->getActor();
@@ -110,7 +111,7 @@ class ReplaceCode extends FormatContent
     }
 
     // 格式化cloudbox标签 // Định dạng nhãn hộp đám mây
-    public function cloud(PostSerializer $serializer, AbstractModel $post, array $attributes)
+    public function cloud(BasicPostSerializer $serializer, AbstractModel $post, array $attributes)
     {
         $newHTML = $attributes["contentHtml"];
         // var_dump($newHTML);die;
@@ -125,7 +126,7 @@ class ReplaceCode extends FormatContent
     }
 
     // 在新标签打开 //Mở ra trong trang mới
-    public function blank(PostSerializer $serializer, AbstractModel $post, array $attributes)
+    public function blank(BasicPostSerializer $serializer, AbstractModel $post, array $attributes)
     {
         $newHTML = $attributes["contentHtml"];
 

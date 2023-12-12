@@ -84,6 +84,7 @@ imeepo-more-bbcode:
     button_tooltip_bar_black: "Chèn Thanh tiến trình Black"
     button_tooltip_bar_blue: "Chèn Thanh tiến trình Blue"
     button_tooltip_bar_red: "Chèn Thanh tiến trình Red"
+    button_tooltip_iframe: "Chèn Iframe"
     h2: H2
     h3: H3
     h4: H4

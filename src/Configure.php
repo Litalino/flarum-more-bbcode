@@ -69,6 +69,26 @@ class Configure
         //$config->HTMLElements->allowElement('ol');
         //$config->HTMLElements->allowElement('ul');
         //$config->HTMLElements->allowElement('li');
+        $config->HTMLElements->allowUnsafeElement('iframe');
+        $config->HTMLElements->allowUnsafeAttribute('iframe', 'style');
+        $config->HTMLElements->allowUnsafeAttribute('iframe', 'src');
+        $config->HTMLElements->allowUnsafeAttribute('iframe', 'scrolling');
+        $config->HTMLElements->allowUnsafeAttribute('iframe', 'allow');
+        $config->HTMLElements->allowUnsafeAttribute('iframe', 'allowpaymentrequest');
+        $config->HTMLElements->allowUnsafeAttribute('iframe', 'credentialless');
+        $config->HTMLElements->allowUnsafeAttribute('iframe', 'csp');
+        $config->HTMLElements->allowUnsafeAttribute('iframe', 'height');
+        $config->HTMLElements->allowUnsafeAttribute('iframe', 'loading');
+        $config->HTMLElements->allowUnsafeAttribute('iframe', 'name');
+        $config->HTMLElements->allowUnsafeAttribute('iframe', 'referrerpolicy');
+        $config->HTMLElements->allowUnsafeAttribute('iframe', 'sandbox');
+        $config->HTMLElements->allowUnsafeAttribute('iframe', 'width');
+        $config->HTMLElements->allowUnsafeAttribute('iframe', 'align');
+        $config->HTMLElements->allowUnsafeAttribute('iframe', 'frameborder');
+        $config->HTMLElements->allowUnsafeAttribute('iframe', 'longdesc');
+        $config->HTMLElements->allowUnsafeAttribute('iframe', 'marginheight');
+        $config->HTMLElements->allowUnsafeAttribute('iframe', 'marginwidth');
+        $config->HTMLElements->allowUnsafeAttribute('iframe', 'scrolling');
     }
 
     /**
